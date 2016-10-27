@@ -4,7 +4,7 @@ package com.buildings;
  * Created by Арсений on 09.10.2016.
  */
 public class Flat {
-    private static final int C_SQUARE=50;
+    private static final double C_SQUARE=50;
     private static final int C_ROOMS=2;
 
     private double square;

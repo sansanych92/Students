@@ -81,19 +81,22 @@ public class Dwelling {
 
     public Flat getFlat(int number){
         int count=0;
-        Flat flat=null;
+        int numberOnFloor=0;
+        int numberOfFloor=0;
 
         for (int i = 0; i <dwellingFloors.length; i++) {
             for (int j = 0; j <dwellingFloors[i].getFlats().length; j++) {
                 if (count==number){
-                    flat=dwellingFloors[i].getFlats()[j];
 
+                    numberOfFloor=i;
+
+                    numberOnFloor=j;
                 }
 
                 count++;
             }
         }
-        return flat;
+        return dwellingFloors[numberOfFloor].onNumber(numberOnFloor);
     }
 
     public void editFlat(int number, Flat flat){
@@ -150,13 +153,13 @@ public class Dwelling {
     }
 
     public Flat getBestSpace(){
-        Flat bigestSquareFlat=dwellingFloors[0].getFlats()[0];
+        Flat bigestSquareFlat=dwellingFloors[0].getBestSpace();
 
-        for (int i = 0; i <dwellingFloors.length; i++) {
-            for (int j = 0; j <dwellingFloors[i].getFlats().length; j++) {
-                if (dwellingFloors[i].getFlats()[j].getSquare()>bigestSquareFlat.getSquare()){
-                    bigestSquareFlat=dwellingFloors[i].getFlats()[j];
-                }
+        for (DwellingFloor dwellingFloor : dwellingFloors) {
+
+            if (dwellingFloor.getBestSpace().getSquare() > bigestSquareFlat.getSquare()) {
+                bigestSquareFlat = dwellingFloor.getBestSpace();
+
             }
         }
         return bigestSquareFlat;
