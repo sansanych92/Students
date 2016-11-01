@@ -19,7 +19,7 @@ public class Product {
     private double mass;
     private AbstractUser sailer;
 
-    /**
+    /*
      * Constructor with two parameters.
      * @param name
      * @param category
