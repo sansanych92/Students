@@ -4,7 +4,7 @@ package com.egartech.auction.model;
  * Created by Арсений on 20.10.2016.
  */
 
-/**
+/*
  * Class product of auction.
  */
 public class Product {
