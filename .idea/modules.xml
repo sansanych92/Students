@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/auction/auction.iml" filepath="$PROJECT_DIR$/auction/auction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kuteinitsyn.iml" filepath="$PROJECT_DIR$/kuteinitsyn.iml" />
+    </modules>
+  </component>
+</project>
