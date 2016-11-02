@@ -13,9 +13,6 @@ public class Storage {
     public static List <AbstractUser> users;
     public static List <DeliveryService> servises;
 
-    /**
-     *
-     */
     public Storage(){
 
         products = new ArrayList<>();
