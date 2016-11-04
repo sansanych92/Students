@@ -115,7 +115,6 @@ public class OfficeFloor {
             previous = current;
             while (current.next != null) {
                 current.next = current;
-                //current=add;
 
             }
         }
