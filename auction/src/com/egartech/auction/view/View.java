@@ -28,13 +28,15 @@ public class View {
      */
     public void mainMenu() throws IOException {
 
-        int responce = Integer.parseInt(in.readLine());
+
         String responce1 = "";
         boolean adminFlag = false;
 
         System.out.println("1: Авторизоваться.");
         System.out.println("2: Продолжить без авторизации.");
         System.out.println("3: Выход.");
+
+        int responce = Integer.parseInt(in.readLine());
 
          switch (responce){
 
