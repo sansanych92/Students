@@ -2,15 +2,5 @@
   <component name="SettingsState">
     <option name="host" value="http://62.106.127.76:8888" />
     <option name="token" value="z9sx3nnBygHNYjvaQgRv" />
-    <option name="projects">
-      <list>
-        <ProjectDto>
-          <option name="httpUrl" value="http://62.106.127.76:8888/group1016/kuteinitsyn.git" />
-          <option name="name" value="kuteinitsyn" />
-          <option name="namespace" value="group1016" />
-          <option name="sshUrl" value="git@62.106.127.76:group1016/kuteinitsyn.git" />
-        </ProjectDto>
-      </list>
-    </option>
   </component>
 </application>
