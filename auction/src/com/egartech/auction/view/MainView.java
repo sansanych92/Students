@@ -1,6 +1,8 @@
 package com.egartech.auction.view;
 
 import com.egartech.auction.controller.UserController;
+import com.egartech.auction.model.AbstractUser;
+import com.egartech.auction.model.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,9 +14,9 @@ import java.util.Objects;
  */
 
 /**
- * View class shows to user all information about model
+ * Main view of auction.
  */
-public class View {
+public class MainView {
 
     private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     private ProductView productView = new ProductView();
@@ -28,9 +30,8 @@ public class View {
      */
     public void mainMenu() throws IOException {
 
-
+        AbstractUser localUser=new User();
         String responce1 = "";
-        boolean adminFlag = false;
 
         System.out.println("1: Авторизоваться.");
         System.out.println("2: Продолжить без авторизации.");
@@ -57,9 +58,7 @@ public class View {
                      }
 
                 else {
-                         if (Objects.equals(userController.getUser(loginPass[0], loginPass[1]).getAccessRight(), "admin"))
-
-                             adminFlag = true;
+                         localUser = userController.getUser(loginPass[0], loginPass[1]);
 
                          continueWithAutorization();
 
@@ -84,14 +83,14 @@ public class View {
 
                         case 3: {
 
-                            userView.printMyOwnStatistics(loginPass[0], loginPass[1]);
+                            userView.printMyOwnStatistics(localUser);
 
                             break;
                         }
 
                         case 4: {
 
-                            if (adminFlag)
+                            if (Objects.equals(localUser.getAccessRight(), "admin"))
                                 adminView.printUsersStatistics();
 
                             else
@@ -102,7 +101,7 @@ public class View {
 
                         case 5: {
 
-                            betsView.printAddBetMenu(loginPass);
+                            betsView.printAddBetMenu(localUser);
 
                             break;
                         }

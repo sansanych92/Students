@@ -7,6 +7,10 @@ import java.util.List;
 /**
  * Created by Артем Громовержец on 21.10.2016.
  */
+
+/**
+ * Storage for auction objects.
+ */
 public class Storage {
     public static List <Product> products;
     public static List <Bet> bets;
@@ -14,17 +18,17 @@ public class Storage {
     public static List <DeliveryService> servises;
 
     /**
-     *
+     *constructor with no parameters.
      */
     public Storage(){
 
         products = new ArrayList<>();
 
-        Product product1 = new Product("Kia Sportage","cars",11);
-        Product product2 = new Product("Range rover","cars",12);
-        Product product3 = new Product("Realty","house",13);
-        Product product4 = new Product("Realty","office",14);
-        Product product5 = new Product("Wear","jacket",15);
+        Product product1 = new Product("Kia Sportage", "cars", 11);
+        Product product2 = new Product("Range rover", "cars", 12);
+        Product product3 = new Product("house", "Realty", 13);
+        Product product4 = new Product("office","Realty",14);
+        Product product5 = new Product("jacket","Wear",15);
 
         products.add(product1);
         products.add(product2);
@@ -69,24 +73,24 @@ public class Storage {
     }
 
     /**
-     *
-     * @return
+     *Returns list of all users.
+     * @return ArrayList list of all users.
      */
     public static List<AbstractUser> getUserList(){
         return users;
     }
 
     /**
-     *
-     * @return
+     *Returns list of all bets.
+     * @return ArrayList list of all bets.
      */
     public static List<Bet> getBets() {
         return bets;
     }
 
     /**
-     *
-     * @return
+     *Returns list of all products.
+     * @return ArrayList list of all products.
      */
     public static List<Product> getProducts(){
         return products;

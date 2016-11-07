@@ -3,6 +3,10 @@ package com.egartech.auction.model;
 /**
  * Created by Артем Громовержец on 21.10.2016.
  */
+
+/**
+ * Class Bets in auction.
+ */
 public class Bet {
 
     private int productId;
@@ -10,10 +14,10 @@ public class Bet {
     private AbstractUser user;
 
     /**
-     *
-     * @param productId
-     * @param money
-     * @param user
+     *No-parameters constructor.
+     * @param productId id of product for bet.
+     * @param money money for bet.
+     * @param user user, whom belongs this bet.
      */
     public Bet(int productId, int money, AbstractUser user){
         this.productId=productId;
@@ -22,57 +26,53 @@ public class Bet {
     }
 
     /**
-     *
-     * @return
+     *Returns id of product, for bet.
+     * @return int product id.
      */
     public int getProductId() {
         return productId;
     }
 
     /**
-     *
-     * @param productId
+     *Sets id of product, for bet.
+     * @param productId int id of product.
      */
     public void setProductId(int productId) {
         this.productId = productId;
     }
 
     /**
-     *
-     * @return
+     *Returns money, for bet.
+     * @return int money.
      */
     public int getBet() {
         return money;
     }
 
     /**
-     *
-     * @param money
+     *Sets money for bet.
+     * @param money int money for bet.
      */
     public void setBet(int money) {
         this.money = money;
     }
 
     /**
-     *
-     * @return
+     *Returns user.
+     * @return AbstractUser user.
      */
     public AbstractUser getUser() {
         return user;
     }
 
     /**
-     *
-     * @param user
+     *Sets user.
+     * @param user AbstractUser user.
      */
     public void setUser(AbstractUser user) {
         this.user = user;
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public String toString() {
         return user+" "+productId+" "+money;

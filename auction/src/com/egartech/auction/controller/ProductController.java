@@ -30,9 +30,9 @@ public class ProductController {
     }
 
     /**
-     *
-     * @param id
-     * @return
+     *returns product by id.
+     * @param id int product id.
+     * @return Product pruduct by id.
      */
     public Product getProductById(int id){
 
@@ -46,5 +46,41 @@ public class ProductController {
         }
 
         return product;
+    }
+
+    /**
+     * Return true if product by category is in list of products.
+     * @param category String category of product.
+     * @return
+     */
+    public boolean checkProductCategoryForExistance(String category){
+
+        boolean checkFlag=false;
+
+        for (Product product:Storage.getProducts()) {
+
+            if (Objects.equals(product.getCategory(), category))
+                checkFlag=true;
+        }
+
+        return checkFlag;
+    }
+
+    /**
+     * Return true if product is in list of products.
+     * @param id int id of product.
+     * @return
+     */
+    public boolean checkProductForExistance(int id){
+
+        boolean checkFlag=false;
+
+        for (Product product:Storage.getProducts()) {
+
+            if (product.getProductId() == id)
+                checkFlag=true;
+        }
+
+        return checkFlag;
     }
 }

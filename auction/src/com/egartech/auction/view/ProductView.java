@@ -9,23 +9,36 @@ import java.io.InputStreamReader;
 /**
  * Created by Арсений on 30.10.2016.
  */
+
+/**
+ * Class needed for all products displays.
+ */
 public class ProductView {
 
     private ProductController productController = new ProductController();
     private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
     /**
-     *
+     *Prints all products by category.
      * @throws IOException
      */
     public void printLotsByCategory() throws IOException {
 
+        String responce;
+
         System.out.println("Введите название категории.");
         String category = in.readLine();
 
-        if (productController.getLotsByCategory(category).isEmpty())
-            System.out.println("Товаров в данной категории нет.");
-        else
-            System.out.println(productController.getLotsByCategory(category));
+        if (productController.checkProductCategoryForExistance(category)) {
+
+            if (productController.getLotsByCategory(category).isEmpty())
+                responce = "Товаров в данной категории нет.";
+            else
+                responce = productController.getLotsByCategory(category).toString();
+        }
+
+        else responce="Несуществующая категория.";
+
+        System.out.println(responce);
     }
 }

@@ -14,7 +14,7 @@ import java.util.*;
 public class AdminColntroller {
 
     /**
-     * returns statistics by allusers.
+     * returns statistics by all users.
      * @return list of bets of all users.
      */
     public List<Bet> getUsersStatistics () {

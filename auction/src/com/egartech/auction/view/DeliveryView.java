@@ -10,11 +10,13 @@ public class DeliveryView {
 
     private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
+    /**
+     * Prints
+     */
     public void printMyBuyesMenu(){
 
         System.out.println("1.Вывести список моих покупок.");
         System.out.println("2.Рассчитать стоимость доставки");
 
-        //dfsa
     }
 }
