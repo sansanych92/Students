@@ -5,10 +5,9 @@ package com.egartech.auction.model;
  */
 
 /**
- * Admin-class.
+ * Admin-class. extends AbstractUser-class.
  */
 public class Admin extends AbstractUser {
-
     private String login;
     private String password;
     private int id;
@@ -63,10 +62,6 @@ public class Admin extends AbstractUser {
         this.id = id;
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public String toString() {
         return id+" "+login+" "+password;

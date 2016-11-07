@@ -4,6 +4,9 @@ package com.egartech.auction.model;
  * Created by Арсений on 20.10.2016.
  */
 
+/**
+ * User-class. Extends AbstractUser.
+ */
 public class User extends AbstractUser{
 
     private String login;
@@ -14,7 +17,7 @@ public class User extends AbstractUser{
 
     /**
      * Set users login.
-     * @param name
+     * @param name String name of user.
      */
     public void setLogin(String name){
         this.login = name;
@@ -22,7 +25,7 @@ public class User extends AbstractUser{
 
     /**
      * Returns users login.
-     * @return
+     * @return String users login.
      */
     public String getLogin(){
         return login;
@@ -30,7 +33,7 @@ public class User extends AbstractUser{
 
     /**
      * Returns users password.
-     * @return
+     * @return String password of user.
      */
     public String getPassword() {
         return password;
@@ -38,16 +41,24 @@ public class User extends AbstractUser{
 
     /**
      * Set users password.
-     * @param password
+     * @param password String password of user.
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Returns id of user.
+     * @return int id of user.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Set id of user.
+     * @param id int id of user.
+     */
     public void setId(int id) {
         this.id = id;
     }

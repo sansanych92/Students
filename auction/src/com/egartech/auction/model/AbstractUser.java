@@ -4,6 +4,9 @@ package com.egartech.auction.model;
  * Created by Артем Громовержец on 21.10.2016.
  */
 
+/**
+ * Class abstract user of auction. Needed to extend.
+ */
 public abstract class AbstractUser {
 
     private int id;
@@ -14,16 +17,16 @@ public abstract class AbstractUser {
     private int longitude;
 
     /**
-     *
-     * @return
+     *Returns users id.
+     * @return int id of user.
      */
     public int getId() {
         return id;
     }
 
     /**
-     *
-     * @param id
+     *Sets users id.
+     * @param id id of user.
      */
     public void setId(int id) {
         this.id = id;

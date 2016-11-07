@@ -20,9 +20,10 @@ public class Product {
     private AbstractUser sailer;
 
     /*
-     * Constructor with two parameters.
-     * @param name
-     * @param category
+     * Constructor with three parameters.
+     * @param String name
+     * @param String category
+     * @param int id
      */
     public Product (String name, String category, int id){
 
@@ -35,7 +36,7 @@ public class Product {
 
     /**
      * Returns name of product.
-     * @return
+     * @return String name of product.
      */
     public String getName() {
         return name;
@@ -43,7 +44,7 @@ public class Product {
 
     /**
      * Returns category of product.
-     * @return
+     * @return String category of product.
      */
     public String getCategory() {
         return category;
@@ -51,137 +52,128 @@ public class Product {
 
     /**
      * Set category of product.
-     * @param category
+     * @param category String category of product.
      */
     public void setCategory(String category) {
         this.category = category;
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public String toString() {
         return category+" "+name;
     }
 
     /**
-     *
-     * @return
+     *Returns product id.
+     * @return int id of product.
      */
     public int getProductId() {
         return productId;
     }
 
     /**
-     *
-     * @param productId
+     *Sets product id.
+     * @param productId int id of product.
      */
     public void setProductId(int productId) {
         this.productId = productId;
     }
 
-    /**
-     *
-     * @param obj
-     * @return
-     */
     public boolean equals(Product obj) {
         return (obj.getProductId()==this.productId);
     }
 
     /**
-     *
-     * @return
+     *Checks is this product byed or not.
+     * @return true if product is byed.
      */
     public boolean isByed() {
         return isByed;
     }
 
     /**
-     *
-     * @param byed
+     *Sets is this product byed or not.
+     * @param byed boolean byed this product or not.
      */
     public void setByed(boolean byed) {
         isByed = byed;
     }
 
     /**
-     *
-     * @return
+     *Returns byung-price for this product.
+     * @return int price of byed product.
      */
     public double getPrice() {
         return price;
     }
 
     /**
-     *
-     * @param price
+     *Sets byung-price for this product.
+     * @param price int price of byed product.
      */
     public void setPrice(double price) {
         this.price = price;
     }
 
     /**
-     *
-     * @return
+     *Returns count of products.
+     * @return int count of products.
      */
     public int getCount() {
         return count;
     }
 
     /**
-     *
-     * @param count
+     *Sets count of products.
+     * @param count int count of products.
      */
     public void setCount(int count) {
         this.count = count;
     }
 
     /**
-     *
-     * @return
+     *Returns volume of product.
+     * @return double volume of product.
      */
     public double getVolume() {
         return volume;
     }
 
     /**
-     *
-     * @param volume
+     *Sets volume of product.
+     * @param volume double volume of product.
      */
     public void setVolume(double volume) {
         this.volume = volume;
     }
 
     /**
-     *
-     * @return
+     *Returns mass of product.
+     * @return double mass of product.
      */
     public double getMass() {
         return mass;
     }
 
     /**
-     *
-     * @param mass
+     *Sets mass of product.
+     * @param mass double mass of product.
      */
     public void setMass(double mass) {
         this.mass = mass;
     }
 
     /**
-     *
-     * @return
+     *Returns sailer of product.
+     * @return AbstractUser sailer of product.
      */
     public AbstractUser getSailer() {
         return sailer;
     }
 
     /**
-     *
-     * @param sailer
+     *Sets sailer of product.
+     * @param sailer AbstractUser sailer of product.
      */
     public void setSailer(AbstractUser sailer) {
         this.sailer = sailer;

@@ -1,7 +1,7 @@
 package com.egartech.auction.Main;
 
 import com.egartech.auction.storage.Storage;
-import com.egartech.auction.view.View;
+import com.egartech.auction.view.MainView;
 import java.io.IOException;
 
 /**
@@ -20,7 +20,7 @@ public class Main {
 
         Storage storage = new Storage();
 
-        View view = new View();
+        MainView view = new MainView();
 
         view.mainMenu();
     }
