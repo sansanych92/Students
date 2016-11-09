@@ -12,6 +12,7 @@ import java.io.IOException;
  * Main-class.
  */
 public class Main {
+
     /**
      * Main-method.
      * @param args
