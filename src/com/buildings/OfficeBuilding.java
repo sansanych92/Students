@@ -5,341 +5,105 @@ package com.buildings;
  */
 public class OfficeBuilding {
 
-    private OfficeFloor head;
+    private OfficeFloorNode head;
+    private OfficeFloorNode tail;
 
     int countOfFloors;
 
-    OfficeFloor [] officeFloors;
 
-    public OfficeBuilding(int countOfFloors, int [] officefloors){
+    private OfficeFloorNode getNodeByNumber(int number) {
 
-        this.countOfFloors=countOfFloors;
+        if (number < countOfFloors) {
 
-        for (int i = 0; i <countOfFloors; i++) {
+            OfficeFloorNode officeFloorNode;
+            officeFloorNode = head;
 
-            officeFloors[i]=new OfficeFloor(officefloors[i]);
+            for (int i = 0; i <= number; i++) {
+
+                if (i == number) {
+                    break;
+                }
+
+                else {
+                    officeFloorNode = officeFloorNode.getNext();
+                }
+            }
+            return officeFloorNode;
         }
-
-        head=officeFloors[0];
-
-        officeFloors[0].prev=officeFloors[countOfFloors-1];
-
-        officeFloors[0].next=officeFloors[1];
-
-        officeFloors[countOfFloors-1].next=head;
-
-        officeFloors[countOfFloors-1].prev=officeFloors[countOfFloors-2];
-
-        for (int i = 1; i <countOfFloors-2; i++) {
-
-            officeFloors[i].prev=officeFloors[i-1];
-
-            officeFloors[i].next=officeFloors[i+1];
-        }
+        else
+            throw new ArrayIndexOutOfBoundsException();
     }
 
-    public OfficeBuilding(OfficeFloor [] officefloors){
+    private void addNodeByNumber(int number, OfficeFloorNode officeNode) {
 
-        this.countOfFloors=officefloors.length;
+        if (number <= countOfFloors) {
 
-        this.officeFloors=officefloors;
+            OfficeFloorNode newOfficeNode;
+            newOfficeNode = head;
 
-        head=officeFloors[0];
+            for (int i = 0; i <= number; i++) {
 
-        officeFloors[0].prev=officeFloors[countOfFloors-1];
+               if (i==number){
 
-        officeFloors[0].next=officeFloors[1];
 
-        officeFloors[countOfFloors-1].next=head;
+               }
+                    else {
+                        newOfficeNode = newOfficeNode.getNext();
+                    }
+                }
 
-        officeFloors[countOfFloors-1].prev=officeFloors[countOfFloors-2];
-
-        for (int i = 1; i <countOfFloors-2; i++) {
-
-            officeFloors[i].prev=officeFloors[i-1];
-
-            officeFloors[i].next=officeFloors[i+1];
+            countOfFloors++;
         }
-    }
-
-    private OfficeFloor getNodeByNumber(int number){
-
-        return officeFloors[number];
-
-    }
-
-    private void addNodeByNumber(int number, OfficeFloor node){
-
-        if (number<=countOfFloors){
-
-            OfficeFloor [] newOfficeFloors = new OfficeFloor[countOfFloors+1];
-
-            for (int i = 0; i <number; i++) {
-
-                newOfficeFloors[i] = officeFloors[i];
-            }
-
-            newOfficeFloors[number]=node;
-
-            for (int i = number+1; i < newOfficeFloors.length; i++) {
-
-                newOfficeFloors[i] = officeFloors[i-1];
-            }
-
-            officeFloors=newOfficeFloors;
-
-            head=officeFloors[0];
-
-            officeFloors[0].prev=officeFloors[countOfFloors-1];
-
-            officeFloors[0].next=officeFloors[1];
-
-            officeFloors[countOfFloors-1].next=head;
-
-            officeFloors[countOfFloors-1].prev=officeFloors[countOfFloors-2];
-
-            for (int i = 1; i <countOfFloors-2; i++) {
-
-                officeFloors[i].prev=officeFloors[i-1];
-
-                officeFloors[i].next=officeFloors[i+1];
-            }
-        }
+        else
+            throw new ArrayIndexOutOfBoundsException();
     }
 
     private void deleteNodeByNumber(int number){
 
-        if (number<=countOfFloors-1){
+        if(number<countOfFloors) {
 
-            OfficeFloor [] newOfficeFloors=new OfficeFloor[countOfFloors-1];
+            OfficeFloorNode officeNode;
+            officeNode = head;
 
-            for (int i = 0; i <number; i++) {
+            for (int i = 0; i <= number; i++) {
 
-                newOfficeFloors[i]=officeFloors[i];
-            }
-
-
-            for (int i = number; i <newOfficeFloors.length; i++) {
-
-                newOfficeFloors[i]=officeFloors[i+1];
-            }
-
-            officeFloors=newOfficeFloors;
-
-            head=officeFloors[0];
-
-            officeFloors[0].prev=officeFloors[countOfFloors-1];
-
-            officeFloors[0].next=officeFloors[1];
-
-            officeFloors[countOfFloors-1].next=head;
-
-            officeFloors[countOfFloors-1].prev=officeFloors[countOfFloors-2];
-
-            for (int i = 1; i <countOfFloors-2; i++) {
-
-                officeFloors[i].prev=officeFloors[i-1];
-
-                officeFloors[i].next=officeFloors[i+1];
-            }
-        }
-    }
-
-    public int getCountOfFloors(){
-
-        return countOfFloors;
-    }
-
-    public int getCountOfOfficesInTheBuilding(){
-
-        int countOfOfficesInTheBuilding=0;
-
-        for (int i = 0; i <countOfFloors; i++) {
-
-            countOfOfficesInTheBuilding+=officeFloors[i].getCountOfOfficesOnTheFloor();
-        }
-
-        return countOfOfficesInTheBuilding;
-    }
-
-    public double getSquareOfOfficesInTheBuilding(){
-
-        double square=0;
-
-        for (int i = 0; i <countOfFloors; i++) {
-
-            square+=officeFloors[i].getSquareOnTheFloor();
-        }
-
-        return square;
-    }
-
-    public int getRoomsOfTheBuilding(){
-
-        int roomsOfTheBuilding=0;
-
-        for (int i = 0; i <countOfFloors; i++) {
-
-            roomsOfTheBuilding+=officeFloors[i].getCountOfRoomsOnTheFloor();
-        }
-
-        return roomsOfTheBuilding;
-    }
-
-    public OfficeFloor [] getOfficeFloorsOnTheBuilding(){
-
-        return officeFloors;
-    }
-
-    public void egitFloor(int number, OfficeFloor newOfficeFloor){
-
-        officeFloors[number]=newOfficeFloor;
-    }
-
-    public Office getOfficeIntheBuilding(int number){
-
-        int count=0;
-
-        int numberOnFloor=0;
-
-        int numberOfFloor=0;
-
-        for (int i = 0; i <countOfFloors; i++) {
-
-            for (int j = 0; j <officeFloors[i].getCountOfOfficesOnTheFloor(); j++) {
-
-                if (count==number){
-
-                    numberOnFloor=j;
-
-                    numberOfFloor=i;
+                if (number == 0) {
+                    head = head.getNext();
+                    tail.setNext(head);
                 }
+                else {
 
-                count++;
-            }
-        }
 
-        return officeFloors[numberOfFloor].getOfficeByNumberOnTheFloor(numberOnFloor);
-    }
 
-    public void editOfficeOnBuilding(int number, Office office){
+                    if (i == number - 1) {
 
-        int count=0;
+                        if (number == countOfFloors-1){
+                            tail= officeNode;
+                            tail.setNext(head);
+                        }
+                        else
 
-        int numberOnFloor=0;
+                            officeNode.setNext(officeNode.getNext().getNext());
 
-        int numberOfFloor=0;
-
-        for (int i = 0; i <countOfFloors; i++) {
-
-            for (int j = 0; j <officeFloors[i].getCountOfOfficesOnTheFloor(); j++) {
-
-                if (count==number){
-
-                    numberOnFloor=j;
-
-                    numberOfFloor=i;
-                }
-
-                count++;
-            }
-        }
-
-        officeFloors[numberOfFloor].editOffice(numberOnFloor,office);
-    }
-
-    public void addOfficeInBuilding(int number, Office office){
-
-        int count=0;
-
-        int numberOnFloor=0;
-
-        int numberOfFloor=0;
-
-        for (int i = 0; i <countOfFloors; i++) {
-
-            for (int j = 0; j <officeFloors[i].getCountOfOfficesOnTheFloor(); j++) {
-
-                if (count==number){
-
-                    numberOnFloor=j;
-
-                    numberOfFloor=i;
-                }
-
-                count++;
-            }
-        }
-
-        officeFloors[numberOfFloor].addNewOffice(numberOnFloor,office);
-    }
-
-    public void deleteOfficeInBuilding(int number){
-
-        int count=0;
-
-        int numberOnFloor=0;
-
-        int numberOfFloor=0;
-
-        for (int i = 0; i <countOfFloors; i++) {
-
-            for (int j = 0; j <officeFloors[i].getCountOfOfficesOnTheFloor(); j++) {
-
-                if (count==number){
-
-                    numberOnFloor=j;
-
-                    numberOfFloor=i;
-                }
-
-                count++;
-            }
-        }
-
-        officeFloors[numberOfFloor].deleteOfficeByNumberOnTheFloor(numberOnFloor);
-    }
-
-    public Office getBestSpace(){
-
-        Office biggestSquareOffice=officeFloors[0].getBestSpace();
-
-        for (OfficeFloor officeFloor:officeFloors) {
-
-            if (officeFloor.getBestSpace().getSquare()>biggestSquareOffice.getSquare())
-                biggestSquareOffice=officeFloor.getBestSpace();
-        }
-
-        return biggestSquareOffice;
-    }
-
-    public Office [] getSortedOffices( ){
-        int count=0;
-
-        Office [] offices=new Office[getCountOfOfficesInTheBuilding()];
-
-        Office [] offices2=new Office[getCountOfOfficesInTheBuilding()];
-
-        for (int i = 0; i <officeFloors.length; i++) {
-            for (int j = 0; j < officeFloors[i].getOfficesOnTheFloor().length; j++) {
-                offices2[count]=officeFloors[i].getOfficesOnTheFloor()[j];
-                count++;
-            }
-        }
-
-        for (int j = 0; j <offices2.length; j++) {
-            for (int i = 0; i <offices2.length-1; i++) {
-                if (offices2[i].getSquare()>offices2[i+1].getSquare()) {
-                    Office bufferOffice=offices2[i];
-                    offices2[i]=offices2[i+1];
-                    offices2[i+1]=bufferOffice;
+                    } else {
+                        officeNode = officeNode.getNext();
+                    }
                 }
             }
+            countOfFloors--;
         }
-
-        return offices2;
-
+        else
+            throw new ArrayIndexOutOfBoundsException();
     }
 
+public OfficeBuilding(OfficeFloor [] floors){
 
+    head=new OfficeFloorNode();
+    tail=new OfficeFloorNode();
+
+    for (int i = 0; i < floors.length; i++) {
+
+        addNodeByNumber(i,new OfficeFloorNode());
+    }
+}
 }

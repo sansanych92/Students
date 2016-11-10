@@ -5,7 +5,9 @@ package com.buildings;
  */
 public class Office {
 
-    public Office next;
+    private Office next;
+    private Office data;
+
     private double square;
     private int countOfRooms;
     private static final double C_SQUARE=250;
@@ -15,18 +17,21 @@ public class Office {
 
         this.square=C_SQUARE;
         this.countOfRooms=C_ROOMS;
+        this.data=this;
     }
 
     public Office(double square){
 
         this.countOfRooms=C_ROOMS;
         this.square=square;
+        this.data=this;
     }
 
     public Office(int rooms, double square){
 
         this.countOfRooms=rooms;
         this.square=square;
+        this.data=this;
     }
 
     public double getSquare() {
@@ -43,5 +48,17 @@ public class Office {
 
     public void setCountOfRooms(int countOfRooms) {
         this.countOfRooms = countOfRooms;
+    }
+
+    public Office getNext() {
+        return next;
+    }
+
+    public void setNext(Office next) {
+        this.next = next;
+    }
+
+    public Office getData() {
+        return data;
     }
 }
