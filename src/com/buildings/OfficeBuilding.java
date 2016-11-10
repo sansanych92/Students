@@ -43,6 +43,7 @@ public class OfficeBuilding {
 
             for (int i = 0; i <= number; i++) {
 
+
                if (i==number){
 
 
