@@ -7,6 +7,7 @@ public class Flat {
     private static final double C_SQUARE=50;
     private static final int C_ROOMS=2;
 
+
     private double square;
     private int rooms;
 

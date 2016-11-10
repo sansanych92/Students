@@ -84,6 +84,7 @@ public class Main {
         System.out.println(Arrays.toString(dwelling1.getDwellingFloors()));
         System.out.println(Arrays.toString(dwelling2.getDwellingFloors()));
 
+
         System.out.println(dwelling1.getDfellingFloor(1));
         System.out.println(dwelling2.getDfellingFloor(4));
 

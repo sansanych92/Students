@@ -54,6 +54,7 @@ public class Office {
         return next;
     }
 
+
     public void setNext(Office next) {
         this.next = next;
     }

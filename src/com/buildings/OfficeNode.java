@@ -4,6 +4,7 @@ package com.buildings;
  * Created by Arsenii on 10.11.2016.
  */
 public class OfficeNode {
+
     private OfficeNode next;
     private Office data;
 

@@ -74,6 +74,7 @@ public class DwellingFloor {
 
 
 
+
             newFlats[newFlats.length-1]=flat;
 
             flats=newFlats;

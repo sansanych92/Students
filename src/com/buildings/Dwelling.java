@@ -152,6 +152,7 @@ public class Dwelling {
 
     }
 
+
     public Flat getBestSpace(){
         Flat bigestSquareFlat=dwellingFloors[0].getBestSpace();
 

@@ -46,6 +46,7 @@ public class OfficeFloor {
         head = new OfficeNode();
         tail=new OfficeNode();
 
+
         for (int i = 0; i < countOfOfficesOnTheFloor; i++) {
 
             OfficeNode officeNode = new OfficeNode();
