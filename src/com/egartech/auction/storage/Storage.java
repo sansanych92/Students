@@ -15,7 +15,6 @@ public class Storage {
     public static List <Product> products;
     public static List <Bet> bets;
     public static List <AbstractUser> users;
-    public static List <DeliveryService> servises;
 
     /**
      *constructor with no parameters.
@@ -65,12 +64,7 @@ public class Storage {
         Bet bet = new Bet(12,100,getUserList().get(0));
         bets.add(bet);
 
-        servises=new ArrayList<>();
-
-        DeliveryService service=new DeliveryService(1,2,"pec",3);
-
-        servises.add(service);
-    }
+           }
 
     /**
      *Returns list of all users.
@@ -95,15 +89,6 @@ public class Storage {
     public static List<Product> getProducts(){
         return products;
     }
-
-    /**
-     *
-     * @return
-     */
-    public static List<DeliveryService> getServices(){
-        return servises;
-    }
-
 
 
 
