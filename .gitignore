@@ -61,3 +61,13 @@ hs_err_pid*
 .idea/
 auction.iml
 out/
+/_windows/
+/debugger.xml
+/diff.xml
+/gradle.run.settings.xml
+/ignore.xml
+/IntelliLang.xml
+/mavenVersion.xml
+/ui.lnf.xml
+/vcs.xml
+/web-browsers.xml
