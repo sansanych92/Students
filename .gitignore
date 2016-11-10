@@ -59,7 +59,6 @@ hs_err_pid*
 /.idea/
 .gitignore
 .idea/
-auction.iml
 out/
 /_windows/
 /debugger.xml
