@@ -25,7 +25,7 @@ public class StudentController {
         studentModelList=new ArrayList();
         String[] students;
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("lab1\\src\\main\\java\\com\\netcracker\\lr1\\Storage.txt")))
+        try(BufferedReader reader = new BufferedReader(new FileReader("lab1\\src\\main\\java\\com\\netcracker\\lr1\\storageOfStudents.txt")))
         {
             String s;
             while((s=reader.readLine())!=null){
@@ -222,7 +222,7 @@ public class StudentController {
      */
     public void saveData(){
 
-        try(ObjectOutputStream writer = new ObjectOutputStream( new FileOutputStream("lab1\\src\\main\\java\\com\\netcracker\\lr1\\Saved.xml")))
+        try(ObjectOutputStream writer = new ObjectOutputStream( new FileOutputStream("lab1\\src\\main\\java\\com\\netcracker\\lr1\\Saved.txt")))
         {
             for (int i = 0; i <studentModelList.size(); i++) {
 
@@ -243,7 +243,7 @@ public class StudentController {
 
         studentModelList=new ArrayList();
 
-        try(ObjectInputStream reader = new ObjectInputStream( new FileInputStream("lab1\\src\\main\\java\\com\\netcracker\\lr1\\Saved.xml")))
+        try(ObjectInputStream reader = new ObjectInputStream( new FileInputStream("lab1\\src\\main\\java\\com\\netcracker\\lr1\\Saved.txt")))
         {
             for (int i = 0; i <studentModelList.size(); i++) {
 
