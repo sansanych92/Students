@@ -1,7 +1,6 @@
 package com.netcracker.lr1.controller;
 
 import com.netcracker.lr1.model.*;
-
 import java.io.*;
 import java.util.*;
 
@@ -16,16 +15,17 @@ import java.util.*;
 public class StudentController {
 
     private List<StudentModel> studentModelList;
+    GroupController groupController = new GroupController();
 
     /**
      *
      */
-    public StudentController(){
+    public StudentController() throws GroupNotFoundException {
 
-        studentModelList=new ArrayList();
+        studentModelList = new ArrayList();
         String[] students;
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("lab1\\src\\main\\java\\com\\netcracker\\lr1\\storageOfStudents.txt")))
+        try(BufferedReader reader = new BufferedReader(new FileReader("src\\main\\java\\com\\netcracker\\lr1\\storageOfStudents.txt")))
         {
             String s;
             while((s=reader.readLine())!=null){
@@ -33,17 +33,20 @@ public class StudentController {
                 StudentModel student = new StudentModel();
                 String [] date;
                 Calendar dateOfEnvironment = new GregorianCalendar();
+                int groupId;
 
                 students = s.split(" ");
 
-                student.setId(Integer.parseInt(students[0]));
+                student.setId(Integer.valueOf(students[0]));
                 student.setSurname(students[1]);
                 student.setName(students[2]);
                 student.setPatronymic(students[3]);
-                student.setGroupId(Integer.parseInt(students[4]));
+                groupId = Integer.parseInt(students[4]);
 
-                date=students[5].split("[.]");
-                dateOfEnvironment.set(Integer.parseInt(date[0]), Integer.parseInt(date[1])-1, Integer.parseInt(date[2]));
+                checkGroupForExsistance(groupId);
+
+                date = students[5].split("[.]");
+                dateOfEnvironment.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
 
                 student.setDateOfEnrollment(dateOfEnvironment);
 
@@ -62,14 +65,16 @@ public class StudentController {
      * @param id
      * @return
      */
-    public StudentModel getStudentById(int id){
+    public StudentModel getStudentById(int id) throws IdNotFoundException {
 
-        StudentModel student=new StudentModel();
+        StudentModel student = new StudentModel();
+
+        checkStudentForExsistance(id);
 
         for (StudentModel student1:studentModelList) {
 
-            if (student1.getId()==id){
-                student=student1;
+            if (student1.getId() == id){
+                student = student1;
             }
         }
 
@@ -84,137 +89,136 @@ public class StudentController {
         return studentModelList;
     }
 
+    public StudentModel createStudentFromString(String student) throws GroupNotFoundException {
+
+        StudentModel newStudent = new StudentModel();
+        String [] studentData=student.split(" ");
+        String [] date;
+        Calendar dateOfEnvironment = new GregorianCalendar();
+        int groupId;
+
+        newStudent.setId(Integer.parseInt(studentData[0]));
+        newStudent.setName(studentData[1]);
+        newStudent.setSurname(studentData[2]);
+        newStudent.setPatronymic(studentData[3]);
+        groupId = Integer.parseInt(studentData[4]);
+
+        checkGroupForExsistance(groupId);
+
+        newStudent.setGroupId(groupId);
+        date = studentData[5].split("[.]");
+        dateOfEnvironment.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+        newStudent.setDateOfEnrollment(dateOfEnvironment);
+
+        return newStudent;
+    }
     /**
      *
      * @param student
      */
-    public void addStudent(StudentModel student){
-        studentModelList.add(student);
+    public void addStudent(String student) throws GroupNotFoundException {
+
+        studentModelList.add(createStudentFromString(student));
     }
 
     /**
      *
-     * @param student
+     * @param studentId
      */
-    public void deleteStudent(StudentModel student){
+    public void deleteStudent(int studentId) throws IdNotFoundException {
 
-        for (StudentModel student1:studentModelList) {
-
-            if (student1.equals(student)){
-                studentModelList.remove(student);
-            }
-        }
+        StudentModel deletedStud = getStudentById(studentId);
+        studentModelList.remove(deletedStud);
     }
 
     /**
      *
-     * @param student
-     * @param newStudent
+     * @param studentId
+     * @param studentData
      */
-    public void editStudent(StudentModel student, StudentModel newStudent){
+    public void editStudent(int studentId, String studentData) throws IdNotFoundException, GroupNotFoundException {
 
-        for (StudentModel student1:studentModelList) {
-
-            if (student1.equals(student)){
-                student = newStudent;
-            }
-        }
+        StudentModel newStudent = createStudentFromString(studentData);
+        StudentModel stud = getStudentById(studentId);
+        studentModelList.set( studentModelList.indexOf(stud),newStudent);
     }
 
     /**
      *
-     * @param student
+     * @param studentId
      * @param newId
      */
-    public void editStudentId(StudentModel student, int newId){
+    public void editStudentId(int studentId, int newId) throws IdNotFoundException {
 
-        for (StudentModel student1:studentModelList) {
+        StudentModel newStudent = getStudentById(studentId);
+        newStudent.setId(newId);
 
-            if (student1.equals(student)){
-                StudentModel newStudent = studentModelList.get(studentModelList.indexOf(student));
-                newStudent.setId(newId);
-            }
-        }
     }
 
     /**
      *
-     * @param student
+     * @param studentId
      * @param newSurname
      */
-    public void editStudentSurname(StudentModel student, String newSurname){
+    public void editStudentSurname(int studentId, String newSurname) throws IdNotFoundException {
 
-        for (StudentModel student1:studentModelList) {
-
-            if (student1.equals(student)){
-                StudentModel newStudent = studentModelList.get(studentModelList.indexOf(student));
-                newStudent.setSurname(newSurname);
-            }
-        }
+        StudentModel newStudent = getStudentById(studentId);
+        newStudent.setSurname(newSurname);
     }
 
     /**
      *
-     * @param student
+     * @param studentId
      * @param newName
      */
-    public void editStudentName(StudentModel student, String newName){
+    public void editStudentName(int studentId, String newName) throws IdNotFoundException {
 
-        for (StudentModel student1:studentModelList) {
-
-            if (student1.equals(student)){
-                StudentModel newStudent = studentModelList.get(studentModelList.indexOf(student));
-                newStudent.setName(newName);
-            }
-        }
+        StudentModel newStudent = getStudentById(studentId);
+        newStudent.setName(newName);
     }
 
     /**
      *
-     * @param student
+     * @param studentId
      * @param newPatronymic
      */
-    public void editStudentPatronymic(StudentModel student, String newPatronymic){
+    public void editStudentPatronymic(int studentId, String newPatronymic) throws IdNotFoundException {
 
-        for (StudentModel student1:studentModelList) {
-
-            if (student1.equals(student)){
-                StudentModel newStudent = studentModelList.get(studentModelList.indexOf(student));
-                newStudent.setPatronymic(newPatronymic);
-            }
-        }
+        StudentModel newStudent = getStudentById(studentId);
+        newStudent.setPatronymic(newPatronymic);
     }
 
     /**
      *
-     * @param student
-     * @param newGroup
+     * @param studentId
+     * @param newGroupId
      */
-    public void editStudentGroup(StudentModel student, int newGroup){
+    public void editStudentGroupId(int studentId, int newGroupId) throws IdNotFoundException {
 
-        for (StudentModel student1:studentModelList) {
-
-            if (student1.equals(student)){
-                StudentModel newStudent = studentModelList.get(studentModelList.indexOf(student));
-                newStudent.setGroupId(newGroup);
-            }
+        try {
+            checkGroupForExsistance(newGroupId);
+        } catch (GroupNotFoundException e) {
+            e.printStackTrace();
         }
+
+            StudentModel newStudent = getStudentById(studentId);
+            newStudent.setGroupId(newGroupId);
+
     }
 
     /**
      *
-     * @param student
+     * @param studentId
      * @param dateOfEnvironment
      */
-    public void editStudentDateOfEnvironment(StudentModel student, Calendar dateOfEnvironment){
+    public void editStudentDateOfEnvironment(int studentId, String dateOfEnvironment) throws IdNotFoundException {
 
-        for (StudentModel student1:studentModelList) {
-
-            if (student1.equals(student)){
-                StudentModel newStudent = studentModelList.get(studentModelList.indexOf(student));
-                newStudent.setDateOfEnrollment(dateOfEnvironment);
-            }
-        }
+        String date [];
+        Calendar newDate = new GregorianCalendar();
+        StudentModel newStudent = getStudentById(studentId);
+        date = dateOfEnvironment.split("[.]");
+        newDate.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+        newStudent.setDateOfEnrollment(newDate);
     }
 
     /**
@@ -222,7 +226,7 @@ public class StudentController {
      */
     public void saveData(){
 
-        try(ObjectOutputStream writer = new ObjectOutputStream( new FileOutputStream("lab1\\src\\main\\java\\com\\netcracker\\lr1\\Saved.txt")))
+        try(ObjectOutputStream writer = new ObjectOutputStream( new FileOutputStream("src\\main\\java\\com\\netcracker\\lr1\\Saved.txt")))
         {
             for (int i = 0; i <studentModelList.size(); i++) {
 
@@ -241,7 +245,7 @@ public class StudentController {
      */
     public void loadData(){
 
-        studentModelList=new ArrayList();
+        studentModelList = new ArrayList();
 
         try(ObjectInputStream reader = new ObjectInputStream( new FileInputStream("lab1\\src\\main\\java\\com\\netcracker\\lr1\\Saved.txt")))
         {
@@ -258,6 +262,74 @@ public class StudentController {
             System.out.println(ex.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void addDataFromAnotherFile(String filePath){
+
+       List<StudentModel> newStudentModelList = new ArrayList();
+
+        String [] path;
+        path=filePath.split("[/]");
+
+        try(ObjectInputStream reader = new ObjectInputStream( new FileInputStream(filePath)))
+        {
+            for (int i = 0; i <studentModelList.size(); i++) {
+
+                StudentModel newModel;
+                newModel = (StudentModel) reader.readObject();
+                newStudentModelList.add(newModel);
+            }
+
+        }
+        catch(IOException ex){
+
+            System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        for (StudentModel aNewStudent : newStudentModelList) {
+
+            boolean coincidenceFlag = false;
+
+            for (StudentModel aStudent : studentModelList) {
+                if (aStudent.equals(aNewStudent)) {
+                    coincidenceFlag = true;
+                }
+            }
+
+            if (!coincidenceFlag) {
+                studentModelList.add(aNewStudent);
+            }
+        }
+    }
+
+    private void checkGroupForExsistance(int groupId) throws GroupNotFoundException{
+
+        boolean exsistanceFlag = false;
+        for (GroupModel group:groupController.getArrayListOfModels()) {
+            if (groupId == group.getIdOfGroup()){
+                exsistanceFlag = true;
+            }
+        }
+
+        if (!exsistanceFlag) {
+        throw new GroupNotFoundException("Группа не найдена.");
+        }
+    }
+
+    private void checkStudentForExsistance(int studId) throws IdNotFoundException{
+
+        boolean exsistanceFlag = false;
+        for (StudentModel student:studentModelList) {
+            if (studId == student.getId()){
+                exsistanceFlag = true;
+            }
+        }
+
+        if (!exsistanceFlag) {
+            throw new IdNotFoundException("Не существует студента с таким id.");
         }
     }
 }

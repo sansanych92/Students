@@ -17,7 +17,7 @@ public class GroupController {
     public GroupController() {
         arrayListOfModels = new ArrayList<GroupModel>();
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("/home/artur_v/Artur/Programming/Work/NetCracker/Courses/Java/LabaK1/Students/Laba1/src/model/storage.txt"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("src\\main\\java\\com\\netcracker\\lr1\\storageOfGroups.txt"));
             for (int i = 0; i < 2; i++) {
                 try {
                     arrayListOfModels.add(i, new GroupModel(0, bufferedReader.read(), bufferedReader.readLine()));

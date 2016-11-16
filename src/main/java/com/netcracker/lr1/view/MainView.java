@@ -10,8 +10,8 @@ import java.util.Scanner;
  * Created by artur_v on 07.11.16.
  */
 public class MainView {
+
     public static void main(String [] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader("/home/artur_v/Artur/Programming/Work/NetCracker/Courses/Java/LabaK1/Students/Laba1/src/model/storage.txt"));
         GroupView groupView = new GroupView();
         Scanner scanner = new Scanner(System.in);
         int selectInt;

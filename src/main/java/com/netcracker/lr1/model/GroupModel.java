@@ -10,6 +10,9 @@ public class GroupModel {
     private String nameOfFaculty;
     private int idOfGroup;
 
+    public GroupModel(){
+    }
+
     public GroupModel(int numberOfModels, int groupN, String facultyN){
         this.numberOfGroup=groupN;
         this.nameOfFaculty=facultyN;
