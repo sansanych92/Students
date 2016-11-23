@@ -1,9 +1,8 @@
 package com.netcracker.lr1.view;
 
-import com.netcracker.lr1.controller.GroupNotFoundException;
-import com.netcracker.lr1.controller.IdNotFoundException;
+import com.netcracker.lr1.Exceptions.GroupNotFoundException;
+import com.netcracker.lr1.Exceptions.IdNotFoundException;
 import com.netcracker.lr1.controller.StudentController;
-import com.netcracker.lr1.model.StudentModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -106,7 +105,24 @@ public class StudentView {
         System.out.println("id группы студента отредактирован.");
     }
 
+    public void  prindSaveDataMenu() {
+        controller.saveData();
+        System.out.println("Данные сохранены.");
+    }
 
+    public void  prindLoadDataMenu() throws IOException {
+        controller.loadData();
+        System.out.println("Данные загружены.");
+    }
 
+    public void printLoadDataFromAnotherFileMenu() throws IOException {
+        System.out.println("Введите путь файла, откуда нужно добавить данные.");
+        String path = in.readLine();
+        controller.addDataFromAnotherFile(path);
+        System.out.println("Данные добавлены.");
+    }
 
+    public void printListOfStudents(){
+        System.out.println(controller.getStudentList());
+    }
 }

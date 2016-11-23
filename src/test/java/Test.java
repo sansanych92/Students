@@ -1,5 +1,5 @@
-import com.netcracker.lr1.controller.GroupNotFoundException;
-import com.netcracker.lr1.controller.IdNotFoundException;
+import com.netcracker.lr1.Exceptions.GroupNotFoundException;
+import com.netcracker.lr1.Exceptions.IdNotFoundException;
 import com.netcracker.lr1.model.GroupModel;
 import com.netcracker.lr1.model.StudentModel;
 import com.netcracker.lr1.view.StudentView;
@@ -52,14 +52,17 @@ public class Test {
 
                     switch(responce){
                         case 1:{
-                            try {
-                                studentView.printDeleteStudentMenu();
-                            } catch (IdNotFoundException e) {
-                                e.printStackTrace();
+                            boolean flag = true;
+                            while (flag) {
+                                try {
+                                    studentView.printDeleteStudentMenu();
+                                    flag = false;
+                                } catch (IdNotFoundException e) {
+                                    System.out.println(e.getMessage());
+                                    System.out.println("Повторите ввод.");
+                                }
                             }
-                            finally{
-                                break;
-                            }
+                            break;
                         }
                         case 2:{
                             break;
@@ -78,60 +81,93 @@ public class Test {
 
                     switch(responce){
                         case 1:{
-                            try {
-                                studentView.printFullEditionOfStudentMenu();
-                            } catch (IdNotFoundException e) {
-                                e.printStackTrace();
+                            boolean flag = true;
+                            while (flag) {
+                                try {
+                                    studentView.printFullEditionOfStudentMenu();
+                                    flag = false;
+                                } catch (IdNotFoundException e) {
+                                    System.out.println(e.getMessage());
+                                    System.out.println("Повторите ввод.");
+                                }
                             }
-                            finally{
-                                break;
-                            }
+                            break;
                         }
                         case 2:{
-                            try {
-                                studentView.printEditionOfIdMenu();
-                            } catch (IdNotFoundException e) {
-                                e.printStackTrace();
+                            boolean flag = true;
+                            while (flag) {
+                                try {
+                                    studentView.printEditionOfIdMenu();
+                                    flag = false;
+                                } catch (IdNotFoundException e) {
+                                    System.out.println(e.getMessage());
+                                    System.out.println("Повторите ввод.");
+                                }
                             }
                             break;
                         }
                         case 3:{
-                            try {
-                                studentView.printEditionOfNameMenu();
-                            } catch (IdNotFoundException e) {
-                                e.printStackTrace();
+                            boolean flag = true;
+                            while (flag) {
+                                try {
+                                    studentView.printEditionOfIdMenu();
+                                    flag = false;
+                                } catch (IdNotFoundException e) {
+                                    System.out.println(e.getMessage());
+                                    System.out.println("Повторите ввод.");
+                                }
                             }
                             break;
                         }
                         case 4:{
-                            try {
-                                studentView.printEditionOfSurnameMenu();
-                            } catch (IdNotFoundException e) {
-                                e.printStackTrace();
+                            boolean flag = true;
+                            while (flag) {
+                                try {
+                                    studentView.printEditionOfSurnameMenu();
+                                    flag = false;
+                                } catch (IdNotFoundException e) {
+                                    System.out.println(e.getMessage());
+                                    System.out.println("Повторите ввод.");
+                                }
                             }
                             break;
                         }
                         case 5:{
-                            try {
-                                studentView.printEditionOfPatronymicMenu();
-                            } catch (IdNotFoundException e) {
-                                e.printStackTrace();
+                            boolean flag = true;
+                            while (flag) {
+                                try {
+                                    studentView.printEditionOfPatronymicMenu();
+                                    flag = false;
+                                } catch (IdNotFoundException e) {
+                                    System.out.println(e.getMessage());
+                                    System.out.println("Повторите ввод.");
+                                }
                             }
                             break;
                         }
                         case 6:{
-                            try {
-                                studentView.printEditionOfEnvironmentDateMenu();
-                            } catch (IdNotFoundException e) {
-                                e.printStackTrace();
+                            boolean flag = true;
+                            while (flag) {
+                                try {
+                                    studentView.printEditionOfEnvironmentDateMenu();
+                                    flag = false;
+                                } catch (IdNotFoundException e) {
+                                    System.out.println(e.getMessage());
+                                    System.out.println("Повторите ввод.");
+                                }
                             }
                             break;
                         }
                         case 7:{
-                            try {
-                                studentView.printEditionOfStudentsGroupIdMenu();
-                            } catch (IdNotFoundException e) {
-                                e.printStackTrace();
+                            boolean flag = true;
+                            while (flag) {
+                                try {
+                                    studentView.printEditionOfStudentsGroupIdMenu();
+                                    flag = false;
+                                } catch (IdNotFoundException e) {
+                                    System.out.println(e.getMessage());
+                                    System.out.println("Повторите ввод.");
+                                }
                             }
                             break;
                         }
@@ -157,6 +193,7 @@ public class Test {
 
                     switch(responce){
                         case 1:{
+                            studentView.printListOfStudents();
                             break;
                         }
                         case 2:{
@@ -180,21 +217,22 @@ public class Test {
 
                     switch(responce){
                         case 1:{
-
+                            studentView.prindSaveDataMenu();
+                            break;
                         }
                         case 2:{
-
+                            studentView.prindLoadDataMenu();
+                            break;
                         }
                         case 3:{
-
+                            break;
                         }
                     }
 
                     break;
                 }
                 case 7:{
-                    System.out.println("Введите путь к файлу.");
-                    responceStr = in.readLine();
+                    studentView.printLoadDataFromAnotherFileMenu();
                     break;
                 }
                 case 8:{

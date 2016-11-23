@@ -1,4 +1,4 @@
-package com.netcracker.lr1.controller;
+package com.netcracker.lr1.Exceptions;
 
 /**
  * Created by Arsenii on 17.11.2016.

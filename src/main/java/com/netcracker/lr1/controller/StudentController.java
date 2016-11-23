@@ -1,5 +1,7 @@
 package com.netcracker.lr1.controller;
 
+import com.netcracker.lr1.Exceptions.GroupNotFoundException;
+import com.netcracker.lr1.Exceptions.IdNotFoundException;
 import com.netcracker.lr1.model.*;
 import java.io.*;
 import java.util.*;
@@ -269,8 +271,6 @@ public class StudentController {
 
        List<StudentModel> newStudentModelList = new ArrayList();
 
-        String [] path;
-        path=filePath.split("[/]");
 
         try(ObjectInputStream reader = new ObjectInputStream( new FileInputStream(filePath)))
         {
