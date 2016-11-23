@@ -332,5 +332,35 @@ public class StudentController {
             throw new IdNotFoundException("Не существует студента с таким id.");
         }
     }
+
+    public void searchStudentById(String id){
+
+
+    }
+
+    public void searchStudentByName(String name){
+
+
+    }
+
+    public void searchStudentBySurname(String surname){
+
+
+    }
+
+    public void searchStudentByPatronymic(String patronymic){
+
+
+    }
+
+    public void searchStudentByDateOfEnvironment(String dateOfEnvironment){
+
+
+    }
+
+    public void searchStudentByIdOfStudentsGroup(String groupId){
+
+
+    }
 }
 

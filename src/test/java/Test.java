@@ -16,9 +16,6 @@ public class Test {
 
     public static void main(String[] args) throws IOException, GroupNotFoundException {
 
-        GroupModel group = new GroupModel();
-        StudentModel student = new StudentModel();
-        String responceStr = "";
         StudentView studentView = new StudentView();
 
         printMainMenu();
@@ -208,7 +205,47 @@ public class Test {
                 }
                 case 5:{
                     printSearchMenu();
+                    responce = Integer.parseInt(in.readLine());
 
+                    switch(responce){
+                        case 1:{
+
+                            break;
+                        }
+                        case 2:{
+
+                            break;
+                        }
+                        case 3:{
+                            break;
+                        }
+                        case 4:{
+
+                            break;
+                        }
+                        case 5:{
+
+                            break;
+                        }
+                        case 6:{
+                            break;
+                        }
+                        case 7:{
+
+                            break;
+                        }
+                        case 8:{
+
+                            break;
+                        }
+                        case 9:{
+                            break;
+                        }
+                        case 0:{
+
+                            break;
+                        }
+                    }
                     break;
                 }
                 case 6:{
@@ -292,6 +329,17 @@ public class Test {
 
     public static void printSearchMenu(){
 
+        System.out.println("Выполнить поиск по:");
+        System.out.println("1: id студента.");
+        System.out.println("2: Имени студента.");
+        System.out.println("3: Фамилии студента.");
+        System.out.println("4: Отчеству студента.");
+        System.out.println("5: Дате зачисления студента.");
+        System.out.println("6: id группы Студента.");
+        System.out.println("7: id группы.");
+        System.out.println("8: Номеру группы.");
+        System.out.println("9: Факультету группы.");
+        System.out.println("0: Выход в главное меню.");
     }
 
     public static void printSaveLoadMenu(){
