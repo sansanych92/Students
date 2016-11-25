@@ -5,6 +5,8 @@ import com.netcracker.lr1.Exceptions.IdNotFoundException;
 import com.netcracker.lr1.model.*;
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -333,34 +335,111 @@ public class StudentController {
         }
     }
 
-    public void searchStudentById(String id){
+    public List<StudentModel> searchStudentById(String id){
 
+        id = id.replace('*','.');
+        id = id.replace('?','.');
+        List<StudentModel> findedStudents = new ArrayList<>();
+        Pattern regex = Pattern.compile(id);
 
-    }
-
-    public void searchStudentByName(String name){
-
-
-    }
-
-    public void searchStudentBySurname(String surname){
-
-
-    }
-
-    public void searchStudentByPatronymic(String patronymic){
-
+        for (StudentModel student:getStudentList()) {
+            Matcher m = regex.matcher(String.valueOf(student.getId()));
+            if (m.matches()){
+                findedStudents.add(student);
+            }
+        }
+        return findedStudents;
 
     }
 
-    public void searchStudentByDateOfEnvironment(String dateOfEnvironment){
+    public List<StudentModel> searchStudentByName(String name){
 
+        name = name.replace('*','.');
+        name = name.replace('?','.');
+        List<StudentModel> findedStudents = new ArrayList<>();
+        Pattern regex = Pattern.compile(name);
 
+        for (StudentModel student:getStudentList()) {
+            Matcher m = regex.matcher(student.getName());
+            if (m.matches()){
+                findedStudents.add(student);
+            }
+        }
+        return findedStudents;
     }
 
-    public void searchStudentByIdOfStudentsGroup(String groupId){
+    public List<StudentModel> searchStudentBySurname(String surname){
 
+        surname = surname.replace('*','.');
+        surname = surname.replace('?','.');
+        List<StudentModel> findedStudents = new ArrayList<>();
+        Pattern regex = Pattern.compile(surname);
 
+        for (StudentModel student:getStudentList()) {
+            Matcher m = regex.matcher(student.getSurname());
+            if (m.matches()){
+                findedStudents.add(student);
+            }
+        }
+        return findedStudents;
+    }
+
+    public List<StudentModel> searchStudentByPatronymic(String patronymic){
+
+        patronymic = patronymic.replace('*','.');
+        patronymic = patronymic.replace('?','.');
+        List<StudentModel> findedStudents = new ArrayList<>();
+        Pattern regex = Pattern.compile(patronymic);
+
+        for (StudentModel student:getStudentList()) {
+            Matcher m = regex.matcher(student.getPatronymic());
+            if (m.matches()){
+                findedStudents.add(student);
+            }
+        }
+        return findedStudents;
+    }
+
+    public List<StudentModel> searchStudentByDateOfEnvironment(String dateOfEnvironment){
+
+        List<StudentModel> findedStudents = new ArrayList<>();
+        String [] date = dateOfEnvironment.split("/.");
+
+        date[0] = date[0].replace('*','.');
+        date[0] = date[0].replace('?','.');
+        date[1] = date[1].replace('*','.');
+        date[1] = date[1].replace('?','.');
+        date[2] = date[2].replace('*','.');
+        date[2] = date[2].replace('?','.');
+        Pattern year = Pattern.compile(date[0]);
+        Pattern month = Pattern.compile(date[1]);
+        Pattern dayOfMonth = Pattern.compile(date[2]);
+
+        for (StudentModel student:getStudentList()) {
+            Matcher m = year.matcher(String.valueOf(student.getDateOfEnrollment().get(Calendar.YEAR)));
+            Matcher m1 = month.matcher(String.valueOf(student.getDateOfEnrollment().get(Calendar.MONTH)));
+            Matcher m2 = dayOfMonth.matcher(String.valueOf(student.getDateOfEnrollment().get(Calendar.DAY_OF_MONTH)));
+            if (m.matches()&&m1.matches()&&m2.matches()){
+                findedStudents.add(student);
+            }
+        }
+        return findedStudents;
+    }
+
+    public List<StudentModel> searchStudentByIdOfStudentsGroup(String groupId){
+
+        groupId = groupId.replace('*','.');
+        groupId = groupId.replace('?','.');
+        List<StudentModel> findedStudents = new ArrayList<>();
+        Pattern regex = Pattern.compile(groupId);
+
+        for (StudentModel student:getStudentList()) {
+            Matcher m = regex.matcher(String.valueOf(student.getGroupId()));
+            if (m.matches()){
+                findedStudents.add(student);
+            }
+        }
+        return findedStudents;
     }
 }
 

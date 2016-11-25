@@ -107,7 +107,7 @@ public class Test {
                             boolean flag = true;
                             while (flag) {
                                 try {
-                                    studentView.printEditionOfIdMenu();
+                                    studentView.printEditionOfNameMenu();
                                     flag = false;
                                 } catch (IdNotFoundException e) {
                                     System.out.println(e.getMessage());
@@ -209,25 +209,27 @@ public class Test {
 
                     switch(responce){
                         case 1:{
-
+                            studentView.printSearchStudentByIdMenu();
                             break;
                         }
                         case 2:{
-
+                            studentView.printSearchStudentByNameMenu();
                             break;
                         }
                         case 3:{
+                            studentView.printSearchStudentBySurnameMenu();
                             break;
                         }
                         case 4:{
-
+                            studentView.printSearchStudentByPatronymicMenu();
                             break;
                         }
                         case 5:{
-
+                            studentView.printSearchStudentByDateOfEnvironmentMenu();
                             break;
                         }
                         case 6:{
+                            studentView.printSearchStudentByStudntsGroupIdMenu();
                             break;
                         }
                         case 7:{
