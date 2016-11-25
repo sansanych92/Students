@@ -17,9 +17,18 @@ public class StudentView {
     private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     StudentController controller = new StudentController();
 
+    /**
+     *
+     * @throws GroupNotFoundException
+     */
     public StudentView() throws GroupNotFoundException {
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws GroupNotFoundException
+     */
     public void printAddNewStudentMenu() throws IOException, GroupNotFoundException {
 
         System.out.println("Введите данные студента (id, Фамилию, Имя, Отчество, id группы, дату зачисления) через пробел.");
@@ -28,6 +37,11 @@ public class StudentView {
         System.out.println("Данные добавлены.");
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws IdNotFoundException
+     */
     public void printDeleteStudentMenu() throws IOException, IdNotFoundException {
 
         System.out.println("Введите id студента, которого хотите удалить.");
@@ -36,6 +50,12 @@ public class StudentView {
         System.out.println("Студент удален.");
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws IdNotFoundException
+     * @throws GroupNotFoundException
+     */
     public void printFullEditionOfStudentMenu() throws IOException, IdNotFoundException, GroupNotFoundException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
@@ -46,6 +66,11 @@ public class StudentView {
         System.out.println("Студент отредактирован.");
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws IdNotFoundException
+     */
     public void printEditionOfIdMenu() throws IOException, IdNotFoundException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
@@ -56,6 +81,11 @@ public class StudentView {
         System.out.println("id студента отредактирован.");
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws IdNotFoundException
+     */
     public void printEditionOfNameMenu() throws IOException, IdNotFoundException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
@@ -66,6 +96,11 @@ public class StudentView {
         System.out.println("Имя студента отредактировано.");
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws IdNotFoundException
+     */
     public void printEditionOfSurnameMenu() throws IOException, IdNotFoundException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
@@ -76,6 +111,11 @@ public class StudentView {
         System.out.println("Фамилия студента отредактирована.");
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws IdNotFoundException
+     */
     public void printEditionOfPatronymicMenu() throws IOException, IdNotFoundException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
@@ -86,6 +126,11 @@ public class StudentView {
         System.out.println("Отчество студента отредактировано.");
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws IdNotFoundException
+     */
     public void printEditionOfEnvironmentDateMenu() throws IOException, IdNotFoundException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
@@ -96,6 +141,11 @@ public class StudentView {
         System.out.println("Дата зачисления студента отредактирована.");
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws IdNotFoundException
+     */
     public void printEditionOfStudentsGroupIdMenu() throws IOException, IdNotFoundException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
@@ -106,18 +156,29 @@ public class StudentView {
         System.out.println("id группы студента отредактирован.");
     }
 
+    /**
+     *
+     */
     public void  prindSaveDataMenu() {
 
         controller.saveData();
         System.out.println("Данные сохранены.");
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void  prindLoadDataMenu() throws IOException {
 
         controller.loadData();
         System.out.println("Данные загружены.");
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void printLoadDataFromAnotherFileMenu() throws IOException {
 
         System.out.println("Введите путь файла, откуда нужно добавить данные.");
@@ -126,11 +187,18 @@ public class StudentView {
         System.out.println("Данные добавлены.");
     }
 
+    /**
+     *
+     */
     public void printListOfStudents(){
 
         System.out.println(controller.getStudentList());
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void printSearchStudentByIdMenu() throws IOException {
 
         System.out.println("Введите Id студента или его шаблон, по которому хотите найти студента.");
@@ -146,6 +214,10 @@ public class StudentView {
         }
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void printSearchStudentByNameMenu() throws IOException {
 
         System.out.println("Введите имя студента или его шаблон, по которому хотите найти студента.");
@@ -161,6 +233,10 @@ public class StudentView {
         }
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void printSearchStudentBySurnameMenu() throws IOException {
 
         System.out.println("Введите фамилию студента или ее шаблон, по которому хотите найти студента.");
@@ -176,6 +252,10 @@ public class StudentView {
         }
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void printSearchStudentByPatronymicMenu() throws IOException {
 
         System.out.println("Введите отчество студента или его шаблон, по которому хотите найти студента.");
@@ -191,6 +271,10 @@ public class StudentView {
         }
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void printSearchStudentByStudntsGroupIdMenu() throws IOException {
 
         System.out.println("Введите id группы студента или его шаблон, по которому хотите найти студента.");
@@ -206,6 +290,10 @@ public class StudentView {
         }
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void printSearchStudentByDateOfEnvironmentMenu() throws IOException {
 
         System.out.println("Введите дату зачисления студента или ее шаблон, по которому хотите найти студента.");

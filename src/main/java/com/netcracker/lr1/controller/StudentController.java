@@ -269,6 +269,10 @@ public class StudentController {
         }
     }
 
+    /**
+     *
+     * @param filePath
+     */
     public void addDataFromAnotherFile(String filePath){
 
        List<StudentModel> newStudentModelList = new ArrayList();
@@ -307,6 +311,11 @@ public class StudentController {
         }
     }
 
+    /**
+     *
+     * @param groupId
+     * @throws GroupNotFoundException
+     */
     private void checkGroupForExsistance(int groupId) throws GroupNotFoundException{
 
         boolean exsistanceFlag = false;
@@ -321,6 +330,11 @@ public class StudentController {
         }
     }
 
+    /**
+     *
+     * @param studId
+     * @throws IdNotFoundException
+     */
     private void checkStudentForExsistance(int studId) throws IdNotFoundException{
 
         boolean exsistanceFlag = false;
@@ -335,6 +349,11 @@ public class StudentController {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<StudentModel> searchStudentById(String id){
 
         id = id.replace('*','.');
@@ -352,6 +371,11 @@ public class StudentController {
 
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public List<StudentModel> searchStudentByName(String name){
 
         name = name.replace('*','.');
@@ -368,6 +392,11 @@ public class StudentController {
         return findedStudents;
     }
 
+    /**
+     *
+     * @param surname
+     * @return
+     */
     public List<StudentModel> searchStudentBySurname(String surname){
 
         surname = surname.replace('*','.');
@@ -384,6 +413,11 @@ public class StudentController {
         return findedStudents;
     }
 
+    /**
+     *
+     * @param patronymic
+     * @return
+     */
     public List<StudentModel> searchStudentByPatronymic(String patronymic){
 
         patronymic = patronymic.replace('*','.');
@@ -400,6 +434,11 @@ public class StudentController {
         return findedStudents;
     }
 
+    /**
+     *
+     * @param dateOfEnvironment
+     * @return
+     */
     public List<StudentModel> searchStudentByDateOfEnvironment(String dateOfEnvironment){
 
         List<StudentModel> findedStudents = new ArrayList<>();
@@ -426,6 +465,11 @@ public class StudentController {
         return findedStudents;
     }
 
+    /**
+     *
+     * @param groupId
+     * @return
+     */
     public List<StudentModel> searchStudentByIdOfStudentsGroup(String groupId){
 
         groupId = groupId.replace('*','.');
