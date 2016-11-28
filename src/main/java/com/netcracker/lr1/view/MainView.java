@@ -45,6 +45,10 @@ public class MainView {
                                         System.out.println(ex.getMessage());
                                         System.out.println("Повторите ввод.");
                                     }
+                                    catch (ArrayIndexOutOfBoundsException ex) {
+                                        System.out.println("Неверный формат даты.");
+                                        System.out.println("Повторите ввод.");
+                                    }
                                 }
                                 break;
                             }
@@ -111,8 +115,12 @@ public class MainView {
                                     try {
                                         studentView.printFullEditionOfStudentMenu();
                                         flag = false;
-                                    } catch (IdNotFoundException | IdAlreadyExsistsException e) {
+                                    } catch (IdNotFoundException | IdAlreadyExsistsException |NumberFormatException e) {
                                         System.out.println(e.getMessage());
+                                        System.out.println("Повторите ввод.");
+                                    }
+                                    catch (ArrayIndexOutOfBoundsException ex) {
+                                        System.out.println("Неверный формат даты.");
                                         System.out.println("Повторите ввод.");
                                     }
                                 }
@@ -176,8 +184,12 @@ public class MainView {
                                     try {
                                         studentView.printEditionOfEnvironmentDateMenu();
                                         flag = false;
-                                    } catch (IdNotFoundException e) {
+                                    } catch (IdNotFoundException | NumberFormatException e) {
                                         System.out.println(e.getMessage());
+                                        System.out.println("Повторите ввод.");
+                                    }
+                                    catch (ArrayIndexOutOfBoundsException e) {
+                                        System.out.println("Неверный формат даты.");
                                         System.out.println("Повторите ввод.");
                                     }
                                 }
@@ -189,7 +201,7 @@ public class MainView {
                                     try {
                                         studentView.printEditionOfStudentsGroupIdMenu();
                                         flag = false;
-                                    } catch (IdNotFoundException e) {
+                                    } catch (IdNotFoundException |GroupNotFoundException |NumberFormatException e) {
                                         System.out.println(e.getMessage());
                                         System.out.println("Повторите ввод.");
                                     }
@@ -268,7 +280,16 @@ public class MainView {
                                 break;
                             }
                             case "5": {
-                                studentView.printSearchStudentByDateOfEnvironmentMenu();
+                                boolean flag = true;
+                                while (flag) {
+                                    try {
+                                        studentView.printSearchStudentByDateOfEnvironmentMenu();
+                                        flag = false;
+                                    } catch (ArrayIndexOutOfBoundsException e) {
+                                        System.out.println("Неверный формат даты.");
+                                        System.out.println("Повторите ввод.");
+                                    }
+                                }
                                 break;
                             }
                             case "6": {

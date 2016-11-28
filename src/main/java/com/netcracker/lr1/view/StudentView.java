@@ -6,9 +6,7 @@ import com.netcracker.lr1.Exceptions.IdNotFoundException;
 import com.netcracker.lr1.controller.StudentController;
 import com.netcracker.lr1.model.StudentModel;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 /**
  * Created by Arsenii on 11.11.2016.
@@ -32,7 +30,7 @@ public class StudentView {
      */
     public void printAddNewStudentMenu() throws IOException, GroupNotFoundException, IdAlreadyExsistsException {
 
-        System.out.println("Введите данные студента (id, Фамилию, Имя, Отчество, id группы, дату зачисления) через пробел.");
+        System.out.println("Введите данные студента (id, Фамилию, Имя, Отчество, id группы, дату зачисления в формате \"ГГГГ.ММ.ДД\") через пробел.");
         String student = in.readLine();
         controller.addStudent(student);
         System.out.println("Данные добавлены.");
@@ -61,7 +59,7 @@ public class StudentView {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
-        System.out.println("Введите данные студента (id, Фамилию, Имя, Отчество, id группы, дату зачисления) через пробел.");
+        System.out.println("Введите данные студента (id, Фамилию, Имя, Отчество, id группы, дату зачисления в формате \"ГГГГ.ММ.ДД\") через пробел.");
         String studentData = in.readLine();
         controller.editStudent(id,studentData);
         System.out.println("Студент отредактирован.");
@@ -136,7 +134,7 @@ public class StudentView {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
-        System.out.println("Введите новую дату зачисления студента.");
+        System.out.println("Введите новую дату зачисления студента в формате \"ГГГГ.ММ.ДД\".");
         String newDate = in.readLine();
         controller.editStudentDateOfEnvironment(id,newDate);
         System.out.println("Дата зачисления студента отредактирована.");
@@ -147,7 +145,7 @@ public class StudentView {
      * @throws IOException
      * @throws IdNotFoundException
      */
-    public void printEditionOfStudentsGroupIdMenu() throws IOException, IdNotFoundException {
+    public void printEditionOfStudentsGroupIdMenu() throws IOException, IdNotFoundException, GroupNotFoundException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
@@ -183,8 +181,24 @@ public class StudentView {
     public void printLoadDataFromAnotherFileMenu() throws IOException {
 
         System.out.println("Введите путь файла, откуда нужно добавить данные.");
-        String path = in.readLine();
-        controller.addDataFromAnotherFile(path);
+        boolean flag = true;
+        while (flag) {
+            String path = in.readLine();
+            try {
+                controller.addDataFromAnotherFile(path);
+                flag = false;
+            }
+            catch (EOFException e) {
+                System.out.println("Недопустимый файл.");
+                System.out.println("Повторите ввод.");
+            }
+            catch (FileNotFoundException e) {
+                System.out.println("Файл не найден.");
+                System.out.println("Повторите ввод.");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
         System.out.println("Данные добавлены.");
     }
 

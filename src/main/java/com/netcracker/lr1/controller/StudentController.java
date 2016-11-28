@@ -211,16 +211,12 @@ public class StudentController {
      * @param studentId
      * @param newGroupId
      */
-    public void editStudentGroupId(int studentId, int newGroupId) throws IdNotFoundException {
+    public void editStudentGroupId(int studentId, int newGroupId) throws IdNotFoundException, GroupNotFoundException {
 
-        try {
-            checkGroupForExsistance(newGroupId);
-        } catch (GroupNotFoundException e) {
-            e.printStackTrace();
-        }
-
-            StudentModel newStudent = getStudentById(studentId);
-            newStudent.setGroupId(newGroupId);
+        checkGroupForExsistance(newGroupId);
+        checkStudentForExsistance(studentId);
+        StudentModel newStudent = getStudentById(studentId);
+        newStudent.setGroupId(newGroupId);
 
     }
 
@@ -287,27 +283,19 @@ public class StudentController {
      *
      * @param filePath
      */
-    public void addDataFromAnotherFile(String filePath){
+    public void addDataFromAnotherFile(String filePath) throws IOException, ClassNotFoundException {
 
        List<StudentModel> newStudentModelList = new ArrayList();
 
 
-        try(ObjectInputStream reader = new ObjectInputStream( new FileInputStream(filePath)))
-        {
+        ObjectInputStream reader = new ObjectInputStream( new FileInputStream(filePath));
+
             for (int i = 0; i <studentModelList.size(); i++) {
 
                 StudentModel newModel;
                 newModel = (StudentModel) reader.readObject();
                 newStudentModelList.add(newModel);
             }
-
-        }
-        catch(IOException ex){
-
-            System.out.println(ex.getMessage());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         for (StudentModel aNewStudent : newStudentModelList) {
 
@@ -477,7 +465,7 @@ public class StudentController {
     public List<StudentModel> searchStudentByDateOfEnvironment(String dateOfEnvironment){
 
         List<StudentModel> findedStudents = new ArrayList<>();
-        String [] date = dateOfEnvironment.split("/.");
+        String [] date = dateOfEnvironment.split("[.]");
 
         date[0] = date[0].replaceAll("[*]",".*");
         date[0] = date[0].replace('?','.');
