@@ -16,11 +16,13 @@ public class GroupController {
 
     public GroupController() {
         arrayListOfModels = new ArrayList<GroupModel>();
+        int k=1;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("src\\main\\java\\com\\netcracker\\lr1\\storageOfGroups.txt"));
             for (int i = 0; i < 2; i++) {
                 try {
-                    arrayListOfModels.add(i, new GroupModel(0, bufferedReader.read(), bufferedReader.readLine()));
+
+                    arrayListOfModels.add(i, new GroupModel(k++, bufferedReader.read(), bufferedReader.readLine()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

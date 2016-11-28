@@ -1,6 +1,7 @@
 package com.netcracker.lr1.view;
 
 import com.netcracker.lr1.Exceptions.GroupNotFoundException;
+import com.netcracker.lr1.Exceptions.IdAlreadyExsistsException;
 import com.netcracker.lr1.Exceptions.IdNotFoundException;
 import com.netcracker.lr1.controller.StudentController;
 import com.netcracker.lr1.model.StudentModel;
@@ -29,7 +30,7 @@ public class StudentView {
      * @throws IOException
      * @throws GroupNotFoundException
      */
-    public void printAddNewStudentMenu() throws IOException, GroupNotFoundException {
+    public void printAddNewStudentMenu() throws IOException, GroupNotFoundException, IdAlreadyExsistsException {
 
         System.out.println("Введите данные студента (id, Фамилию, Имя, Отчество, id группы, дату зачисления) через пробел.");
         String student = in.readLine();
@@ -56,7 +57,7 @@ public class StudentView {
      * @throws IdNotFoundException
      * @throws GroupNotFoundException
      */
-    public void printFullEditionOfStudentMenu() throws IOException, IdNotFoundException, GroupNotFoundException {
+    public void printFullEditionOfStudentMenu() throws IOException, IdNotFoundException, GroupNotFoundException, IdAlreadyExsistsException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
@@ -71,7 +72,7 @@ public class StudentView {
      * @throws IOException
      * @throws IdNotFoundException
      */
-    public void printEditionOfIdMenu() throws IOException, IdNotFoundException {
+    public void printEditionOfIdMenu() throws IOException, IdNotFoundException, IdAlreadyExsistsException {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
@@ -192,7 +193,9 @@ public class StudentView {
      */
     public void printListOfStudents(){
 
-        System.out.println(controller.getStudentList());
+        for (StudentModel student:controller.getStudentList()) {
+            System.out.println(student.toString());
+        }
     }
 
     /**

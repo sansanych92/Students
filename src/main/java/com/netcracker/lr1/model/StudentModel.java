@@ -114,13 +114,14 @@ public class StudentModel implements Serializable {
 
     @Override
     public String toString() {
+        int month = dateOfEnrollment.get(Calendar.MONTH)+1;
         return "id=" + id + '\n' +
                 "surname=" + surname + '\n' +
                 "name=" + name + '\n' +
                 "patronymic=" + patronymic + '\n' +
                 "groupId=" + groupId + '\n' +
-                "dateOfEnrollment=" + dateOfEnrollment.get(Calendar.YEAR)+"."
-                +dateOfEnrollment.get(Calendar.MONTH)+"."
+                "dateOfEnvironment=" + dateOfEnrollment.get(Calendar.YEAR)+"."
+                +month+"."
                 +dateOfEnrollment.get(Calendar.DAY_OF_MONTH)+ '\n';
     }
 

@@ -1,6 +1,7 @@
 package com.netcracker.lr1.controller;
 
 import com.netcracker.lr1.Exceptions.GroupNotFoundException;
+import com.netcracker.lr1.Exceptions.IdAlreadyExsistsException;
 import com.netcracker.lr1.Exceptions.IdNotFoundException;
 import com.netcracker.lr1.model.*;
 import java.io.*;
@@ -19,7 +20,7 @@ import java.util.regex.Pattern;
 public class StudentController {
 
     private List<StudentModel> studentModelList;
-    GroupController groupController = new GroupController();
+    private GroupController groupController = new GroupController();
 
     /**
      *
@@ -28,12 +29,15 @@ public class StudentController {
 
         studentModelList = new ArrayList();
         String[] students;
+        int k = 0;
 
         try(BufferedReader reader = new BufferedReader(new FileReader("src\\main\\java\\com\\netcracker\\lr1\\storageOfStudents.txt")))
         {
             String s;
             while((s=reader.readLine())!=null){
 
+                if (k>1)
+                    break;
                 StudentModel student = new StudentModel();
                 String [] date;
                 Calendar dateOfEnvironment = new GregorianCalendar();
@@ -49,12 +53,15 @@ public class StudentController {
 
                 checkGroupForExsistance(groupId);
 
+                student.setGroupId(groupId);
+
                 date = students[5].split("[.]");
-                dateOfEnvironment.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+                dateOfEnvironment.set(Integer.parseInt(date[0]), Integer.parseInt(date[1])-1, Integer.parseInt(date[2]));
 
                 student.setDateOfEnrollment(dateOfEnvironment);
 
                 studentModelList.add(student);
+                k++;
             }
 
         }
@@ -93,12 +100,11 @@ public class StudentController {
         return studentModelList;
     }
 
-    public StudentModel createStudentFromString(String student) throws GroupNotFoundException {
+    public StudentModel createStudentFromString(String student) throws GroupNotFoundException, IdAlreadyExsistsException {
 
         StudentModel newStudent = new StudentModel();
         String [] studentData=student.split(" ");
         String [] date;
-        Calendar dateOfEnvironment = new GregorianCalendar();
         int groupId;
 
         newStudent.setId(Integer.parseInt(studentData[0]));
@@ -109,9 +115,16 @@ public class StudentController {
 
         checkGroupForExsistance(groupId);
 
+
+        checkIdForExsistance(Integer.parseInt(studentData[0]));
+
         newStudent.setGroupId(groupId);
         date = studentData[5].split("[.]");
-        dateOfEnvironment.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+        int year = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1])-1;
+        int day = Integer.parseInt(date[2]);
+        Calendar dateOfEnvironment = new GregorianCalendar(year, month, day);
+
         newStudent.setDateOfEnrollment(dateOfEnvironment);
 
         return newStudent;
@@ -120,7 +133,7 @@ public class StudentController {
      *
      * @param student
      */
-    public void addStudent(String student) throws GroupNotFoundException {
+    public void addStudent(String student) throws GroupNotFoundException, IdAlreadyExsistsException {
 
         studentModelList.add(createStudentFromString(student));
     }
@@ -140,7 +153,7 @@ public class StudentController {
      * @param studentId
      * @param studentData
      */
-    public void editStudent(int studentId, String studentData) throws IdNotFoundException, GroupNotFoundException {
+    public void editStudent(int studentId, String studentData) throws IdNotFoundException, GroupNotFoundException, IdAlreadyExsistsException {
 
         StudentModel newStudent = createStudentFromString(studentData);
         StudentModel stud = getStudentById(studentId);
@@ -152,9 +165,10 @@ public class StudentController {
      * @param studentId
      * @param newId
      */
-    public void editStudentId(int studentId, int newId) throws IdNotFoundException {
+    public void editStudentId(int studentId, int newId) throws IdNotFoundException, IdAlreadyExsistsException {
 
         StudentModel newStudent = getStudentById(studentId);
+        checkIdForExsistance(newId);
         newStudent.setId(newId);
 
     }
@@ -319,11 +333,13 @@ public class StudentController {
     private void checkGroupForExsistance(int groupId) throws GroupNotFoundException{
 
         boolean exsistanceFlag = false;
-        for (GroupModel group:groupController.getArrayListOfModels()) {
-            if (groupId == group.getIdOfGroup()){
-                exsistanceFlag = true;
+
+            for (GroupModel group : groupController.getArrayListOfModels()) {
+                if (groupId == group.getIdOfGroup()) {
+                    exsistanceFlag = true;
+
+                }
             }
-        }
 
         if (!exsistanceFlag) {
         throw new GroupNotFoundException("Группа не найдена.");
@@ -345,7 +361,26 @@ public class StudentController {
         }
 
         if (!exsistanceFlag) {
-            throw new IdNotFoundException("Не существует студента с таким id.");
+            throw new IdNotFoundException("Не существует студента с таким id. "+studId);
+        }
+    }
+
+    /**
+     *
+     * @param studId
+     * @throws IdAlreadyExsistsException
+     */
+    private void checkIdForExsistance(int studId) throws IdAlreadyExsistsException{
+
+        boolean exsistanceFlag = false;
+        for (StudentModel student:studentModelList) {
+            if (studId == student.getId()){
+                exsistanceFlag = true;
+            }
+        }
+
+        if (exsistanceFlag) {
+            throw new IdAlreadyExsistsException("Студент с таким id уже существует. "+studId);
         }
     }
 
@@ -356,7 +391,7 @@ public class StudentController {
      */
     public List<StudentModel> searchStudentById(String id){
 
-        id = id.replace('*','.');
+        id = id.replaceAll("[*]",".*");
         id = id.replace('?','.');
         List<StudentModel> findedStudents = new ArrayList<>();
         Pattern regex = Pattern.compile(id);
@@ -378,7 +413,7 @@ public class StudentController {
      */
     public List<StudentModel> searchStudentByName(String name){
 
-        name = name.replace('*','.');
+        name = name.replaceAll("[*]",".*");
         name = name.replace('?','.');
         List<StudentModel> findedStudents = new ArrayList<>();
         Pattern regex = Pattern.compile(name);
@@ -399,7 +434,7 @@ public class StudentController {
      */
     public List<StudentModel> searchStudentBySurname(String surname){
 
-        surname = surname.replace('*','.');
+        surname = surname.replaceAll("[*]",".*");
         surname = surname.replace('?','.');
         List<StudentModel> findedStudents = new ArrayList<>();
         Pattern regex = Pattern.compile(surname);
@@ -420,7 +455,7 @@ public class StudentController {
      */
     public List<StudentModel> searchStudentByPatronymic(String patronymic){
 
-        patronymic = patronymic.replace('*','.');
+        patronymic = patronymic.replaceAll("[*]",".*");
         patronymic = patronymic.replace('?','.');
         List<StudentModel> findedStudents = new ArrayList<>();
         Pattern regex = Pattern.compile(patronymic);
@@ -444,11 +479,11 @@ public class StudentController {
         List<StudentModel> findedStudents = new ArrayList<>();
         String [] date = dateOfEnvironment.split("/.");
 
-        date[0] = date[0].replace('*','.');
+        date[0] = date[0].replaceAll("[*]",".*");
         date[0] = date[0].replace('?','.');
-        date[1] = date[1].replace('*','.');
+        date[1] = date[1].replaceAll("[*]",".*");
         date[1] = date[1].replace('?','.');
-        date[2] = date[2].replace('*','.');
+        date[2] = date[2].replaceAll("[*]",".*");
         date[2] = date[2].replace('?','.');
         Pattern year = Pattern.compile(date[0]);
         Pattern month = Pattern.compile(date[1]);
@@ -472,7 +507,7 @@ public class StudentController {
      */
     public List<StudentModel> searchStudentByIdOfStudentsGroup(String groupId){
 
-        groupId = groupId.replace('*','.');
+        groupId = groupId.replaceAll("[*]",".*");
         groupId = groupId.replace('?','.');
         List<StudentModel> findedStudents = new ArrayList<>();
         Pattern regex = Pattern.compile(groupId);
