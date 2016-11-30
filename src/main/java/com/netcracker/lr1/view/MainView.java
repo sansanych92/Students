@@ -14,9 +14,10 @@ import java.util.Scanner;
 public class MainView {
     private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-    public static void main(String[] args) throws IOException, GroupNotFoundException {
+    public static void main(String[] args) throws IOException, GroupNotFoundException, IdAlreadyExsistsException {
 
         StudentView studentView = new StudentView();
+        GroupView groupView = new GroupView();
 
         String responce = "";
         do {
@@ -242,6 +243,7 @@ public class MainView {
                                 break;
                             }
                             case "2": {
+                                groupView.printListOfGroups();
                                 break;
                             }
                             case "3": {

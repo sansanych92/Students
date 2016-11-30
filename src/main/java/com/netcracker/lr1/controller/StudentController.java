@@ -25,7 +25,7 @@ public class StudentController {
     /**
      *
      */
-    public StudentController() throws GroupNotFoundException {
+    public StudentController() throws GroupNotFoundException, IdAlreadyExsistsException {
 
         studentModelList = new ArrayList();
         String[] students;

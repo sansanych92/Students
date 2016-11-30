@@ -20,7 +20,7 @@ public class StudentView {
      *
      * @throws GroupNotFoundException
      */
-    public StudentView() throws GroupNotFoundException {
+    public StudentView() throws GroupNotFoundException, IdAlreadyExsistsException {
     }
 
     /**
