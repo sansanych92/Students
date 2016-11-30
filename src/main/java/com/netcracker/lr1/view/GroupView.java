@@ -6,6 +6,7 @@ import com.netcracker.lr1.controller.GroupController;
 import com.netcracker.lr1.model.GroupModel;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -18,7 +19,7 @@ public class GroupView {
     private BufferedReader in;
     private GroupController groupController;
 
-    public GroupView() throws IdAlreadyExsistsException {
+    public GroupView() throws IdAlreadyExsistsException, FileNotFoundException {
         in = new BufferedReader(new InputStreamReader(System.in));
         groupController = new GroupController();
     }

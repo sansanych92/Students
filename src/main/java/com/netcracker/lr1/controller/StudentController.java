@@ -25,12 +25,12 @@ public class StudentController {
     /**
      *
      */
-    public StudentController() throws GroupNotFoundException, IdAlreadyExsistsException {
+    public StudentController() throws GroupNotFoundException, IdAlreadyExsistsException, FileNotFoundException {
 
         studentModelList = new ArrayList();
         String[] students;
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("src\\main\\java\\com\\netcracker\\lr1\\storageOfStudents.txt")))
+        try(BufferedReader reader = new BufferedReader(new FileReader("src/main/java/com/netcracker/lr1/storageOfStudents.txt")))
         {
             String s;
             while((s=reader.readLine())!=null){
