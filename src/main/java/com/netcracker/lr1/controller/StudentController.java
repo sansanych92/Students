@@ -20,7 +20,12 @@ import java.util.regex.Pattern;
 public class StudentController {
 
     private List<StudentModel> studentModelList;
-    private GroupController groupController = new GroupController();
+
+    public GroupController getGroupController() {
+        return groupController;
+    }
+
+    private GroupController groupController;
 
     /**
      *
@@ -29,6 +34,7 @@ public class StudentController {
 
         studentModelList = new ArrayList();
         String[] students;
+        groupController = new GroupController();
 
         try(BufferedReader reader = new BufferedReader(new FileReader("src/main/java/com/netcracker/lr1/storageOfStudents.txt")))
         {
