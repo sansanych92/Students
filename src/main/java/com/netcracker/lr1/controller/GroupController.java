@@ -17,33 +17,27 @@ public class GroupController {
     public GroupController() throws IdAlreadyExsistsException {
         arrayListOfModels = new ArrayList();
         String[] group;
-        int i = 0;
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("home/artur_v/Artur/Programming/Work/NetCracker/Courses/Java/LabaK1/Students_2/src/main/java/com/netcracker/lr1/storageOfGroups.txt")))
-        {
-            String s="";
-            for(int j=0; j<10; j++){
-            //while((s=reader.readLine())!=null){
-                s=reader.readLine();
-                if (s.charAt(0)==
-                if (i>1)
-                    break;
+        try (BufferedReader reader = new BufferedReader(new FileReader("/home/artur_v/Artur/Programming/Work/NetCracker/Courses/Java/LabaK1/Students_2/src/main/java/com/netcracker/lr1/storageOfGroups.txt"))) {
+            String s = "";
+            while ((s = reader.readLine()) != null) {
+                if (s.charAt(0) == 65279) {
+                    s=s.substring(1);
+                }
                 GroupModel groupModel = new GroupModel();
 
                 group = s.split(" ");
 
-                checkGroupIdForPresenceError(Integer.valueOf(group[0].split(" ")[0]));
+                checkGroupIdForPresenceError(Integer.valueOf(group[0]));
 
                 groupModel.setIdOfGroup(Integer.valueOf(group[0]));
                 groupModel.setNumberOfGroup(Integer.valueOf(group[1]));
                 groupModel.setNameOfFaculty(group[2]);
 
                 arrayListOfModels.add(groupModel);
-                i++;
             }
 
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
 
             System.out.println(ex.getMessage());
         }
@@ -184,9 +178,9 @@ public class GroupController {
         List<GroupModel> newGroupModelList = new ArrayList();
 
 
-        ObjectInputStream reader = new ObjectInputStream( new FileInputStream(filePath));
+        ObjectInputStream reader = new ObjectInputStream(new FileInputStream(filePath));
 
-        for (int i = 0; i <arrayListOfModels.size(); i++) {
+        for (int i = 0; i < arrayListOfModels.size(); i++) {
 
             GroupModel newModel;
             newModel = (GroupModel) reader.readObject();
