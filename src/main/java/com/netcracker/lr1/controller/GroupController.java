@@ -18,7 +18,7 @@ public class GroupController {
         arrayListOfModels = new ArrayList();
         String[] group;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("/home/artur_v/Artur/Programming/Work/NetCracker/Courses/Java/LabaK1/Students_2/src/main/java/com/netcracker/lr1/storageOfGroups.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/com/netcracker/lr1/storageOfGroups.txt"))) {
             String s = "";
             while ((s = reader.readLine()) != null) {
                 if (s.charAt(0) == 65279) {

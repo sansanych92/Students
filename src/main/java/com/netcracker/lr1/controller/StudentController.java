@@ -29,15 +29,12 @@ public class StudentController {
 
         studentModelList = new ArrayList();
         String[] students;
-        int k = 0;
 
         try(BufferedReader reader = new BufferedReader(new FileReader("src\\main\\java\\com\\netcracker\\lr1\\storageOfStudents.txt")))
         {
             String s;
             while((s=reader.readLine())!=null){
 
-                if (k>1)
-                    break;
                 StudentModel student = new StudentModel();
                 String [] date;
                 Calendar dateOfEnvironment = new GregorianCalendar();
@@ -61,7 +58,6 @@ public class StudentController {
                 student.setDateOfEnrollment(dateOfEnvironment);
 
                 studentModelList.add(student);
-                k++;
             }
 
         }
