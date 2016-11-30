@@ -61,7 +61,7 @@ public class MainView {
                                         flag = false;
                                     } catch (NumberFormatException | IdAlreadyExsistsException ex){
                                         System.out.println(ex.getMessage());
-                                        System.out.println("Повторите ввод");
+                                        System.out.println("Повторите ввод ");
                                     }
                                 }
                                 break;
