@@ -42,7 +42,7 @@ public class MainView {
                                     try {
                                         studentView.printAddNewStudentMenu();
                                         flag = false;
-                                    } catch (NumberFormatException | IdAlreadyExsistsException ex) {
+                                    } catch (NumberFormatException | IdAlreadyExsistsException | GroupNotFoundException ex) {
                                         System.out.println(ex.getMessage());
                                         System.out.println("Повторите ввод.");
                                     }
@@ -116,7 +116,7 @@ public class MainView {
                                     try {
                                         studentView.printFullEditionOfStudentMenu();
                                         flag = false;
-                                    } catch (IdNotFoundException | IdAlreadyExsistsException |NumberFormatException e) {
+                                    } catch (IdNotFoundException | IdAlreadyExsistsException | NumberFormatException | GroupNotFoundException e) {
                                         System.out.println(e.getMessage());
                                         System.out.println("Повторите ввод.");
                                     }
