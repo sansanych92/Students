@@ -17,7 +17,7 @@ public class MainView {
     public static void main(String[] args) throws IOException, GroupNotFoundException, IdAlreadyExsistsException {
 
         StudentView studentView = new StudentView();
-        GroupView groupView = new GroupView();
+        GroupView groupView = new GroupView(studentView.getController().getGroupController());
 
         String responce = "";
         do {
@@ -54,6 +54,16 @@ public class MainView {
                                 break;
                             }
                             case "2": {
+                                boolean flag = true;
+                                while(flag){
+                                    try {
+                                        groupView.printAddNewGroupMenu();
+                                        flag = false;
+                                    } catch (NumberFormatException | IdAlreadyExsistsException ex){
+                                        System.out.println(ex.getMessage());
+                                        System.out.println("Повторите ввод");
+                                    }
+                                }
                                 break;
                             }
                             case "3": {

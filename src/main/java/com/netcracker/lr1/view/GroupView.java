@@ -19,7 +19,7 @@ public class GroupView {
     private BufferedReader in;
     private GroupController groupController;
 
-    public GroupView() throws IdAlreadyExsistsException, FileNotFoundException {
+    public GroupView(GroupController controller) throws IdAlreadyExsistsException, FileNotFoundException {
         in = new BufferedReader(new InputStreamReader(System.in));
         groupController = new GroupController();
     }
@@ -103,5 +103,6 @@ public class GroupView {
         for (GroupModel group : groupController.getArrayListOfModels()) {
             System.out.println(group.toString());
         }
+        System.out.println();
     }
 }
