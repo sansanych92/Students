@@ -285,20 +285,46 @@ public class StudentController {
      *
      * @param filePath
      */
-    public void addDataFromAnotherFile(String filePath) throws IOException, ClassNotFoundException {
+    public void addDataFromAnotherFile(String filePath) throws IOException, ClassNotFoundException, GroupNotFoundException {
 
        List<StudentModel> newStudentModelList = new ArrayList();
+        String[] students;
 
+        try(BufferedReader reader = new BufferedReader(new FileReader(filePath)))
+        {
+            String s;
+            while((s=reader.readLine())!=null){
 
-        ObjectInputStream reader = new ObjectInputStream( new FileInputStream(filePath));
+                StudentModel student = new StudentModel();
+                String [] date;
+                Calendar dateOfEnvironment = new GregorianCalendar();
+                int groupId;
 
-            for (int i = 0; i <studentModelList.size(); i++) {
+                students = s.split(" ");
 
-                StudentModel newModel;
-                newModel = (StudentModel) reader.readObject();
-                newStudentModelList.add(newModel);
+                student.setId(Integer.valueOf(students[0]));
+                student.setSurname(students[1]);
+                student.setName(students[2]);
+                student.setPatronymic(students[3]);
+                groupId = Integer.parseInt(students[4]);
+
+                checkGroupForExsistance(groupId);
+
+                student.setGroupId(groupId);
+
+                date = students[5].split("[.]");
+                dateOfEnvironment.set(Integer.parseInt(date[0]), Integer.parseInt(date[1])-1, Integer.parseInt(date[2]));
+
+                student.setDateOfEnrollment(dateOfEnvironment);
+
+                newStudentModelList.add(student);
             }
 
+        }
+        catch(IOException ex){
+
+            System.out.println(ex.getMessage());
+        }
         for (StudentModel aNewStudent : newStudentModelList) {
 
             boolean coincidenceFlag = false;

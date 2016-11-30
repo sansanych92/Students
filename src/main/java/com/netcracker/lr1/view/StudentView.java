@@ -14,7 +14,12 @@ import java.io.*;
 public class StudentView {
 
     private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-    StudentController controller = new StudentController();
+
+    public StudentController getController() {
+        return controller;
+    }
+
+    private StudentController controller = new StudentController();
 
     /**
      *
@@ -178,7 +183,7 @@ public class StudentView {
      *
      * @throws IOException
      */
-    public void printLoadDataFromAnotherFileMenu() throws IOException {
+    public void printLoadDataFromAnotherFileMenu() throws IOException{
 
         System.out.println("Введите путь файла, откуда нужно добавить данные.");
         boolean flag = true;
@@ -197,6 +202,8 @@ public class StudentView {
                 System.out.println("Повторите ввод.");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            } catch (GroupNotFoundException e) {
+                e.getMessage();
             }
         }
         System.out.println("Данные добавлены.");
