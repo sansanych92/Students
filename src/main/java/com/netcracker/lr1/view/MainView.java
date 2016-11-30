@@ -61,7 +61,7 @@ public class MainView {
                                         flag = false;
                                     } catch (NumberFormatException | IdAlreadyExsistsException ex){
                                         System.out.println(ex.getMessage());
-                                        System.out.println("Повторите ввод ");
+                                        System.out.println("Повторите ввод.");
                                     }
                                 }
                                 break;
@@ -99,6 +99,15 @@ public class MainView {
                                 break;
                             }
                             case "2": {
+                                boolean flag = true;
+                                while (flag) {
+                                   /*
+                                    try {
+                                        //groupView.printDeleteStudentMenu();
+                                        flag = false;
+                                    }
+                                    */
+                                }
                                 break;
                             }
                             case "3": {

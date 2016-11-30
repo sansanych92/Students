@@ -24,33 +24,18 @@ public class GroupView {
         groupController = new GroupController();
     }
 
-    public void run() throws IOException {
-        System.out.println("Выберете действие");
-        System.out.println("1 - вывод списка групп");
-        System.out.println("2 - добавление новой группы");
-        System.out.println("3 - поиск группы");
-        String select = in.readLine();
-        int s = Integer.parseInt(select);
-
-        switch (s) {
-            case 1: {
-                //groupController.showArrayList();
-                break;
-            }
-            case 2: {
-                break;
-            }
-            case 3: {
-                //groupController.search();
-            }
-        }
-    }
-
     public void printAddNewGroupMenu() throws IOException, IdAlreadyExsistsException {
         System.out.println("Введите данные группы (id, номер, название факультета) через пробел.");
         String groupString = in.readLine();
         groupController.addGroup(groupString);
         System.out.println("Данные добавлены.");
+    }
+
+    public void printDeleteOfGroupMenu() throws IOException {
+        System.out.print("Введите id группы, которую хотите удалить");
+        int idOfGroup = Integer.parseInt(in.readLine());
+        //
+        System.out.println();
     }
 
     public void printFullEditOfGroupMenu() throws IOException, IdNotFoundException, IdAlreadyExsistsException {
