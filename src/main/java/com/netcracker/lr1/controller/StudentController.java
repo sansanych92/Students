@@ -285,7 +285,7 @@ public class StudentController {
      *
      * @param filePath
      */
-    public void addDataFromAnotherFile(String filePath) throws IOException, ClassNotFoundException, GroupNotFoundException {
+    public void addDataFromAnotherFile(String filePath) throws IOException, ClassNotFoundException, GroupNotFoundException, IdAlreadyExsistsException {
 
        List<StudentModel> newStudentModelList = new ArrayList();
         String[] students;
@@ -307,6 +307,8 @@ public class StudentController {
                 student.setName(students[2]);
                 student.setPatronymic(students[3]);
                 groupId = Integer.parseInt(students[4]);
+
+                checkIdForExsistance(Integer.valueOf(students[0]));
 
                 checkGroupForExsistance(groupId);
 
