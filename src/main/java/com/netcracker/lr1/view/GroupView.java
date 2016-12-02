@@ -5,10 +5,7 @@ import com.netcracker.lr1.Exceptions.IdNotFoundException;
 import com.netcracker.lr1.controller.GroupController;
 import com.netcracker.lr1.model.GroupModel;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 ;
 
@@ -135,4 +132,31 @@ public class GroupView {
         }
         System.out.println();
     }
+
+    public void printLoadDataFromAnotherFileMenu() throws IOException {
+
+        System.out.println("Введите путь файла, откуда нужно добавить данные.");
+        boolean flag = true;
+        while (flag) {
+            String path = in.readLine();
+            try {
+                groupController.addDataFromAnotherFile(path);
+                flag = false;
+            }
+            catch (EOFException e) {
+                System.out.println("Недопустимый файл.");
+                System.out.println("Повторите ввод.");
+            }
+            catch (FileNotFoundException e) {
+                System.out.println("Файл не найден.");
+                System.out.println("Повторите ввод.");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IdAlreadyExsistsException e) {
+                e.getMessage();
+            }
+        }
+        System.out.println("Данные добавлены.");
+    }
+
 }

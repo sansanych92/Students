@@ -4,9 +4,10 @@ import com.netcracker.lr1.Exceptions.GroupNotFoundException;
 import com.netcracker.lr1.Exceptions.IdAlreadyExsistsException;
 import com.netcracker.lr1.Exceptions.IdNotFoundException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Objects;
-import java.util.Scanner;
 
 /**
  * Created by artur_v on 07.11.16.
@@ -394,7 +395,28 @@ public class MainView {
                     break;
                 }
                 case "7": {
-                    studentView.printLoadDataFromAnotherFileMenu();
+                    do {
+                        printSaveLoadMenu();
+                        responce = in.readLine();
+                        responce = responce.trim();
+
+                        switch (responce){
+                            case "1": {
+                                studentView.printLoadDataFromAnotherFileMenu();
+                                break;
+                            }
+                            case "2": {
+                                groupView.printLoadDataFromAnotherFileMenu();
+                            }
+                            case "3":{
+                                break;
+                            }
+                            default: {
+                                System.out.println("Введены неверные данные.");
+                                break;
+                            }
+                        }
+                    }  while (!responce.equals("3"));
                     break;
                 }
                 case "8": {
