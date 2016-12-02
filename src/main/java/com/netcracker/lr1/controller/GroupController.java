@@ -158,13 +158,17 @@ public class GroupController {
     public void loadData() {
 
         arrayListOfModels = new ArrayList();
+        Object groupModel;
 
         try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream("src/main/java/com/netcracker/lr1/GroupsDataFile.txt"))) {
-            for (int i = 0; i < arrayListOfModels.size(); i++) {
+            boolean flag=true;
+            while (flag){
+                groupModel = reader.readObject();
+                if (groupModel==null){
+                    flag = false;
+                }
 
-                GroupModel newModel;
-                newModel = (GroupModel) reader.readObject();
-                arrayListOfModels.add(newModel);
+                arrayListOfModels.add((GroupModel) groupModel);
             }
 
         } catch (IOException ex) {
