@@ -169,6 +169,7 @@ public class StudentController {
      */
     public void editStudentId(int studentId, int newId) throws IdNotFoundException, IdAlreadyExsistsException {
 
+        checkStudentForExsistance(studentId);
         StudentModel newStudent = getStudentById(studentId);
         checkIdForExsistance(newId);
         newStudent.setId(newId);
@@ -369,7 +370,7 @@ public class StudentController {
      * @param studId
      * @throws IdNotFoundException
      */
-    private void checkStudentForExsistance(int studId) throws IdNotFoundException{
+    public void checkStudentForExsistance(int studId) throws IdNotFoundException{
 
         boolean exsistanceFlag = false;
         for (StudentModel student:studentModelList) {

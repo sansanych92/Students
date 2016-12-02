@@ -147,16 +147,7 @@ public class MainView {
                                 break;
                             }
                             case "2": {
-                                boolean flag = true;
-                                while (flag) {
-                                    try {
-                                        studentView.printEditionOfIdMenu();
-                                        flag = false;
-                                    } catch (IdNotFoundException | IdAlreadyExsistsException e) {
-                                        System.out.println(e.getMessage());
-                                        System.out.println("Повторите ввод.");
-                                    }
-                                }
+                                studentView.printEditionOfIdMenu();
                                 break;
                             }
                             case "3": {

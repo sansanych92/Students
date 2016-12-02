@@ -75,14 +75,24 @@ public class StudentView {
      * @throws IOException
      * @throws IdNotFoundException
      */
-    public void printEditionOfIdMenu() throws IOException, IdNotFoundException, IdAlreadyExsistsException {
+    public void printEditionOfIdMenu() throws IOException {
 
-        System.out.println("Введите id студента, которого хотите отредактировать.");
-        int id = Integer.parseInt(in.readLine());
-        System.out.println("Введите новый id студента.");
-        int newId = Integer.parseInt(in.readLine());
-        controller.editStudentId(id,newId);
-        System.out.println("id студента отредактирован.");
+        boolean flag = true;
+        while (flag) {
+            try {
+                System.out.println("Введите id студента, которого хотите отредактировать.");
+                int id = Integer.parseInt(in.readLine());
+                controller.checkStudentForExsistance(id);
+                System.out.println("Введите новый id студента.");
+                int newId = Integer.parseInt(in.readLine());
+                controller.editStudentId(id,newId);
+                System.out.println("id студента отредактирован.");
+                flag = false;
+            } catch (IdAlreadyExsistsException | IdNotFoundException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Повторите ввод.");
+            }
+        }
     }
 
     /**
