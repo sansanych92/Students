@@ -7,6 +7,8 @@ import com.netcracker.lr1.model.GroupModel;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by artur_v on 07.11.16.
@@ -22,7 +24,7 @@ public class GroupController {
             String s = "";
             while ((s = reader.readLine()) != null) {
                 if (s.charAt(0) == 65279) {
-                    s=s.substring(1);
+                    s = s.substring(1);
                 }
                 GroupModel groupModel = new GroupModel();
 
@@ -173,21 +175,83 @@ public class GroupController {
         }
     }
 
-    public void addDataFromAnotherFile(String filePath) throws IOException, ClassNotFoundException {
+    public List<GroupModel> searchGroupById(String id) {
 
-        List<GroupModel> newGroupModelList = new ArrayList();
+        id = id.replaceAll("[*]", ".*");
+        id = id.replace('?', '.');
+        List<GroupModel> findedGroups = new ArrayList<>();
+        Pattern regex = Pattern.compile(id);
 
-
-        ObjectInputStream reader = new ObjectInputStream(new FileInputStream(filePath));
-
-        for (int i = 0; i < arrayListOfModels.size(); i++) {
-
-            GroupModel newModel;
-            newModel = (GroupModel) reader.readObject();
-            newGroupModelList.add(newModel);
+        for (GroupModel group : arrayListOfModels) {
+            Matcher m = regex.matcher(String.valueOf(group.getIdOfGroup()));
+            if (m.matches()) {
+                findedGroups.add(group);
+            }
         }
+        return findedGroups;
+    }
 
-        for (GroupModel aNewGroup : newGroupModelList) {
+    public List<GroupModel> searchGroupByNumber(String number) {
+
+        number = number.replaceAll("[*]", ".*");
+        number = number.replace('?', '.');
+        List<GroupModel> findedGroups = new ArrayList<>();
+        Pattern regex = Pattern.compile(number);
+
+        for (GroupModel group : arrayListOfModels) {
+            Matcher m = regex.matcher(String.valueOf(group.getNumberOfGroup()));
+            if (m.matches()) {
+                findedGroups.add(group);
+            }
+        }
+        return findedGroups;
+    }
+
+    public List<GroupModel> searchGroupByNameOfFaculty(String nameOfFaculty) {
+
+        nameOfFaculty = nameOfFaculty.replaceAll("[*]", ".*");
+        nameOfFaculty = nameOfFaculty.replace('?', '.');
+        List<GroupModel> findedGroups = new ArrayList<>();
+        Pattern regex = Pattern.compile(nameOfFaculty);
+
+        for (GroupModel group : arrayListOfModels) {
+            Matcher m = regex.matcher(String.valueOf(group.getNameOfFaculty()));
+            if (m.matches()) {
+                findedGroups.add(group);
+            }
+        }
+        return findedGroups;
+    }
+
+    public void addDataFromAnotherFile(String filePath) throws IOException, ClassNotFoundException, IdAlreadyExsistsException {
+
+        List<GroupModel> newGroupModelsList = new ArrayList();
+        String[] groups;
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(filePath)))
+        {
+            String s;
+            while((s=reader.readLine())!=null){
+
+                GroupModel groupModel = new GroupModel();
+
+                groups = s.split(" ");
+
+                groupModel.setIdOfGroup(Integer.valueOf(groups[0]));
+                groupModel.setNumberOfGroup(Integer.valueOf(groups[1]));
+                groupModel.setNameOfFaculty(groups[2]);
+
+                checkGroupIdForPresenceError(Integer.valueOf(groups[0]));
+
+                newGroupModelsList.add(groupModel);
+            }
+
+        }
+        catch(IOException ex){
+
+            System.out.println(ex.getMessage());
+        }
+        for (GroupModel aNewGroup : newGroupModelsList) {
 
             boolean coincidenceFlag = false;
 

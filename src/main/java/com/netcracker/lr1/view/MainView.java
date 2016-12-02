@@ -101,12 +101,13 @@ public class MainView {
                             case "2": {
                                 boolean flag = true;
                                 while (flag) {
-                                   /*
                                     try {
-                                        //groupView.printDeleteStudentMenu();
+                                        groupView.printDeleteOfGroupMenu();
                                         flag = false;
+                                    } catch (IdNotFoundException e){
+                                        System.out.println(e.getMessage());
+                                        System.out.println("Повторите ввод.");
                                     }
-                                    */
                                 }
                                 break;
                             }
@@ -220,12 +221,42 @@ public class MainView {
                                 break;
                             }
                             case "8": {
+                                boolean flag = true;
+                                while (flag) {
+                                    try {
+                                        groupView.printEditOfIdMenu();
+                                        flag = false;
+                                    } catch (IdNotFoundException | IdAlreadyExsistsException | NumberFormatException e) {
+                                        System.out.println(e.getMessage());
+                                        System.out.println("Повторите ввод.");
+                                    }
+                                }
                                 break;
                             }
                             case "9": {
+                                boolean flag = true;
+                                while (flag) {
+                                    try {
+                                        groupView.printEditOfNumberMenu();
+                                        flag = false;
+                                    } catch (IdNotFoundException | NumberFormatException e) {
+                                        System.out.println(e.getMessage());
+                                        System.out.println("Повторите ввод.");
+                                    }
+                                }
                                 break;
                             }
                             case "0": {
+                                boolean flag = true;
+                                while (flag) {
+                                    try {
+                                        groupView.printEditOfFacultyNameMenu();
+                                        flag = false;
+                                    } catch (IdNotFoundException | NumberFormatException e) {
+                                        System.out.println(e.getMessage());
+                                        System.out.println("Повторите ввод.");
+                                    }
+                                }
                                 break;
                             }
                             case "10": {
@@ -309,14 +340,15 @@ public class MainView {
                                 break;
                             }
                             case "7": {
-
+                                groupView.printSearchGroupByIdMenu();
                                 break;
                             }
                             case "8": {
-
+                                groupView.printSearchGroupByNumberMenu();
                                 break;
                             }
                             case "9": {
+                                groupView.printSearchGroupByNameOfFacultyMenu();
                                 break;
                             }
                             case "0": {
@@ -341,10 +373,12 @@ public class MainView {
                         switch (responce) {
                             case "1": {
                                 studentView.prindSaveDataMenu();
+                                groupView.prindSaveDataMenu();
                                 break;
                             }
                             case "2": {
                                 studentView.prindLoadDataMenu();
+                                groupView.prindLoadDataMenu();
                                 break;
                             }
                             case "3": {

@@ -31,11 +31,11 @@ public class GroupView {
         System.out.println("Данные добавлены.");
     }
 
-    public void printDeleteOfGroupMenu() throws IOException {
+    public void printDeleteOfGroupMenu() throws IOException, IdNotFoundException {
         System.out.print("Введите id группы, которую хотите удалить");
         int idOfGroup = Integer.parseInt(in.readLine());
-        //
-        System.out.println();
+        groupController.deleteGroup(idOfGroup);
+        System.out.println("Группа удалена");
     }
 
     public void printFullEditOfGroupMenu() throws IOException, IdNotFoundException, IdAlreadyExsistsException {
@@ -76,12 +76,57 @@ public class GroupView {
 
     public void prindSaveDataMenu() {
         groupController.saveData();
-        System.out.println("Данные сохранены.");
+        System.out.println("Данные группы сохранены.");
     }
 
     public void prindLoadDataMenu() throws IOException {
         groupController.loadData();
-        System.out.println("Данные загружены.");
+        System.out.println("Данные группы загружены.");
+    }
+
+    public void printSearchGroupByIdMenu() throws IOException {
+
+        System.out.println("Введите Id группы или шаблон, по которому хотите найти группу.");
+        String id = in.readLine();
+
+        if (groupController.searchGroupById(id).isEmpty()){
+            System.out.println("Группы не найдены");
+        } else{
+            System.out.println("Найденные группы:");
+            for (GroupModel groupModel:groupController.searchGroupById(id)) {
+                System.out.println(groupModel.toString());
+            }
+        }
+    }
+
+    public void printSearchGroupByNumberMenu() throws IOException {
+
+        System.out.println("Введите номер группы или шаблон, по которому хотите найти группу.");
+        String number = in.readLine();
+
+        if (groupController.searchGroupByNumber(number).isEmpty()){
+            System.out.println("Группы не найдены");
+        } else{
+            System.out.println("Найденные группы:");
+            for (GroupModel groupModel:groupController.searchGroupByNumber(number)) {
+                System.out.println(groupModel.toString());
+            }
+        }
+    }
+
+    public void printSearchGroupByNameOfFacultyMenu() throws IOException {
+
+        System.out.println("Введите название факультета или шаблон, по которому хотите найти группу.");
+        String number = in.readLine();
+
+        if (groupController.searchGroupByNameOfFaculty(number).isEmpty()){
+            System.out.println("Группы не найдены");
+        } else{
+            System.out.println("Найденные группы:");
+            for (GroupModel groupModel:groupController.searchGroupByNameOfFaculty(number)) {
+                System.out.println(groupModel.toString());
+            }
+        }
     }
 
     public void printListOfGroups() {
