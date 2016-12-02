@@ -143,7 +143,7 @@ public class GroupController {
 
     public void saveData() {
 
-        try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream("src\\main\\java\\com\\netcracker\\lr1\\GroupDataFile.txt"))) {
+        try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream("src/main/java/com/netcracker/lr1/GroupsDataFile.txt"))) {
             for (int i = 0; i < arrayListOfModels.size(); i++) {
 
                 writer.writeObject(arrayListOfModels.get(i));
@@ -159,7 +159,7 @@ public class GroupController {
 
         arrayListOfModels = new ArrayList();
 
-        try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream("lab1\\src\\main\\java\\com\\netcracker\\lr1\\GroupDataFile.txt"))) {
+        try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream("src/main/java/com/netcracker/lr1/GroupsDataFile.txt"))) {
             for (int i = 0; i < arrayListOfModels.size(); i++) {
 
                 GroupModel newModel;

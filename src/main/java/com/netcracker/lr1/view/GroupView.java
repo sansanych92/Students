@@ -3,6 +3,7 @@ package com.netcracker.lr1.view;
 import com.netcracker.lr1.Exceptions.IdAlreadyExsistsException;
 import com.netcracker.lr1.Exceptions.IdNotFoundException;
 import com.netcracker.lr1.controller.GroupController;
+import com.netcracker.lr1.controller.StudentController;
 import com.netcracker.lr1.model.GroupModel;
 
 import java.io.*;
@@ -16,9 +17,10 @@ public class GroupView {
     private BufferedReader in;
     private GroupController groupController;
 
-    public GroupView(GroupController controller) throws IdAlreadyExsistsException, FileNotFoundException {
+    public GroupView(StudentController controller) throws IdAlreadyExsistsException, FileNotFoundException {
         in = new BufferedReader(new InputStreamReader(System.in));
-        groupController = new GroupController();
+        groupController = controller.getGroupController();
+        ;
     }
 
     public void printAddNewGroupMenu() throws IOException, IdAlreadyExsistsException {

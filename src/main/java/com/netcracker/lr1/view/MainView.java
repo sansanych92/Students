@@ -18,7 +18,7 @@ public class MainView {
     public static void main(String[] args) throws IOException, GroupNotFoundException, IdAlreadyExsistsException {
 
         StudentView studentView = new StudentView();
-        GroupView groupView = new GroupView(studentView.getController().getGroupController());
+        GroupView groupView = new GroupView(studentView.getController());
 
         String responce = "";
         do {
