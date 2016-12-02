@@ -64,6 +64,7 @@ public class StudentView {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
+        controller.checkStudentForExsistance(id);
         System.out.println("Введите данные студента (id, Фамилию, Имя, Отчество, id группы, дату зачисления в формате \"ГГГГ.ММ.ДД\") через пробел.");
         String studentData = in.readLine();
         controller.editStudent(id,studentData);
@@ -104,6 +105,7 @@ public class StudentView {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
+        controller.checkStudentForExsistance(id);
         System.out.println("Введите новое имя студента.");
         String newName = in.readLine();
         controller.editStudentName(id,newName);
@@ -119,6 +121,7 @@ public class StudentView {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
+        controller.checkStudentForExsistance(id);
         System.out.println("Введите новую фамилию студента.");
         String newSurname = in.readLine();
         controller.editStudentSurname(id,newSurname);
@@ -134,6 +137,7 @@ public class StudentView {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
+        controller.checkStudentForExsistance(id);
         System.out.println("Введите новое отчество студента.");
         String newPatronymic = in.readLine();
         controller.editStudentPatronymic(id,newPatronymic);
@@ -149,6 +153,7 @@ public class StudentView {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
+        controller.checkStudentForExsistance(id);
         System.out.println("Введите новую дату зачисления студента в формате \"ГГГГ.ММ.ДД\".");
         String newDate = in.readLine();
         controller.editStudentDateOfEnvironment(id,newDate);
@@ -164,6 +169,7 @@ public class StudentView {
 
         System.out.println("Введите id студента, которого хотите отредактировать.");
         int id = Integer.parseInt(in.readLine());
+        controller.checkStudentForExsistance(id);
         System.out.println("Введите новый id группы студента.");
         int newGroupId = Integer.parseInt(in.readLine());
         controller.editStudentGroupId(id, newGroupId);
