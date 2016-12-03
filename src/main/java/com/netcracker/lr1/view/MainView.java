@@ -396,6 +396,7 @@ public class MainView {
                 }
                 case "7": {
                     do {
+                        printLoadFromAnotherFileMenu();
                         responce = in.readLine();
                         responce = responce.trim();
 
@@ -499,4 +500,9 @@ public class MainView {
         System.out.println("3: Выход в главное меню.");
     }
 
+    private static void printLoadFromAnotherFileMenu(){
+        System.out.println("1: Загрузить данные групп.");
+        System.out.println("2: Загрузить данные студентов.");
+        System.out.println("3: Выход в главное меню.");
+    }
 }
