@@ -396,7 +396,6 @@ public class MainView {
                 }
                 case "7": {
                     do {
-                        printSaveLoadMenu();
                         responce = in.readLine();
                         responce = responce.trim();
 

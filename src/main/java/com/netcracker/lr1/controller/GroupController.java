@@ -245,14 +245,18 @@ public class GroupController {
                 groupModel.setNumberOfGroup(Integer.valueOf(groups[1]));
                 groupModel.setNameOfFaculty(groups[2]);
 
-                checkGroupIdForPresenceError(Integer.valueOf(groups[0]));
+                try{
+                    checkGroupIdForPresenceError(Integer.valueOf(groups[0]));
 
-                newGroupModelsList.add(groupModel);
+                    newGroupModelsList.add(groupModel);
+                } catch (IdAlreadyExsistsException e){
+                    System.out.println(e.getMessage());
+                }
+
             }
 
         }
         catch(IOException ex){
-
             System.out.println(ex.getMessage());
         }
         for (GroupModel aNewGroup : newGroupModelsList) {
