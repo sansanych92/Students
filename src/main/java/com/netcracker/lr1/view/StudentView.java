@@ -206,7 +206,9 @@ public class StudentView {
         while (flag) {
             String path = in.readLine();
             try {
+                System.out.println("preADd");
                 controller.addDataFromAnotherFile(path);
+                System.out.println("post");
                 flag = false;
             }
             catch (EOFException e) {

@@ -264,12 +264,10 @@ public class StudentController {
 
         studentModelList = new ArrayList();
 
-        try(ObjectInputStream reader = new ObjectInputStream( new FileInputStream("lab1\\src\\main\\java\\com\\netcracker\\lr1\\Saved.txt")))
+        try(ObjectInputStream reader = new ObjectInputStream( new FileInputStream("src\\main\\java\\com\\netcracker\\lr1\\Saved.txt")))
         {
-            for (int i = 0; i <studentModelList.size(); i++) {
-
-                StudentModel newModel;
-                newModel = (StudentModel) reader.readObject();
+            StudentModel newModel;
+            while((newModel = (StudentModel) reader.readObject())!=null) {
                 studentModelList.add(newModel);
             }
 
@@ -293,9 +291,13 @@ public class StudentController {
 
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath)))
         {
+            System.out.println("1");
             String s;
             while((s=reader.readLine())!=null){
 
+                if (s.charAt(0) == 65279) {
+                    s = s.substring(1);
+                }
                 StudentModel student = new StudentModel();
                 String [] date;
                 Calendar dateOfEnvironment = new GregorianCalendar();
@@ -308,10 +310,6 @@ public class StudentController {
                 student.setName(students[2]);
                 student.setPatronymic(students[3]);
                 groupId = Integer.parseInt(students[4]);
-
-                checkIdForExsistance(Integer.valueOf(students[0]));
-
-                checkGroupForExsistance(groupId);
 
                 student.setGroupId(groupId);
 
@@ -333,7 +331,7 @@ public class StudentController {
             boolean coincidenceFlag = false;
 
             for (StudentModel aStudent : studentModelList) {
-                if (aStudent.equals(aNewStudent)) {
+                if (aStudent.getId()==(aNewStudent.getId())) {
                     coincidenceFlag = true;
                 }
             }
