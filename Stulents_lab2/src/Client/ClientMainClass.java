@@ -6,6 +6,13 @@ package Client;
 public class ClientMainClass {
     public static void main(String[] args){
         Client client = new Client();
-        client.run();
+        Thread clientThread = new Thread(client);
+        clientThread.start();
+        try{
+            clientThread.join();
+        } catch (InterruptedException e) {
+            System.out.println("Поток прерван");
+        }
+        System.out.println("Клиент завершил работу");
     }
 }
