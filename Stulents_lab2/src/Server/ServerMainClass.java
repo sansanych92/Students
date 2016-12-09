@@ -1,10 +1,7 @@
 package Server;
 
-
-import Server.Exceptions.*;
 import Server.Exceptions.GroupNotFoundException;
 import Server.Exceptions.IdAlreadyExsistsException;
-import com.netcracker.lr1.Exceptions.*;
 
 import java.io.IOException;
 
