@@ -111,6 +111,46 @@ public class StudentModel implements Serializable {
         this.id = id;
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
+    public String getField(int i){
+
+        String resp = "";
+
+        switch (i){
+
+            case 0:{
+                resp = name;
+                break;
+            }
+
+            case 1:{
+                resp = surname;
+                break;
+            }
+
+            case 2:{
+                resp = patronymic;
+                break;
+            }
+
+            case 3:{
+                resp = (String.valueOf(dateOfEnrollment.get(Calendar.YEAR))+"."+String.valueOf(dateOfEnrollment.get(Calendar.MONTH)+1)+"."+String.valueOf(dateOfEnrollment.get(Calendar.DAY_OF_MONTH)));
+                break;
+            }
+
+            case 4:{
+                resp = String.valueOf(groupId);
+                break;
+            }
+        }
+
+        return resp;
+    }
+
     @Override
     public String toString() {
         int month = dateOfEnrollment.get(Calendar.MONTH)+1;
