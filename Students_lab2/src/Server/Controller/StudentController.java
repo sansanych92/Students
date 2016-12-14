@@ -4,13 +4,19 @@ import Server.Exceptions.GroupNotFoundException;
 import Server.Exceptions.IdAlreadyExsistsException;
 import Server.Exceptions.IdNotFoundException;
 import Server.Model.GroupModel;
+import Server.Model.Root;
 import Server.Model.StudentModel;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,49 +33,24 @@ public class StudentController {
 
     private Server.Controller.GroupController groupController;
 
+    Root root;
+
     /**
      *
      */
     public StudentController() throws GroupNotFoundException, IdAlreadyExsistsException, FileNotFoundException {
 
-        studentModelList = new ArrayList();
-        String[] students;
-        groupController = new GroupController();
+        root = new Root();
+        try {
+            File file = new File( "Students_lab2\\src\\Server\\Students.xml");
+            JAXBContext context = JAXBContext.newInstance(Root.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            root = (Root) unmarshaller.unmarshal(file);
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("src/main/java/com/netcracker/lr1/storageOfStudents.txt")))
-        {
-            String s;
-            while((s=reader.readLine())!=null){
 
-                StudentModel student = new StudentModel();
-                String [] date;
-                Calendar dateOfEnvironment = new GregorianCalendar();
-                int groupId;
-
-                students = s.split(" ");
-
-                student.setId(Integer.valueOf(students[0]));
-                student.setSurname(students[1]);
-                student.setName(students[2]);
-                student.setPatronymic(students[3]);
-                groupId = Integer.parseInt(students[4]);
-
-                checkGroupForExsistance(groupId);
-
-                student.setGroupId(groupId);
-
-                date = students[5].split("[.]");
-                dateOfEnvironment.set(Integer.parseInt(date[0]), Integer.parseInt(date[1])-1, Integer.parseInt(date[2]));
-
-                student.setDateOfEnrollment(dateOfEnvironment);
-
-                studentModelList.add(student);
-            }
-
-        }
-        catch(IOException ex){
-
-            System.out.println(ex.getMessage());
+        } catch (JAXBException ex) {
+            Logger.getLogger(Root.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
     }
 
