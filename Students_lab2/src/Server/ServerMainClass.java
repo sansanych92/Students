@@ -12,16 +12,18 @@ import java.net.Socket;
 public class ServerMainClass {
     public static void main(String [] args) throws IOException {
 
-        try (ServerSocket server = new ServerSocket(8080)) {
+        System.out.println("Server Started");
+        try (ServerSocket s = new ServerSocket(8080)) {
             while (true) {
-
-                Socket socket = server.accept();
+                // Блокируется до возникновения нового соединения:
+                Socket socket = s.accept();
                 try {
                     new Server(socket);
                 } catch (IOException e) {
-
-                    socket.close();
-                } catch (NoSuchFieldException | GroupNotFoundException | IdAlreadyExsistsException e) {
+                    // Если завершится неудачей, закрывается сокет,
+                    // в противном случае, нить закроет его:
+                    s.close();
+                } catch (IdAlreadyExsistsException | GroupNotFoundException | NoSuchFieldException e) {
                     e.printStackTrace();
                 }
             }

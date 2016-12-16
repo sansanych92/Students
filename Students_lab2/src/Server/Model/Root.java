@@ -3,6 +3,7 @@ package Server.Model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by Arsenii on 15.12.2016.
  */
 @XmlRootElement(name = "root")
-public class Root {
+public class Root implements Serializable{
 
     private List<StudentModel> studentModelList;
     private List<GroupModel> groupModelList;
@@ -72,7 +73,8 @@ public class Root {
      *
      * @param groupModelList
      */
-    @XmlElement
+    @XmlElementWrapper(name = "groups")
+    @XmlElement(name = "group")
     public void setGroupModelList(List<GroupModel> groupModelList) {
         this.groupModelList = groupModelList;
     }
@@ -89,7 +91,8 @@ public class Root {
      *
      * @param exceptions
      */
-    @XmlElement
+    @XmlElementWrapper(name = "exceptions")
+    @XmlElement(name = "exception")
     public void setExceptions(List<Exception> exceptions) {
         this.exceptions = exceptions;
     }
@@ -106,7 +109,8 @@ public class Root {
      *
      * @param deleteStudent
      */
-    @XmlElement
+    @XmlElementWrapper(name = "deleteStudent")
+    @XmlElement(name = "StudentId")
     public void setDeleteStudent(List<Integer> deleteStudent) {
         this.deleteStudent = deleteStudent;
     }
@@ -123,7 +127,8 @@ public class Root {
      *
      * @param deleteGroup
      */
-    @XmlElement
+    @XmlElementWrapper(name = "deleteGroup")
+    @XmlElement(name = "groupId")
     public void setDeleteGroup(List<Integer> deleteGroup) {
         this.deleteGroup = deleteGroup;
     }
@@ -140,7 +145,8 @@ public class Root {
      *
      * @param addStudent
      */
-    @XmlElement
+    @XmlElementWrapper(name = "addStudent")
+    @XmlElement(name = "student")
     public void setAddStudent(List<StudentModel> addStudent) {
         this.addStudent = addStudent;
     }
@@ -157,7 +163,8 @@ public class Root {
      *
      * @param addGroup
      */
-    @XmlElement
+    @XmlElementWrapper(name = "addGroup")
+    @XmlElement(name = "group")
     public void setAddGroup(List<GroupModel> addGroup) {
         this.addGroup = addGroup;
     }
@@ -174,7 +181,8 @@ public class Root {
      *
      * @param setStudent
      */
-    @XmlElement
+    @XmlElementWrapper(name = "setStudent")
+    @XmlElement(name = "student")
     public void setSetStudent(List<StudentModel> setStudent) {
         this.setStudent = setStudent;
     }
@@ -191,7 +199,8 @@ public class Root {
      *
      * @param setGroup
      */
-    @XmlElement
+    @XmlElementWrapper(name = "setGroup")
+    @XmlElement(name = "group")
     public void setSetGroup(List<GroupModel> setGroup) {
         this.setGroup = setGroup;
     }

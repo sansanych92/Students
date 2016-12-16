@@ -1,12 +1,11 @@
 package Client;
 
-import Server.Model.StudentModel;
+import Server.Model.Root;
 import Client.View.MainView;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.List;
 
 /**
  * Created by artur_v on 04.12.16.
@@ -14,38 +13,33 @@ import java.util.List;
 public class Client implements Runnable {
     MainView mainView;
     ObjectInputStream in;
-    PrintWriter  out;
-    List<StudentModel> studentModelList;
+    ObjectOutputStream  out;
+    Root root;
     Thread t;
 
-    public Client() {
+    public Client() throws IOException {
 
+        Socket client = new Socket(InetAddress.getLocalHost(),8080);
+        in = new ObjectInputStream(client.getInputStream());
+        out = new ObjectOutputStream(client.getOutputStream());
         t = new Thread(this);
         t.start();
     }
 
+    private void clientHandler(Root root){}
+
     public void run(){
         try {
-            Socket client = new Socket(InetAddress.getLocalHost(),8080);
-
-
-            try{
-                in = new ObjectInputStream(client.getInputStream());
-                out = new PrintWriter (new OutputStreamWriter(client.getOutputStream()),true);
-
-                studentModelList = (List<StudentModel>) in.readObject();
-
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } finally {
-                client.close();
+            while (true){
+                root = (Root) in.readObject();
+                break;
             }
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-        mainView = new MainView(studentModelList);
+        mainView = new MainView(root);
         mainView.beginWork();
     }
 }
