@@ -1,5 +1,6 @@
 package Client;
 
+import Client.ui.frames.MainFrame;
 import Server.Model.Root;
 import Client.View.MainView;
 
@@ -11,7 +12,7 @@ import java.net.Socket;
  * Created by artur_v on 04.12.16.
  */
 public class Client implements Runnable {
-    MainView mainView;
+    MainFrame mainFrame;
     ObjectInputStream in;
     ObjectOutputStream  out;
     Root root;
@@ -39,7 +40,7 @@ public class Client implements Runnable {
             e.printStackTrace();
         }
 
-        mainView = new MainView(root);
-        mainView.beginWork();
+       mainFrame = new MainFrame(root);
+        mainFrame.setVisible(true);
     }
 }
