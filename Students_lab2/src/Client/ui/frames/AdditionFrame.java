@@ -6,25 +6,29 @@ import Client.ui.listeners.OkButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 /**
  * Created by Arsenii on 18.12.2016.
  */
 public class AdditionFrame extends JFrame {
 
-    JTextField text1;
-    JTextField text2;
-    JTextField text3;
-    JTextField text4;
-    JTextField text5;
+    public JTextField text1;
+    public JTextField text2;
+    public JTextField text3;
+    public JTextField text4;
+    public JTextField text5;
     JButton okButton;
+    DataOutputStream out;
     final int MY_FRAME_CONSTANT = 1;
 
-    public AdditionFrame(JTable table){
+    public AdditionFrame(JTable table, DataOutputStream out){
 
         super();
+        this.out = out;
         okButton = new JButton("OK");
-        okButton.addActionListener(new OkButtonListener(this));
+        okButton.addActionListener(new OkButtonListener(this, out));
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 

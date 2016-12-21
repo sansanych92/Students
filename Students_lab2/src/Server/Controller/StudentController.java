@@ -6,15 +6,20 @@ import Server.Exceptions.IdNotFoundException;
 import Server.Model.GroupModel;
 import Server.Model.Root;
 import Server.Model.StudentModel;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -25,41 +30,99 @@ import java.util.regex.Pattern;
  */
 public class StudentController {
 
-    private Root root;
+    private List<StudentModel> studentList;
+    private List<GroupModel> gropList;
 
     /**
      *
      */
-    public StudentController() throws GroupNotFoundException, FileNotFoundException {
+    public StudentController() throws GroupNotFoundException, IOException, ParserConfigurationException, SAXException {
 
-        root = new Root();
-        try {
-            File file = new File( "Students_lab2\\src\\Server\\Storage.xml");
-            JAXBContext context = JAXBContext.newInstance(Root.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            root = (Root) unmarshaller.unmarshal(file);
+        studentList = new ArrayList<>();
+        gropList = new ArrayList<>();
+        File file = new File("C:\\Users\\Arsenii\\Desktop\\Students\\Students_lab2\\src\\Server\\Storage.xml");
+        DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document document = documentBuilder.parse(file);
+        Node root = document.getDocumentElement();
+        NodeList groupsAndStuds = root.getChildNodes();
 
+        for (int i = 0; i < groupsAndStuds.getLength(); i++) {
 
-        } catch (JAXBException ex) {
-            Logger.getLogger(Root.class.getName())
-                    .log(Level.SEVERE, null, ex);
+            if (Objects.equals(groupsAndStuds.item(i).getNodeName(), "students")){
+                NodeList studs = groupsAndStuds.item(i).getChildNodes();
+                for (int j = 0; j < studs.getLength(); j++) {
+                    if (Objects.equals(studs.item(j).getNodeName(), "student")){
+                        NodeList studProps = studs.item(j).getChildNodes();
+                        int id = 0;
+                        String name = "";
+                        String sur = "";
+                        String patro = "";
+                        int groupId = 0;
+                        Calendar date = new GregorianCalendar();
+                        for (int k = 0; k < studProps.getLength(); k++) {
+
+                            if (Objects.equals(studProps.item(k).getNodeName(), "id")){
+                                id = Integer.parseInt(studProps.item(k).getTextContent());
+                            }
+                            if (Objects.equals(studProps.item(k).getNodeName(), "surname")){
+                                sur = studProps.item(k).getTextContent();
+                            }
+                            if (Objects.equals(studProps.item(k).getNodeName(), "name")){
+                                name = studProps.item(k).getTextContent();
+                            }
+                            if (Objects.equals(studProps.item(k).getNodeName(), "patronymic")){
+                                patro = studProps.item(k).getTextContent();
+                            }
+                            if (Objects.equals(studProps.item(k).getNodeName(), "groupId")){
+                                groupId = Integer.parseInt(studProps.item(k).getTextContent());
+                            }
+                            if (Objects.equals(studProps.item(k).getNodeName(), "dateOfEnrollment")){
+                                String [] date1 = studProps.item(k).getTextContent().split("[-]");
+                                date = new GregorianCalendar(Integer.parseInt(date1[0]), Integer.parseInt(date1[1]), Integer.parseInt(date1[2].substring(0,2)));
+                            }
+                        }
+                        StudentModel newStud = new StudentModel(id,sur,name,patro,groupId,date);
+                        studentList.add(newStud);
+                    }
+                }
+            }
+
+            if (Objects.equals(groupsAndStuds.item(i).getNodeName(), "groups")){
+                NodeList studs = groupsAndStuds.item(i).getChildNodes();
+                for (int j = 0; j < studs.getLength(); j++) {
+                    if (Objects.equals(studs.item(j).getNodeName(), "group")){
+                        NodeList studProps = studs.item(j).getChildNodes();
+                        int id = 0;
+                        String fac = "";
+                        int num = 0;
+                        for (int k = 0; k < studProps.getLength(); k++) {
+
+                            if (Objects.equals(studProps.item(k).getNodeName(), "idOfGroup")){
+                                id = Integer.parseInt(studProps.item(k).getTextContent());
+                            }
+                            if (Objects.equals(studProps.item(k).getNodeName(), "nameOfFaculty")){
+                                fac = studProps.item(k).getTextContent();
+                            }
+                            if (Objects.equals(studProps.item(k).getNodeName(), "numberOfGroup")){
+                                num = Integer.parseInt(studProps.item(k).getTextContent());
+                            }
+                        }
+                        GroupModel newgr = new GroupModel(id, num, fac);
+                        gropList.add(newgr);
+                    }
+                }
+            }
         }
+
+
     }
 
-    /**
-     *
-     * @return
-     */
-    public Root getRoot() {
-        return root;
+    public List<GroupModel> getGropList() {
+        return gropList;
     }
 
-    /**
-     *
-     * @param root
-     */
-    public void setRoot(Root root) {
-        this.root = root;
+    public void setGropList(List<GroupModel> gropList) {
+        this.gropList = gropList;
     }
 
     /**
@@ -71,7 +134,7 @@ public class StudentController {
 
         StudentModel student = new StudentModel();
         checkStudentForExsistance(id);
-        for (StudentModel student1:root.getStudentModelList()) {
+        for (StudentModel student1:studentList) {
             if (student1.getId() == id){
                 student = student1;
             }
@@ -85,7 +148,7 @@ public class StudentController {
      * @return
      */
     public List<StudentModel> getStudentList(){
-        return root.getStudentModelList();
+        return studentList;
     }
 
     /**
@@ -96,7 +159,7 @@ public class StudentController {
 
         checkIdForExsistance(student.getId());
         checkGroupForExsistance(student.getGroupId());
-        root.getStudentModelList().add(student);
+        studentList.add(student);
     }
 
     /**
@@ -106,7 +169,7 @@ public class StudentController {
     public void deleteStudent(int studentId) throws IdNotFoundException {
 
         StudentModel deletedStud = getStudentById(studentId);
-        root.getStudentModelList().remove(deletedStud);
+        studentList.remove(deletedStud);
     }
 
     /**
@@ -117,50 +180,7 @@ public class StudentController {
 
         checkGroupForExsistance(student.getGroupId());
         StudentModel oldStud = getStudentById(student.getId());
-        root.getStudentModelList().set(root.getStudentModelList().indexOf(oldStud),student);
-    }
-
-    /**
-     *
-     */
-    public void saveData(){
-
-        try {
-            File file = new File("Students_lab2\\src\\Server\\Saved.xml");
-            JAXBContext context = JAXBContext.newInstance(Root.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(root, file);
-        } catch (JAXBException ex) {
-            Logger.getLogger(Root.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     *
-     */
-    public void loadData(){
-
-        try {
-            File file = new File( "Students_lab2\\src\\Server\\Saved.xml");
-            JAXBContext context = JAXBContext.newInstance(Root.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            root = (Root) unmarshaller.unmarshal(file);
-
-
-        } catch (JAXBException ex) {
-            Logger.getLogger(Root.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     *
-     * @param filePath
-     */
-    public void addDataFromAnotherFile(String filePath) throws IOException, ClassNotFoundException, GroupNotFoundException, IdAlreadyExsistsException {
-        //TODO do addition
+        studentList.set(studentList.indexOf(oldStud),student);
     }
 
     /**
@@ -172,7 +192,7 @@ public class StudentController {
 
         boolean exsistanceFlag = false;
 
-        for (GroupModel group : root.getGroupModelList()) {
+        for (GroupModel group : gropList) {
             if (groupId == group.getIdOfGroup()) {
                 exsistanceFlag = true;
 
@@ -192,7 +212,7 @@ public class StudentController {
     public void checkStudentForExsistance(int studId) throws IdNotFoundException{
 
         boolean exsistanceFlag = false;
-        for (StudentModel student:root.getStudentModelList()) {
+        for (StudentModel student:studentList) {
             if (studId == student.getId()){
                 exsistanceFlag = true;
             }
@@ -211,7 +231,7 @@ public class StudentController {
     private void checkIdForExsistance(int studId) throws IdAlreadyExsistsException{
 
         boolean exsistanceFlag = false;
-        for (StudentModel student:root.getStudentModelList()) {
+        for (StudentModel student:studentList) {
             if (studId == student.getId()){
                 exsistanceFlag = true;
             }

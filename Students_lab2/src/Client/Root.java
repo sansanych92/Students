@@ -1,4 +1,7 @@
-package Server.Model;
+package Client;
+
+import Server.Model.GroupModel;
+import Server.Model.StudentModel;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

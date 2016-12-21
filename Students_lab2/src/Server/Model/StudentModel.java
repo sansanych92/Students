@@ -15,6 +15,18 @@ public class StudentModel implements Serializable {
     private int groupId;
     private Calendar dateOfEnrollment;
 
+    public StudentModel() {
+    }
+
+    public StudentModel(int id, String surname, String name, String patronymic, int groupId, Calendar dateOfEnrollment) {
+        this.id = id;
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
+        this.groupId = groupId;
+        this.dateOfEnrollment = dateOfEnrollment;
+    }
+
     /**
      *
      * @return
