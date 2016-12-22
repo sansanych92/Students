@@ -63,22 +63,22 @@
         </group>
         <group>
             <idOfGroup>13</idOfGroup>
-            <nameOfFaculty>Двигателей и летательных аппаратов</nameOfFaculty>
+            <nameOfFaculty>Двигателей_и_летательных_аппаратов</nameOfFaculty>
             <numberOfGroup>2101</numberOfGroup>
         </group>
         <group>
             <idOfGroup>14</idOfGroup>
-            <nameOfFaculty>Двигателей и летательных аппаратов</nameOfFaculty>
+            <nameOfFaculty>Двигателей_и_летательных_аппаратов</nameOfFaculty>
             <numberOfGroup>2201</numberOfGroup>
         </group>
         <group>
             <idOfGroup>15</idOfGroup>
-            <nameOfFaculty>Двигателей и летательных аппаратов</nameOfFaculty>
+            <nameOfFaculty>Двигателей_и_летательных_аппаратов</nameOfFaculty>
             <numberOfGroup>2301</numberOfGroup>
         </group>
         <group>
             <idOfGroup>16</idOfGroup>
-            <nameOfFaculty>Двигателей и летательных аппаратов</nameOfFaculty>
+            <nameOfFaculty>Двигателей_и_летательных_аппаратов</nameOfFaculty>
             <numberOfGroup>2401</numberOfGroup>
         </group>
         <group>
@@ -103,38 +103,28 @@
         </group>
         <group>
             <idOfGroup>21</idOfGroup>
-            <nameOfFaculty>Заочного обучения</nameOfFaculty>
+            <nameOfFaculty>Заочного_обучения</nameOfFaculty>
             <numberOfGroup>9101</numberOfGroup>
         </group>
         <group>
             <idOfGroup>22</idOfGroup>
-            <nameOfFaculty>Заочного обучения</nameOfFaculty>
+            <nameOfFaculty>Заочного_обучения</nameOfFaculty>
             <numberOfGroup>9201</numberOfGroup>
         </group>
         <group>
             <idOfGroup>23</idOfGroup>
-            <nameOfFaculty>Заочного обучения</nameOfFaculty>
+            <nameOfFaculty>Заочного_обучения</nameOfFaculty>
             <numberOfGroup>9301</numberOfGroup>
         </group>
         <group>
             <idOfGroup>24</idOfGroup>
-            <nameOfFaculty>Заочного обучения</nameOfFaculty>
+            <nameOfFaculty>Заочного_обучения</nameOfFaculty>
             <numberOfGroup>9401</numberOfGroup>
-        </group>
-        <group>
-            <idOfGroup>25</idOfGroup>
-            <nameOfFaculty>asda</nameOfFaculty>
-            <numberOfGroup>123</numberOfGroup>
-        </group>
-        <group>
-            <idOfGroup>26</idOfGroup>
-            <nameOfFaculty>Faculty</nameOfFaculty>
-            <numberOfGroup>12122</numberOfGroup>
         </group>
     </groups>
     <students>
         <student>
-            <dateOfEnrollment>2014-07-02T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2014-12-02T00:00:00+04:00</dateOfEnrollment>
             <groupId>1</groupId>
             <id>1</id>
             <name>Геннадий</name>
@@ -142,7 +132,7 @@
             <surname>Цветков</surname>
         </student>
         <student>
-            <dateOfEnrollment>2014-08-10T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2015-01-10T00:00:00+04:00</dateOfEnrollment>
             <groupId>2</groupId>
             <id>2</id>
             <name>Пантелеймон</name>
@@ -150,7 +140,7 @@
             <surname>Бирюков</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-02-14T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2015-07-14T00:00:00+04:00</dateOfEnrollment>
             <groupId>3</groupId>
             <id>3</id>
             <name>Валентин</name>
@@ -158,7 +148,7 @@
             <surname>Никитин</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-02-16T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2015-07-16T00:00:00+04:00</dateOfEnrollment>
             <groupId>4</groupId>
             <id>4</id>
             <name>Гордей</name>
@@ -166,7 +156,7 @@
             <surname>Рожков</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-05-07T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2015-10-07T00:00:00+04:00</dateOfEnrollment>
             <groupId>5</groupId>
             <id>5</id>
             <name>Олег</name>
@@ -174,7 +164,7 @@
             <surname>Матвеев</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-05-15T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2015-10-15T00:00:00+04:00</dateOfEnrollment>
             <groupId>6</groupId>
             <id>6</id>
             <name>Тихон</name>
@@ -182,7 +172,7 @@
             <surname>Сазонов</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-05-28T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2015-10-28T00:00:00+04:00</dateOfEnrollment>
             <groupId>7</groupId>
             <id>7</id>
             <name>Альберт</name>
@@ -190,7 +180,7 @@
             <surname>Михайлов</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-08-15T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2016-01-15T00:00:00+04:00</dateOfEnrollment>
             <groupId>8</groupId>
             <id>8</id>
             <name>Арсений</name>
@@ -198,7 +188,7 @@
             <surname>Денисов</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-09-03T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2016-02-03T00:00:00+04:00</dateOfEnrollment>
             <groupId>9</groupId>
             <id>9</id>
             <name>Владлен</name>
@@ -206,7 +196,7 @@
             <surname>Карпов</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-09-28T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2016-02-28T00:00:00+04:00</dateOfEnrollment>
             <groupId>10</groupId>
             <id>10</id>
             <name>Валентин</name>
@@ -214,7 +204,7 @@
             <surname>Большаков</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-10-21T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2016-03-21T00:00:00+04:00</dateOfEnrollment>
             <groupId>11</groupId>
             <id>11</id>
             <name>Дмитрий</name>
@@ -222,7 +212,7 @@
             <surname>Абрамов</surname>
         </student>
         <student>
-            <dateOfEnrollment>2016-01-01T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2016-06-01T00:00:00+04:00</dateOfEnrollment>
             <groupId>12</groupId>
             <id>12</id>
             <name>Виталий</name>
@@ -230,7 +220,7 @@
             <surname>Александров</surname>
         </student>
         <student>
-            <dateOfEnrollment>2016-01-20T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2016-06-20T00:00:00+04:00</dateOfEnrollment>
             <groupId>13</groupId>
             <id>13</id>
             <name>Еремей</name>
@@ -238,7 +228,7 @@
             <surname>Ситников</surname>
         </student>
         <student>
-            <dateOfEnrollment>2016-05-16T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2016-10-16T00:00:00+04:00</dateOfEnrollment>
             <groupId>14</groupId>
             <id>14</id>
             <name>Гордей</name>
@@ -246,7 +236,7 @@
             <surname>Федосеев</surname>
         </student>
         <student>
-            <dateOfEnrollment>2016-06-02T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2016-11-02T00:00:00+04:00</dateOfEnrollment>
             <groupId>15</groupId>
             <id>15</id>
             <name>Михаил</name>
@@ -254,7 +244,7 @@
             <surname>Никитин</surname>
         </student>
         <student>
-            <dateOfEnrollment>2016-08-06T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2017-01-06T00:00:00+04:00</dateOfEnrollment>
             <groupId>16</groupId>
             <id>16</id>
             <name>Илья</name>
@@ -262,7 +252,7 @@
             <surname>Шашков</surname>
         </student>
         <student>
-            <dateOfEnrollment>2016-10-10T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2017-03-10T00:00:00+04:00</dateOfEnrollment>
             <groupId>17</groupId>
             <id>17</id>
             <name>Макар</name>
@@ -270,7 +260,7 @@
             <surname>Елисеев</surname>
         </student>
         <student>
-            <dateOfEnrollment>2016-10-14T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2017-03-14T00:00:00+04:00</dateOfEnrollment>
             <groupId>18</groupId>
             <id>18</id>
             <name>Якун</name>
@@ -278,7 +268,7 @@
             <surname>Федосеев</surname>
         </student>
         <student>
-            <dateOfEnrollment>2017-03-01T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2017-08-01T00:00:00+04:00</dateOfEnrollment>
             <groupId>19</groupId>
             <id>19</id>
             <name>Гордей</name>
@@ -286,7 +276,7 @@
             <surname>Коновалов</surname>
         </student>
         <student>
-            <dateOfEnrollment>2017-03-25T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2017-08-25T00:00:00+04:00</dateOfEnrollment>
             <groupId>20</groupId>
             <id>20</id>
             <name>Николай</name>
@@ -294,7 +284,7 @@
             <surname>Захаров</surname>
         </student>
         <student>
-            <dateOfEnrollment>2017-04-27T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2017-09-27T00:00:00+04:00</dateOfEnrollment>
             <groupId>21</groupId>
             <id>21</id>
             <name>Борис</name>
@@ -302,7 +292,7 @@
             <surname>Зайцев</surname>
         </student>
         <student>
-            <dateOfEnrollment>2017-09-01T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2018-02-01T00:00:00+04:00</dateOfEnrollment>
             <groupId>22</groupId>
             <id>22</id>
             <name>Ириней</name>
@@ -310,7 +300,7 @@
             <surname>Бобров</surname>
         </student>
         <student>
-            <dateOfEnrollment>2018-06-04T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2018-11-04T00:00:00+04:00</dateOfEnrollment>
             <groupId>23</groupId>
             <id>23</id>
             <name>Владлен</name>
@@ -318,12 +308,20 @@
             <surname>Осипов</surname>
         </student>
         <student>
-            <dateOfEnrollment>2018-07-23T00:00:00+04:00</dateOfEnrollment>
+            <dateOfEnrollment>2018-12-23T00:00:00+04:00</dateOfEnrollment>
             <groupId>24</groupId>
             <id>24</id>
             <name>Якун</name>
             <patronymic>Игоревич</patronymic>
             <surname>Зуев</surname>
+        </student>
+        <student>
+            <dateOfEnrollment>1999-11-01T00:00:00+04:00</dateOfEnrollment>
+            <groupId>1</groupId>
+            <id>25</id>
+            <name>Name</name>
+            <patronymic>Patronymic</patronymic>
+            <surname>5252</surname>
         </student>
     </students>
 </root>

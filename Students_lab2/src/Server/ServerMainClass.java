@@ -19,10 +19,10 @@ public class ServerMainClass {
         System.out.println("Server Started");
         try (ServerSocket s = new ServerSocket(8080)) {
             while (true) {
-                // Блокируется до возникновения нового соединения:
                 Socket socket = s.accept();
                 try {
-                    new Server(socket);
+                   Thread t = new Thread(new Server(socket));
+                   t.start();
                 } catch (IOException e) {
                     // Если завершится неудачей, закрывается сокет,
                     // в противном случае, нить закроет его:

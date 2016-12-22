@@ -2,9 +2,7 @@ package Client.ui.frames;
 
 import Client.ui.cellEditors.GrouptCellEditor;
 import Client.ui.cellEditors.StudentCellEditor;
-import Client.ui.listeners.AddButtonListener;
-import Client.ui.listeners.EdditionButtonListener;
-import Client.ui.listeners.SearchListener;
+import Client.ui.listeners.*;
 import Client.ui.renderers.GroupRenderer;
 import Client.ui.renderers.StudentRenderer;
 import Client.Root;
@@ -36,13 +34,8 @@ public class MainFrame extends JFrame{
         this.root = root;
         JPanel downPannel = new JPanel();
         downPannel.setLayout(new BoxLayout(downPannel, BoxLayout.X_AXIS));
-        JButton saveDataButton = new JButton("Save data");
-        JButton loadDataButton = new JButton("Load data");
         JButton refreshButton = new JButton("Refresh");
-        JButton AddDataFromAnotherFileButton = new JButton("Add data from another file");
-        downPannel.add(saveDataButton);
-        downPannel.add(loadDataButton);
-        downPannel.add(AddDataFromAnotherFileButton);
+        refreshButton.addActionListener(new RefreshListener(out));
         downPannel.add(refreshButton);
 
         JPanel centralPannel = new JPanel();
@@ -120,8 +113,9 @@ public class MainFrame extends JFrame{
         JPanel buttonsRightPanel = new JPanel();
 
         JButton addStudentButton = new JButton("Add student");
-        addStudentButton.addActionListener(new AddButtonListener(studentsTable, out));
+        addStudentButton.addActionListener(new AddButtonListener(studentsTable, out, root.getGroupModelList()));
         JButton deleteStudentButton = new JButton("Delete student");
+        deleteStudentButton.addActionListener(new DeleteButtonListener(studentsTable, groupsTable, root.getStudentModelList(), root.getGroupModelList(), out));
         JButton editStudentButton = new JButton("Edit student");
         editStudentButton.addActionListener(new EdditionButtonListener(studentsTable, out));
         JButton searchStudForName = new JButton("Search student for name");
@@ -146,8 +140,9 @@ public class MainFrame extends JFrame{
         JPanel buttonsLeftPanel = new JPanel();
 
         JButton addGroupButton = new JButton("Add group");
-        addGroupButton.addActionListener(new AddButtonListener(groupsTable, out));
+        addGroupButton.addActionListener(new AddButtonListener(groupsTable, out, root.getGroupModelList()));
         JButton deleteGroupButton = new JButton("Delete group");
+        deleteGroupButton.addActionListener(new DeleteButtonListener(studentsTable, groupsTable, root.getStudentModelList(), root.getGroupModelList(), out));
         JButton editGroupButton = new JButton("Edit group");
         editGroupButton.addActionListener(new EdditionButtonListener(groupsTable, out));
         JButton searchGroupForName = new JButton("Search group for name");

@@ -33,6 +33,7 @@ public class Client implements Runnable {
     Thread t;
 
     public Client() throws IOException {
+        clientFile = new File("Client.xml");
         Socket client = new Socket(InetAddress.getLocalHost(),8080);
         in = new DataInputStream(client.getInputStream());
         out = new DataOutputStream(client.getOutputStream());
@@ -41,47 +42,58 @@ public class Client implements Runnable {
     }
 
     public void run(){
-        try {
-            String s = "";
             while (true) {
-                outClientFile = new BufferedWriter(new FileWriter(clientFile = new File("Client.xml")));
-                s = in.readUTF();
-                outClientFile.write(s);
-                outClientFile.flush();
-                DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-                Document document = documentBuilder.parse("Client.xml");
-                Node node = document.getDocumentElement();
-                if (Objects.equals(node.getNodeName(), "root")) {
+                try {
+                    String s = "";
+                    s = in.readUTF();
+                    outClientFile = new BufferedWriter(new FileWriter(clientFile));
+                    outClientFile.write(s);
+                    outClientFile.flush();
                     xmlParser();
+                } catch (ParserConfigurationException | IOException | SAXException e) {
+                    e.printStackTrace();
                 }
-                else{
-                    JOptionPane.showMessageDialog(mainFrame,node.getTextContent());
-                }
-                if (MainFrame.countOfFrames > 0) {
-                    mainFrame.setVisible(false);
-                }
-                mainFrame = new MainFrame(root, out);
-                mainFrame.setVisible(true);
             }
-
-        } catch (IOException | ParserConfigurationException | SAXException e) {
-            e.printStackTrace();
-        }
     }
 
-    public void xmlParser(){
-        try {
-            JAXBContext context = JAXBContext.newInstance(Root.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            this.root = (Root) unmarshaller.unmarshal(clientFile);
-            outClientFile.close();
+    public synchronized void xmlParser() throws ParserConfigurationException, IOException, SAXException {
 
+        DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document document = documentBuilder.parse(clientFile);
+        Node node = document.getDocumentElement();
 
-        } catch (JAXBException ex) {
-            Logger.getLogger(Root.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        } catch (IOException e) {
-            e.printStackTrace();
+        switch (node.getNodeName()){
+            case "root":{
+                try {
+                    JAXBContext context = JAXBContext.newInstance(Root.class);
+                    Unmarshaller unmarshaller = context.createUnmarshaller();
+                    this.root = (Root) unmarshaller.unmarshal(clientFile);
+                    outClientFile.close();
+                    if (MainFrame.countOfFrames > 0) {
+                        mainFrame.setVisible(false);
+                    }
+                    mainFrame = new MainFrame(root, out);
+                    mainFrame.setVisible(true);
+
+                } catch (JAXBException | IOException ex) {
+                    ex.printStackTrace();
+                }
+                break;
+            }
+
+            case "exception":{
+                JOptionPane.showMessageDialog(mainFrame,node.getTextContent());
+                break;
+            }
+
+            case "findedStudents":{
+                break;
+            }
+            case "findedGroups":{
+                break;
+            }
         }
+
+        outClientFile.close();
     }
 }

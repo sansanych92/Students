@@ -40,7 +40,7 @@ public class StudentController {
 
         studentList = new ArrayList<>();
         gropList = new ArrayList<>();
-        File file = new File("C:\\Users\\Arsenii\\Desktop\\Students\\Students_lab2\\src\\Server\\Storage.xml");
+        File file = new File("Students_lab2\\src\\Server\\Storage.xml");
         DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document document = documentBuilder.parse(file);
         Node root = document.getDocumentElement();
@@ -200,7 +200,7 @@ public class StudentController {
         }
 
         if (!exsistanceFlag) {
-            throw new GroupNotFoundException("Группа не найдена.");
+            throw new GroupNotFoundException("Cant find such group");
         }
     }
 
