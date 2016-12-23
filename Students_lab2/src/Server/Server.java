@@ -42,19 +42,17 @@ public class Server implements Runnable{
    private Root root;
    private int countOfItterations = 0;
 
-   public Server(Socket client) throws IOException, NoSuchFieldException, GroupNotFoundException, IdAlreadyExsistsException, ParserConfigurationException, SAXException, JAXBException {
+   public Server(Socket client, File storage, StudentController studentController, GroupController groupController, Root root) throws IOException, NoSuchFieldException, GroupNotFoundException, IdAlreadyExsistsException, ParserConfigurationException, SAXException, JAXBException {
 
        this.client = client;
-       storage = new File("C:\\Users\\Arsenii\\Desktop\\Students\\Students_lab2\\src\\Server\\Storage.xml");
+       this.storage = storage;
+       this.studentController = studentController;
+       this.groupController = groupController;
+       this.root = root;
        serverFile = new File("Server.xml");
        out = new DataOutputStream(client.getOutputStream());
        in = new DataInputStream(client.getInputStream());
-       studentController = new StudentController();
-       groupController = new GroupController(studentController.getGropList());
        t = new Thread(this);
-       root = new Root();
-       root.setGroupModelList(groupController.getArrayListOfModels());
-       root.setStudentModelList(studentController.getStudentList());
        t.start();
     }
 
@@ -193,7 +191,7 @@ public class Server implements Runnable{
 
     }
 
-    public void rootSender() throws IOException {
+    public synchronized void rootSender() throws IOException {
         String resp = "";
        String s = "";
         outServerWriter = new BufferedWriter(new FileWriter(serverFile));
