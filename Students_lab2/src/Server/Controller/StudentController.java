@@ -78,7 +78,7 @@ public class StudentController {
                             }
                             if (Objects.equals(studProps.item(k).getNodeName(), "dateOfEnrollment")){
                                 String [] date1 = studProps.item(k).getTextContent().split("[-]");
-                                date = new GregorianCalendar(Integer.parseInt(date1[0]), Integer.parseInt(date1[1]), Integer.parseInt(date1[2].substring(0,2)));
+                                date = new GregorianCalendar(Integer.parseInt(date1[0]), Integer.parseInt(date1[1])-1, Integer.parseInt(date1[2].substring(0,2)));
                             }
                         }
                         StudentModel newStud = new StudentModel(id,sur,name,patro,groupId,date);

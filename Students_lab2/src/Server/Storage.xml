@@ -121,6 +121,11 @@
             <nameOfFaculty>Заочного_обучения</nameOfFaculty>
             <numberOfGroup>9401</numberOfGroup>
         </group>
+        <group>
+            <idOfGroup>25</idOfGroup>
+            <nameOfFaculty>Faculty</nameOfFaculty>
+            <numberOfGroup>123</numberOfGroup>
+        </group>
     </groups>
     <students>
         <student>
