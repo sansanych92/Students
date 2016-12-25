@@ -12,11 +12,6 @@
             <numberOfGroup>6201</numberOfGroup>
         </group>
         <group>
-            <idOfGroup>3</idOfGroup>
-            <nameOfFaculty>Информатики</nameOfFaculty>
-            <numberOfGroup>6301</numberOfGroup>
-        </group>
-        <group>
             <idOfGroup>4</idOfGroup>
             <nameOfFaculty>Информатики</nameOfFaculty>
             <numberOfGroup>6401</numberOfGroup>
@@ -121,11 +116,6 @@
             <nameOfFaculty>Заочного_обучения</nameOfFaculty>
             <numberOfGroup>9401</numberOfGroup>
         </group>
-        <group>
-            <idOfGroup>25</idOfGroup>
-            <nameOfFaculty>Faculty</nameOfFaculty>
-            <numberOfGroup>123</numberOfGroup>
-        </group>
     </groups>
     <students>
         <student>
@@ -145,16 +135,8 @@
             <surname>Бирюков</surname>
         </student>
         <student>
-            <dateOfEnrollment>2015-08-14T00:00:00+04:00</dateOfEnrollment>
-            <groupId>3</groupId>
-            <id>3</id>
-            <name>Валентин</name>
-            <patronymic>Фролович</patronymic>
-            <surname>Никитин</surname>
-        </student>
-        <student>
             <dateOfEnrollment>2015-08-16T00:00:00+04:00</dateOfEnrollment>
-            <groupId>4</groupId>
+            <groupId>1</groupId>
             <id>4</id>
             <name>Гордей</name>
             <patronymic>Игоревич</patronymic>
@@ -170,7 +152,7 @@
         </student>
         <student>
             <dateOfEnrollment>2015-11-15T00:00:00+04:00</dateOfEnrollment>
-            <groupId>6</groupId>
+            <groupId>1</groupId>
             <id>6</id>
             <name>Тихон</name>
             <patronymic>Николаевич</patronymic>

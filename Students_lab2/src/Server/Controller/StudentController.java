@@ -176,10 +176,10 @@ public class StudentController {
      *
      * @param student
      */
-    public void setStudent(StudentModel student) throws GroupNotFoundException, IdNotFoundException {
+    public void setStudent(int id, StudentModel student) throws GroupNotFoundException, IdNotFoundException {
 
         checkGroupForExsistance(student.getGroupId());
-        StudentModel oldStud = getStudentById(student.getId());
+        StudentModel oldStud = getStudentById(id);
         studentList.set(studentList.indexOf(oldStud),student);
     }
 

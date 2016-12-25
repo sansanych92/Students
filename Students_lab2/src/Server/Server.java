@@ -149,6 +149,9 @@ public class Server implements Runnable{
                     }
                 }
                 String [] date1 = studData.item(4).getTextContent().split("[.]");
+                if (date1.length!=3){
+                    throw new ArrayIndexOutOfBoundsException();
+                }
                 int grId=groupController.getArrayListOfModels().stream().filter(groupModel -> groupModel.getNumberOfGroup()==Integer.parseInt(studData.item(3).getTextContent())).findFirst().get().getIdOfGroup();
                 Calendar date = new GregorianCalendar(Integer.parseInt(date1[0]), Integer.parseInt(date1[1])-1, Integer.parseInt(date1[2]));
                 StudentModel newStud = new StudentModel(++studId, studData.item(0).getTextContent(), studData.item(1).getTextContent(), studData.item(2).getTextContent(), grId, date);
@@ -161,8 +164,23 @@ public class Server implements Runnable{
                 break;
             }
             case "editGroup": {
+                NodeList groupData = root.getChildNodes();
+                GroupModel newGroup = new GroupModel(Integer.parseInt(groupData.item(0).getTextContent()), Integer.parseInt(groupData.item(1).getTextContent()), groupData.item(2).getTextContent());
+
+                groupController.setGroup(newGroup.getIdOfGroup(), newGroup);
+                break;
             }
             case "editStudent": {
+                NodeList studData = root.getChildNodes();
+                String [] date1 = studData.item(5).getTextContent().split("[.]");
+                if (date1.length!=3){
+                    throw new ArrayIndexOutOfBoundsException();
+                }
+                int grId=groupController.getArrayListOfModels().stream().filter(groupModel -> groupModel.getNumberOfGroup()==Integer.parseInt(studData.item(4).getTextContent())).findFirst().get().getIdOfGroup();
+                Calendar date = new GregorianCalendar(Integer.parseInt(date1[0]), Integer.parseInt(date1[1])-1, Integer.parseInt(date1[2]));
+                StudentModel newStud = new StudentModel(Integer.parseInt(studData.item(0).getTextContent()), studData.item(1).getTextContent(), studData.item(2).getTextContent(), studData.item(3).getTextContent(), grId, date);
+                studentController.setStudent(newStud.getId(), newStud);
+                break;
             }
             case "searchStudByName": {
             }
@@ -179,7 +197,6 @@ public class Server implements Runnable{
             case "searchGroupByFaculty": {
             }
             case "refresh": {
-                System.out.println("kkk");
                 break;
             }
         }

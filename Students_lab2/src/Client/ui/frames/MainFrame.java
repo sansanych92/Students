@@ -117,7 +117,7 @@ public class MainFrame extends JFrame{
         JButton deleteStudentButton = new JButton("Delete student");
         deleteStudentButton.addActionListener(new DeleteButtonListener(studentsTable, groupsTable, root.getStudentModelList(), root.getGroupModelList(), out));
         JButton editStudentButton = new JButton("Edit student");
-        editStudentButton.addActionListener(new EdditionButtonListener(studentsTable, out));
+        editStudentButton.addActionListener(new EdditionButtonListener(studentsTable, out, root.getStudentModelList(), root.getGroupModelList()));
         JButton searchStudForName = new JButton("Search student for name");
         searchStudForName.addActionListener(new SearchListener(out));
         JButton searchStudForSurname = new JButton("Search student for surname");
@@ -144,7 +144,7 @@ public class MainFrame extends JFrame{
         JButton deleteGroupButton = new JButton("Delete group");
         deleteGroupButton.addActionListener(new DeleteButtonListener(studentsTable, groupsTable, root.getStudentModelList(), root.getGroupModelList(), out));
         JButton editGroupButton = new JButton("Edit group");
-        editGroupButton.addActionListener(new EdditionButtonListener(groupsTable, out));
+        editGroupButton.addActionListener(new EdditionButtonListener(groupsTable, out, root.getStudentModelList(), root.getGroupModelList()));
         JButton searchGroupForName = new JButton("Search group for name");
         searchGroupForName.addActionListener(new SearchListener(out));
         JButton searchGroupForSurname = new JButton("Search group for surname");

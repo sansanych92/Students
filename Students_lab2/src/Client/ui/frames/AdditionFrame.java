@@ -21,14 +21,11 @@ public class AdditionFrame extends JFrame {
     public JComboBox text4;
     public JTextField text5;
     JButton okButton;
-    DataOutputStream out;
-    List groupList;
     final int MY_FRAME_CONSTANT = 1;
 
     public AdditionFrame(JTable table, List<GroupModel> groupList, DataOutputStream out){
 
         super();
-        this.out = out;
         okButton = new JButton("OK");
         okButton.addActionListener(new OkButtonListener(this, out));
         JPanel panel = new JPanel();
