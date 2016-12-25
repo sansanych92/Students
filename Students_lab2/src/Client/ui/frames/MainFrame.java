@@ -43,7 +43,14 @@ public class MainFrame extends JFrame{
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        DefaultTableModel dm = new DefaultTableModel();
+        DefaultTableModel dm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int arg0, int arg1) {
+                return arg1 >= 5;
+            }
+        };
+
+
         Object [][] students = new Object[root.getStudentModelList().size()][6];
 
         for (int i = 0; i <root.getStudentModelList().size(); i++) {
@@ -58,6 +65,7 @@ public class MainFrame extends JFrame{
 
         }
         dm.setDataVector(students, new Object[]{"Surname", "Name", "Patronymic", "Group", "date of environment", "Choice"});
+
 
         studentsTable = new JTable(dm){
 
@@ -78,7 +86,12 @@ public class MainFrame extends JFrame{
 
         JScrollPane pane = new JScrollPane(studentsTable);
 
-        DefaultTableModel dm1 = new DefaultTableModel();
+        DefaultTableModel dm1 = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int arg0, int arg1) {
+                return arg1 >= 2;
+            }
+        };
         Object [][] groups = new Object[root.getGroupModelList().size()][3];
         for (int i = 0; i <root.getGroupModelList().size(); i++) {
 
@@ -110,7 +123,7 @@ public class MainFrame extends JFrame{
         centralPannel.add(pane);
         centralPannel.add(pane1);
 
-        JPanel buttonsRightPanel = new JPanel();
+        JPanel buttonsLeftPanel = new JPanel();
 
         JButton addStudentButton = new JButton("Add student");
         addStudentButton.addActionListener(new AddButtonListener(studentsTable, out, root.getGroupModelList()));
@@ -127,17 +140,17 @@ public class MainFrame extends JFrame{
         JButton searchStudForDate = new JButton("Search student for date of environment");
         searchStudForDate.addActionListener(new SearchListener(out));
 
-        buttonsRightPanel.setLayout(new BoxLayout(buttonsRightPanel, BoxLayout.Y_AXIS));
+        buttonsLeftPanel.setLayout(new GridLayout(15,1));
 
-        buttonsRightPanel.add(addStudentButton);
-        buttonsRightPanel.add(deleteStudentButton);
-        buttonsRightPanel.add(editStudentButton);
-        buttonsRightPanel.add(searchStudForName);
-        buttonsRightPanel.add(searchStudForSurname);
-        buttonsRightPanel.add(searchStudForpatro);
-        buttonsRightPanel.add(searchStudForDate);
+        buttonsLeftPanel.add(addStudentButton);
+        buttonsLeftPanel.add(deleteStudentButton);
+        buttonsLeftPanel.add(editStudentButton);
+        buttonsLeftPanel.add(searchStudForName);
+        buttonsLeftPanel.add(searchStudForSurname);
+        buttonsLeftPanel.add(searchStudForpatro);
+        buttonsLeftPanel.add(searchStudForDate);
 
-        JPanel buttonsLeftPanel = new JPanel();
+        JPanel buttonsRightPanel = new JPanel();
 
         JButton addGroupButton = new JButton("Add group");
         addGroupButton.addActionListener(new AddButtonListener(groupsTable, out, root.getGroupModelList()));
@@ -147,26 +160,19 @@ public class MainFrame extends JFrame{
         editGroupButton.addActionListener(new EdditionButtonListener(groupsTable, out, root.getStudentModelList(), root.getGroupModelList()));
         JButton searchGroupForName = new JButton("Search group for name");
         searchGroupForName.addActionListener(new SearchListener(out));
-        JButton searchGroupForSurname = new JButton("Search group for surname");
+        JButton searchGroupForSurname = new JButton("Search group for faculty");
         searchGroupForSurname.addActionListener(new SearchListener(out));
-        JButton searchGroupForpatro = new JButton("Search group for patronymic");
-        searchGroupForpatro.addActionListener(new SearchListener(out));
-        JButton searchGroupForDate = new JButton("Search group for date of environment");
-        searchGroupForDate.addActionListener(new SearchListener(out));
+        buttonsRightPanel.setLayout(new GridLayout(15,1));
 
-        buttonsLeftPanel.setLayout(new BoxLayout(buttonsLeftPanel, BoxLayout.Y_AXIS));
-
-        buttonsLeftPanel.add(addGroupButton);
-        buttonsLeftPanel.add(deleteGroupButton);
-        buttonsLeftPanel.add(editGroupButton);
-        buttonsLeftPanel.add(searchGroupForName);
-        buttonsLeftPanel.add(searchGroupForSurname);
-        buttonsLeftPanel.add(searchGroupForpatro);
-        buttonsLeftPanel.add(searchGroupForDate);
+        buttonsRightPanel.add(addGroupButton);
+        buttonsRightPanel.add(deleteGroupButton);
+        buttonsRightPanel.add(editGroupButton);
+        buttonsRightPanel.add(searchGroupForName);
+        buttonsRightPanel.add(searchGroupForSurname);
 
         getContentPane().add(centralPannel, BorderLayout.CENTER);
-        getContentPane().add(buttonsRightPanel, BorderLayout.WEST);
-        getContentPane().add(buttonsLeftPanel, BorderLayout.EAST);
+        getContentPane().add(buttonsRightPanel, BorderLayout.EAST);
+        getContentPane().add(buttonsLeftPanel, BorderLayout.WEST);
         getContentPane().add(downPannel, BorderLayout.SOUTH);
 
         groupsTable.getColumnModel().getColumn(0).setMaxWidth(45);
