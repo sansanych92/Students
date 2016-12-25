@@ -92,6 +92,7 @@ public class MainFrame extends JFrame{
                 return arg1 >= 2;
             }
         };
+
         Object [][] groups = new Object[root.getGroupModelList().size()][3];
         for (int i = 0; i <root.getGroupModelList().size(); i++) {
 
