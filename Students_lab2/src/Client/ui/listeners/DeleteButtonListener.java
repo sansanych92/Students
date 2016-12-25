@@ -10,21 +10,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Created by Arsenii on 18.12.2016.
+ *@author Arsenii
  */
 public class DeleteButtonListener implements ActionListener {
 
-    JTable students;
-    JTable groups;
-    List<StudentModel> studList;
-    List<GroupModel> groupList;
-    DataOutputStream out;
+    private JTable students;
+    private JTable groups;
+    private List<StudentModel> studList;
+    private List<GroupModel> groupList;
+    private DataOutputStream out;
 
     public DeleteButtonListener(JTable students, JTable groups, List<StudentModel> studList, List<GroupModel> groupList, DataOutputStream out){
         this.studList = studList;
@@ -39,12 +37,12 @@ public class DeleteButtonListener implements ActionListener {
         JButton button = (JButton) e.getSource();
         if (Objects.equals(button.getText(), "Delete student")) {
 
-            if (EditingCellsStudent.row!=-1&&EditingCellsStudent.col!=-1){
+            if (EditingCellsStudent.getRow()!=-1&&EditingCellsStudent.getCol()!=-1){
 
-                String sur = (String) students.getValueAt(EditingCellsStudent.row, 0);
-                String name = (String) students.getValueAt(EditingCellsStudent.row, 1);
-                String patro = (String) students.getValueAt(EditingCellsStudent.row, 2);
-                int numberOfGroup = (int) students.getValueAt(EditingCellsStudent.row, 3);
+                String sur = (String) students.getValueAt(EditingCellsStudent.getRow(), 0);
+                String name = (String) students.getValueAt(EditingCellsStudent.getRow(), 1);
+                String patro = (String) students.getValueAt(EditingCellsStudent.getRow(), 2);
+                int numberOfGroup = (int) students.getValueAt(EditingCellsStudent.getRow(), 3);
 
                 int idNeedToDelete = studList.stream().filter(studentModel -> Objects.equals(studentModel.getName(), name) && Objects.equals(studentModel.getSurname(), sur) && Objects.equals(studentModel.getPatronymic(), patro)&&studentModel.getGroupId()==groupList.stream().filter(groupModel -> groupModel.getNumberOfGroup()==numberOfGroup).findFirst().get().getIdOfGroup()).findFirst().get().getId();
 
@@ -59,9 +57,9 @@ public class DeleteButtonListener implements ActionListener {
 
         if (Objects.equals(button.getText(), "Delete group")) {
 
-            if (EditingCellsGroup.row!=-1&&EditingCellsGroup.col!=-1){
-                int name = (int) groups.getValueAt(EditingCellsGroup.row, 0);
-                String faculty = (String) groups.getValueAt(EditingCellsGroup.row, 1);
+            if (EditingCellsGroup.getRow()!=-1&&EditingCellsGroup.getCol()!=-1){
+                int name = (int) groups.getValueAt(EditingCellsGroup.getRow(), 0);
+                String faculty = (String) groups.getValueAt(EditingCellsGroup.getRow(), 1);
                 int idNeedToDelete = groupList.stream().filter(groupModel -> groupModel.getNumberOfGroup()==name && Objects.equals(groupModel.getNameOfFaculty(), faculty)).findFirst().get().getIdOfGroup();
                 try {
                     out.writeUTF("<deleteGroup>"+idNeedToDelete+"</deleteGroup>");

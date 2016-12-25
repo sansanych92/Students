@@ -15,35 +15,20 @@ import java.io.DataOutputStream;
 import java.util.Calendar;
 
 /**
- * Created by Arsenii on 18.12.2016.
+ *@author Arsenii
  */
 public class MainFrame extends JFrame{
 
-    public JTable studentsTable;
-    public JTable groupsTable;
-    public Root root;
-    public DataOutputStream out;
-    public static int countOfFrames = 0;
+    private JTable groupsTable;
+    private static int countOfFrames = 0;
 
 
     public MainFrame(Root root, DataOutputStream out){
 
         super("ASO University");
         countOfFrames++;
-        this.out = out;
-        this.root = root;
-        JPanel downPannel = new JPanel();
-        downPannel.setLayout(new BoxLayout(downPannel, BoxLayout.X_AXIS));
-        JButton refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(new RefreshListener(out));
-        downPannel.add(refreshButton);
 
-        JPanel centralPannel = new JPanel();
-        centralPannel.setLayout(new BoxLayout(centralPannel, BoxLayout.X_AXIS));
-
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        DefaultTableModel dm = new DefaultTableModel(){
+        DefaultTableModel studentsDm = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int arg0, int arg1) {
                 return arg1 >= 5;
@@ -62,69 +47,32 @@ public class MainFrame extends JFrame{
             students[i][3] = root.getGroupModelList().stream().filter(groupModel -> groupModel.getIdOfGroup()==root.getStudentModelList().get(j).getGroupId()).findFirst().get().getNumberOfGroup();
             students[i][4] = root.getStudentModelList().get(i).getDateOfEnrollment().get(Calendar.YEAR)+"."+(root.getStudentModelList().get(i).getDateOfEnrollment().get(Calendar.MONTH)+1)+"."+root.getStudentModelList().get(i).getDateOfEnrollment().get(Calendar.DAY_OF_MONTH);
             students[i][5] = new JRadioButton();
-
         }
-        dm.setDataVector(students, new Object[]{"Surname", "Name", "Patronymic", "Group", "date of environment", "Choice"});
 
+        studentsDm.setDataVector(students, new Object[]{"Surname", "Name", "Patronymic", "Group", "date of environment", "Choice"});
 
-        studentsTable = new JTable(dm){
+        JTable studentsTable = new JTable(studentsDm) {
 
-            public void tableChanged(TableModelEvent e){
+            public void tableChanged(TableModelEvent e) {
                 super.tableChanged(e);
                 repaint();
             }
         };
 
-        ButtonGroup bg = new ButtonGroup();
+        ButtonGroup studentsBg = new ButtonGroup();
         for (int i = 0; i <root.getStudentModelList().size(); i++) {
 
-            bg.add((JRadioButton)dm.getValueAt(i,5));
+            studentsBg.add((JRadioButton)studentsDm.getValueAt(i,5));
         }
 
         studentsTable.getColumn("Choice").setCellRenderer(new StudentRenderer());
         studentsTable.getColumn("Choice").setCellEditor(new StudentCellEditor(new JCheckBox(), studentsTable));
 
-        JScrollPane pane = new JScrollPane(studentsTable);
+        JScrollPane studentsScrollPane = new JScrollPane(studentsTable);
 
-        DefaultTableModel dm1 = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int arg0, int arg1) {
-                return arg1 >= 2;
-            }
-        };
-
-        Object [][] groups = new Object[root.getGroupModelList().size()][3];
-        for (int i = 0; i <root.getGroupModelList().size(); i++) {
-
-            groups[i][0] = root.getGroupModelList().get(i).getNumberOfGroup();
-            groups[i][1] = root.getGroupModelList().get(i).getNameOfFaculty();
-            groups[i][2] = new JRadioButton();
-
-        }
-        dm1.setDataVector(groups, new Object[]{"Name", "Faculty", "Choice"});
-
-        groupsTable = new JTable(dm1){
-
-            public void tableChanged(TableModelEvent e){
-                super.tableChanged(e);
-                repaint();
-            }
-        };
-
-        ButtonGroup bg1 = new ButtonGroup();
-        for (int i = 0; i <root.getGroupModelList().size(); i++) {
-
-            bg1.add((JRadioButton)dm1.getValueAt(i,2));
-        }
-        groupsTable.getColumn("Choice").setCellRenderer(new GroupRenderer());
-        groupsTable.getColumn("Choice").setCellEditor(new GrouptCellEditor(new JCheckBox(), groupsTable));
-
-        JScrollPane pane1 = new JScrollPane(groupsTable);
-
-        centralPannel.add(pane);
-        centralPannel.add(pane1);
-
-        JPanel buttonsLeftPanel = new JPanel();
+        studentsTable.getColumnModel().getColumn(3).setMaxWidth(45);
+        studentsTable.getColumnModel().getColumn(5).setMaxWidth(55);
+        studentsTable.getColumnModel().getColumn(4).setMaxWidth(65);
 
         JButton addStudentButton = new JButton("Add student");
         addStudentButton.addActionListener(new AddButtonListener(studentsTable, out, root.getGroupModelList()));
@@ -141,8 +89,8 @@ public class MainFrame extends JFrame{
         JButton searchStudForDate = new JButton("Search student for date of environment");
         searchStudForDate.addActionListener(new SearchListener(out));
 
+        JPanel buttonsLeftPanel = new JPanel();
         buttonsLeftPanel.setLayout(new GridLayout(15,1));
-
         buttonsLeftPanel.add(addStudentButton);
         buttonsLeftPanel.add(deleteStudentButton);
         buttonsLeftPanel.add(editStudentButton);
@@ -151,7 +99,43 @@ public class MainFrame extends JFrame{
         buttonsLeftPanel.add(searchStudForpatro);
         buttonsLeftPanel.add(searchStudForDate);
 
-        JPanel buttonsRightPanel = new JPanel();
+        DefaultTableModel groupsDm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int arg0, int arg1) {
+                return arg1 >= 2;
+            }
+        };
+
+        Object [][] groups = new Object[root.getGroupModelList().size()][3];
+        for (int i = 0; i <root.getGroupModelList().size(); i++) {
+
+            groups[i][0] = root.getGroupModelList().get(i).getNumberOfGroup();
+            groups[i][1] = root.getGroupModelList().get(i).getNameOfFaculty();
+            groups[i][2] = new JRadioButton();
+        }
+        groupsDm.setDataVector(groups, new Object[]{"Name", "Faculty", "Choice"});
+
+        groupsTable = new JTable(groupsDm){
+
+            public void tableChanged(TableModelEvent e){
+                super.tableChanged(e);
+                repaint();
+            }
+        };
+
+        ButtonGroup groupsBg = new ButtonGroup();
+        for (int i = 0; i <root.getGroupModelList().size(); i++) {
+
+            groupsBg.add((JRadioButton)groupsDm.getValueAt(i,2));
+        }
+
+        groupsTable.getColumn("Choice").setCellRenderer(new GroupRenderer());
+        groupsTable.getColumn("Choice").setCellEditor(new GrouptCellEditor(new JCheckBox(), groupsTable));
+
+        groupsTable.getColumnModel().getColumn(0).setMaxWidth(45);
+        groupsTable.getColumnModel().getColumn(2).setMaxWidth(55);
+
+        JScrollPane groupsScrollPane = new JScrollPane(groupsTable);
 
         JButton addGroupButton = new JButton("Add group");
         addGroupButton.addActionListener(new AddButtonListener(groupsTable, out, root.getGroupModelList()));
@@ -163,28 +147,39 @@ public class MainFrame extends JFrame{
         searchGroupForName.addActionListener(new SearchListener(out));
         JButton searchGroupForSurname = new JButton("Search group for faculty");
         searchGroupForSurname.addActionListener(new SearchListener(out));
-        buttonsRightPanel.setLayout(new GridLayout(15,1));
 
+        JPanel buttonsRightPanel = new JPanel();
+        buttonsRightPanel.setLayout(new GridLayout(15,1));
         buttonsRightPanel.add(addGroupButton);
         buttonsRightPanel.add(deleteGroupButton);
         buttonsRightPanel.add(editGroupButton);
         buttonsRightPanel.add(searchGroupForName);
         buttonsRightPanel.add(searchGroupForSurname);
 
+        JPanel downPannel = new JPanel();
+        downPannel.setLayout(new BoxLayout(downPannel, BoxLayout.X_AXIS));
+
+        JButton refreshButton = new JButton("Refresh");
+        refreshButton.addActionListener(new RefreshListener(out));
+        downPannel.add(refreshButton);
+
+        JPanel centralPannel = new JPanel();
+        centralPannel.setLayout(new BoxLayout(centralPannel, BoxLayout.X_AXIS));
+        centralPannel.add(studentsScrollPane);
+        centralPannel.add(groupsScrollPane);
+
         getContentPane().add(centralPannel, BorderLayout.CENTER);
         getContentPane().add(buttonsRightPanel, BorderLayout.EAST);
         getContentPane().add(buttonsLeftPanel, BorderLayout.WEST);
         getContentPane().add(downPannel, BorderLayout.SOUTH);
 
-        groupsTable.getColumnModel().getColumn(0).setMaxWidth(45);
-        groupsTable.getColumnModel().getColumn(2).setMaxWidth(55);
-
-        studentsTable.getColumnModel().getColumn(3).setMaxWidth(45);
-        studentsTable.getColumnModel().getColumn(5).setMaxWidth(55);
-        studentsTable.getColumnModel().getColumn(4).setMaxWidth(65);
-
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
 
         setSize(sSize.width,500);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+    }
+
+    public static int getCountOfFrames() {
+        return countOfFrames;
     }
 }

@@ -1,9 +1,26 @@
 package Client.ui.frames;
 
 /**
- * Created by Arsenii on 18.12.2016.
+ *@author Arsenii
  */
 public class EditingCellsStudent {
-    public static volatile int row = -1;
-    public static volatile int col = -1;
+
+    private static volatile int row = -1;
+    private static volatile int col = -1;
+
+    public static int getRow() {
+        return row;
+    }
+
+    public static void setRow(int row) {
+        EditingCellsStudent.row = row;
+    }
+
+    public static int getCol() {
+        return col;
+    }
+
+    public static void setCol(int col) {
+        EditingCellsStudent.col = col;
+    }
 }

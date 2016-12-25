@@ -9,19 +9,18 @@ import Server.Model.StudentModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.List;
 
 /**
- * Created by Arsenii on 18.12.2016.
+ *@author Arsenii
  */
 public class EdditionButtonListener implements ActionListener {
 
-    JTable table;
-    DataOutputStream out;
-    List<StudentModel> studList;
-    List<GroupModel> groupList;
+    private JTable table;
+    private DataOutputStream out;
+    private List<StudentModel> studList;
+    private List<GroupModel> groupList;
 
     public EdditionButtonListener(JTable table, DataOutputStream out, List<StudentModel> studList, List<GroupModel> groupList){
         this.table = table;
@@ -33,9 +32,9 @@ public class EdditionButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (table.getColumnCount()>3) {
-            new EdditionFrame(table, EditingCellsStudent.row, studList, groupList, out);
+            new EdditionFrame(table, EditingCellsStudent.getRow(), studList, groupList, out);
         } else{
-            new EdditionFrame(table, EditingCellsGroup.row, studList, groupList, out);
+            new EdditionFrame(table, EditingCellsGroup.getRow(), studList, groupList, out);
         }
     }
 }

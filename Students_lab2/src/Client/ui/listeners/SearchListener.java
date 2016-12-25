@@ -6,15 +6,14 @@ import Client.ui.frames.SearchFrame;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 /**
- * Created by Arsenii on 18.12.2016.
+ *@author Arsenii
  */
 public class SearchListener implements ActionListener {
 
-    DataOutputStream out;
+    private DataOutputStream out;
 
     public SearchListener(DataOutputStream out){
         this.out = out;

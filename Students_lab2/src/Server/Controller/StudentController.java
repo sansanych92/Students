@@ -1,32 +1,25 @@
 package Server.Controller;
 
+import Server.Exceptions.DateFormatException;
 import Server.Exceptions.GroupNotFoundException;
 import Server.Exceptions.IdAlreadyExsistsException;
 import Server.Exceptions.IdNotFoundException;
 import Server.Model.GroupModel;
-import Server.Model.Root;
 import Server.Model.StudentModel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by artur_v on 04.12.16.
+ *@author artur_v
  */
 public class StudentController {
 
@@ -121,10 +114,6 @@ public class StudentController {
         return gropList;
     }
 
-    public void setGropList(List<GroupModel> gropList) {
-        this.gropList = gropList;
-    }
-
     /**
      *
      * @param id
@@ -181,65 +170,6 @@ public class StudentController {
         checkGroupForExsistance(student.getGroupId());
         StudentModel oldStud = getStudentById(id);
         studentList.set(studentList.indexOf(oldStud),student);
-    }
-
-    /**
-     *
-     * @param groupId
-     * @throws GroupNotFoundException
-     */
-    private void checkGroupForExsistance(int groupId) throws GroupNotFoundException{
-
-        boolean exsistanceFlag = false;
-
-        for (GroupModel group : gropList) {
-            if (groupId == group.getIdOfGroup()) {
-                exsistanceFlag = true;
-
-            }
-        }
-
-        if (!exsistanceFlag) {
-            throw new GroupNotFoundException("Cant find such group");
-        }
-    }
-
-    /**
-     *
-     * @param studId
-     * @throws IdNotFoundException
-     */
-    public void checkStudentForExsistance(int studId) throws IdNotFoundException{
-
-        boolean exsistanceFlag = false;
-        for (StudentModel student:studentList) {
-            if (studId == student.getId()){
-                exsistanceFlag = true;
-            }
-        }
-
-        if (!exsistanceFlag) {
-            throw new IdNotFoundException("Не существует студента с таким id. "+studId);
-        }
-    }
-
-    /**
-     *
-     * @param studId
-     * @throws IdAlreadyExsistsException
-     */
-    private void checkIdForExsistance(int studId) throws IdAlreadyExsistsException{
-
-        boolean exsistanceFlag = false;
-        for (StudentModel student:studentList) {
-            if (studId == student.getId()){
-                exsistanceFlag = true;
-            }
-        }
-
-        if (exsistanceFlag) {
-            throw new IdAlreadyExsistsException("Студент с таким id уже существует. "+studId);
-        }
     }
 
     /**
@@ -377,5 +307,88 @@ public class StudentController {
             }
         }
         return findedStudents;
+    }
+
+    /**
+     *
+     * @param groupId
+     * @throws GroupNotFoundException
+     */
+    private void checkGroupForExsistance(int groupId) throws GroupNotFoundException{
+
+        boolean exsistanceFlag = false;
+
+        for (GroupModel group : gropList) {
+            if (groupId == group.getIdOfGroup()) {
+                exsistanceFlag = true;
+
+            }
+        }
+
+        if (!exsistanceFlag) {
+            throw new GroupNotFoundException("Cant find such group");
+        }
+    }
+
+    /**
+     *
+     * @param studId
+     * @throws IdNotFoundException
+     */
+    private void checkStudentForExsistance(int studId) throws IdNotFoundException{
+
+        boolean exsistanceFlag = false;
+        for (StudentModel student:studentList) {
+            if (studId == student.getId()){
+                exsistanceFlag = true;
+            }
+        }
+
+        if (!exsistanceFlag) {
+            throw new IdNotFoundException("Не существует студента с таким id. "+studId);
+        }
+    }
+
+    /**
+     *
+     * @param studId
+     * @throws IdAlreadyExsistsException
+     */
+    private void checkIdForExsistance(int studId) throws IdAlreadyExsistsException{
+
+        boolean exsistanceFlag = false;
+        for (StudentModel student:studentList) {
+            if (studId == student.getId()){
+                exsistanceFlag = true;
+            }
+        }
+
+        if (exsistanceFlag) {
+            throw new IdAlreadyExsistsException("Студент с таким id уже существует. "+studId);
+        }
+    }
+
+    public void dateChecker(String [] date) throws DateFormatException {
+
+        DateFormatException exc = new DateFormatException("Wrong date format!");
+        int year;
+        int month;
+        int day;
+
+        if (date.length!=3){
+            throw exc;
+        }
+
+        try{
+            year = Integer.parseInt(date[0]);
+            month = Integer.parseInt(date[1]);
+            day = Integer.parseInt(date[2]);
+        } catch (NumberFormatException e){
+            throw exc;
+        }
+
+        if ((year<2000)||(year>2016)){
+            throw exc;
+        }
     }
 }

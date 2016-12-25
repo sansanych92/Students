@@ -2,17 +2,13 @@ package Server.Controller;
 
 import Server.Exceptions.*;
 import Server.Model.GroupModel;
-import Server.Model.Root;
-import Server.Model.StudentModel;
-
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by artur_v on 04.12.16.
+ *@author artur_v
  */
 public class GroupController {
 
@@ -27,7 +23,7 @@ public class GroupController {
         return groupList;
     }
 
-    public GroupModel getGroupById(int idOfGroup) throws IdNotFoundException {
+    private GroupModel getGroupById(int idOfGroup) throws IdNotFoundException {
         GroupModel groupModel = new GroupModel();
 
         checkGroupIdForMissError(idOfGroup);
@@ -59,7 +55,7 @@ public class GroupController {
         groupList.set(groupList.indexOf(oldGroup), group);
     }
 
-    public void checkGroupIdForMissError(int idOfGroup) throws IdNotFoundException {
+    private void checkGroupIdForMissError(int idOfGroup) throws IdNotFoundException {
 
         boolean exsistanceFlag = false;
         for (GroupModel groupModel : groupList) {
@@ -73,7 +69,7 @@ public class GroupController {
         }
     }
 
-    public void checkGroupIdForPresenceError(int idOfGroup) throws IdAlreadyExsistsException {
+    private void checkGroupIdForPresenceError(int idOfGroup) throws IdAlreadyExsistsException {
         boolean exsistanceFlag = false;
         for (GroupModel groupModel : groupList) {
             if (idOfGroup == groupModel.getIdOfGroup()) {

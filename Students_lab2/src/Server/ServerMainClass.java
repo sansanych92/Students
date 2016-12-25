@@ -6,7 +6,6 @@ import Server.Exceptions.GroupNotFoundException;
 import Server.Exceptions.IdAlreadyExsistsException;
 import Server.Model.Root;
 import org.xml.sax.SAXException;
-
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
@@ -15,7 +14,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Created by artur_v on 04.12.16.
+ *@author artur_v
  */
 public class ServerMainClass {
     public static void main(String [] args) throws IOException, ParserConfigurationException, SAXException, JAXBException, GroupNotFoundException, IdAlreadyExsistsException {
@@ -32,8 +31,6 @@ public class ServerMainClass {
                 try {
                     new Server(socket, storage, studentController, groupController, root);
                 } catch (IOException e) {
-                    // Если завершится неудачей, закрывается сокет,
-                    // в противном случае, нить закроет его:
                     s.close();
                 } catch (IdAlreadyExsistsException | GroupNotFoundException | NoSuchFieldException e) {
                     e.printStackTrace();

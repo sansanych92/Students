@@ -5,12 +5,12 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 /**
- * Created by Arsenii on 18.12.2016.
+ *@author Arsenii
  */
 public class MyFocusListener implements FocusListener{
 
-    JTextField field;
-    String buffStr;
+    private JTextField field;
+    private String buffStr;
 
     public MyFocusListener(JTextField field){
         this.field = field;

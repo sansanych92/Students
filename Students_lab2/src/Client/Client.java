@@ -1,12 +1,10 @@
 package Client;
 
+import Client.ui.frames.ExceptionFrame;
 import Client.ui.frames.MainFrame;
-import Client.Root;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
-
-import javax.swing.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -16,20 +14,16 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * Created by artur_v on 04.12.16.
+ *@author artur_v
  */
 public class Client implements Runnable {
-    MainFrame mainFrame;
-    File clientFile;
+    private MainFrame mainFrame;
+    private File clientFile;
     private BufferedWriter outClientFile;
     private DataInputStream in;
     private DataOutputStream out;
-    Root root;
     Thread t;
 
     public Client() throws IOException {
@@ -42,10 +36,10 @@ public class Client implements Runnable {
     }
 
     public void run(){
+
             while (true) {
                 try {
-                    String s = "";
-                    s = in.readUTF();
+                    String s = in.readUTF();
                     outClientFile = new BufferedWriter(new FileWriter(clientFile));
                     outClientFile.write(s);
                     outClientFile.flush();
@@ -56,7 +50,7 @@ public class Client implements Runnable {
             }
     }
 
-    public synchronized void xmlParser() throws ParserConfigurationException, IOException, SAXException {
+    private synchronized void xmlParser() throws ParserConfigurationException, IOException, SAXException {
 
         DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document document = documentBuilder.parse(clientFile);
@@ -67,9 +61,9 @@ public class Client implements Runnable {
                 try {
                     JAXBContext context = JAXBContext.newInstance(Root.class);
                     Unmarshaller unmarshaller = context.createUnmarshaller();
-                    this.root = (Root) unmarshaller.unmarshal(clientFile);
+                    Root root = (Root) unmarshaller.unmarshal(clientFile);
                     outClientFile.close();
-                    if (MainFrame.countOfFrames > 0) {
+                    if (MainFrame.getCountOfFrames() > 0) {
                         mainFrame.setVisible(false);
                     }
                     mainFrame = new MainFrame(root, out);
@@ -82,7 +76,7 @@ public class Client implements Runnable {
             }
 
             case "exception":{
-                JOptionPane.showMessageDialog(mainFrame,node.getTextContent());
+                new ExceptionFrame(node.getTextContent());
                 break;
             }
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Arsenii on 15.12.2016.
+ *@author Arsenii
  */
 @XmlRootElement(name = "root")
 public class Root implements Serializable{

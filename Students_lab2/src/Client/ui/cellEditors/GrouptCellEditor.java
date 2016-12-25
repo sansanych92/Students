@@ -9,12 +9,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 /**
- * Created by Arsenii on 18.12.2016.
+ *@author Arsenii
  */
 public class GrouptCellEditor extends DefaultCellEditor implements ItemListener {
 
-    JRadioButton radio;
-    JTable table;
+    private JRadioButton radio;
+    private JTable table;
 
     public GrouptCellEditor(JCheckBox checkBox, JTable table) {
 
@@ -40,8 +40,8 @@ public class GrouptCellEditor extends DefaultCellEditor implements ItemListener 
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        EditingCellsGroup.row = table.getEditingRow();
-        EditingCellsGroup.col = table.getEditingColumn();
+        EditingCellsGroup.setRow(table.getEditingRow());
+        EditingCellsGroup.setCol(table.getEditingColumn());
         super.fireEditingStopped();
     }
 }

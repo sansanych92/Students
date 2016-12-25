@@ -10,8 +10,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -19,28 +17,24 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
- * Created by artur_v on 04.12.16.
+ *@author artur_v
  */
 public class Server implements Runnable{
 
-   private BufferedReader inFile;
     private DataInputStream in;
     private DataOutputStream out;
     private BufferedWriter outServerWriter;
-   private Thread t;
-   private Socket client;
-   private StudentController studentController;
-   private GroupController groupController;
-   private File serverFile;
-   private File storage;
-   private Root root;
-   private int countOfItterations = 0;
+    private Socket client;
+    private StudentController studentController;
+    private GroupController groupController;
+    private File serverFile;
+    private File storage;
+    private Root root;
+    private int countOfItterations = 0;
 
    public Server(Socket client, File storage, StudentController studentController, GroupController groupController, Root root) throws IOException, NoSuchFieldException, GroupNotFoundException, IdAlreadyExsistsException, ParserConfigurationException, SAXException, JAXBException {
 
@@ -52,7 +46,7 @@ public class Server implements Runnable{
        serverFile = new File("Server.xml");
        out = new DataOutputStream(client.getOutputStream());
        in = new DataInputStream(client.getInputStream());
-       t = new Thread(this);
+       Thread t = new Thread(this);
        t.start();
     }
 
@@ -68,11 +62,8 @@ public class Server implements Runnable{
                     } catch (NumberFormatException e) {
                         out.writeUTF("<exception>"+"error with data-"+e.getMessage()+"</exception>");
                         out.flush();
-                    } catch (IdAlreadyExsistsException | GroupNotFoundException e) {
+                    } catch (IdAlreadyExsistsException | GroupNotFoundException | DateFormatException e) {
                         out.writeUTF("<exception>"+e.getMessage()+"</exception>");
-                        out.flush();
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        out.writeUTF("<exception>"+"date format error"+"</exception>");
                         out.flush();
                     } catch (NoSuchElementException e){
                         out.writeUTF("<exception>"+"cant find such group"+"</exception>");
@@ -97,10 +88,10 @@ public class Server implements Runnable{
 
     }
 
-    private synchronized void serverHandler() throws ParserConfigurationException, IOException, SAXException, JAXBException, IdAlreadyExsistsException, GroupNotFoundException, IdNotFoundException {
+    private synchronized void serverHandler() throws ParserConfigurationException, IOException, SAXException, JAXBException, IdAlreadyExsistsException, GroupNotFoundException, IdNotFoundException, DateFormatException {
 
         outServerWriter = new BufferedWriter(new FileWriter(serverFile));
-        String req = "";
+        String req;
         req = in.readUTF();
         outServerWriter.write(req);
         outServerWriter.flush();
@@ -149,6 +140,7 @@ public class Server implements Runnable{
                     }
                 }
                 String [] date1 = studData.item(4).getTextContent().split("[.]");
+                studentController.dateChecker(date1);
                 if (date1.length!=3){
                     throw new ArrayIndexOutOfBoundsException();
                 }
@@ -173,6 +165,7 @@ public class Server implements Runnable{
             case "editStudent": {
                 NodeList studData = root.getChildNodes();
                 String [] date1 = studData.item(5).getTextContent().split("[.]");
+                studentController.dateChecker(date1);
                 if (date1.length!=3){
                     throw new ArrayIndexOutOfBoundsException();
                 }
@@ -200,25 +193,23 @@ public class Server implements Runnable{
                 break;
             }
         }
+    }
+
+    private synchronized void rootSender() throws IOException, JAXBException {
+        String resp = "";
+        String s;
+        BufferedReader inFile = new BufferedReader(new FileReader(storage));
 
         JAXBContext context = JAXBContext.newInstance(Root.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.marshal(this.root, storage);
 
-    }
-
-    public synchronized void rootSender() throws IOException {
-        String resp = "";
-       String s = "";
-        outServerWriter = new BufferedWriter(new FileWriter(serverFile));
-        inFile = new BufferedReader(new FileReader(storage));
         while ((s = inFile.readLine()) != null) {
             s = s.trim();
             resp = resp.concat(s);
         }
         out.writeUTF(resp);
         out.flush();
-        outServerWriter.close();
     }
 }

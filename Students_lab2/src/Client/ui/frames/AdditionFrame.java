@@ -7,26 +7,23 @@ import Server.Model.GroupModel;
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 /**
- * Created by Arsenii on 18.12.2016.
+ *@author Arsenii
  */
 public class AdditionFrame extends JFrame {
 
-    public JTextField text1;
-    public JTextField text2;
-    public JTextField text3;
-    public JComboBox text4;
-    public JTextField text5;
-    JButton okButton;
-    final int MY_FRAME_CONSTANT = 1;
+    private JTextField text1;
+    private JTextField text2;
+    private JTextField text3;
+    private JComboBox<String> text4;
+    private JTextField text5;
 
     public AdditionFrame(JTable table, List<GroupModel> groupList, DataOutputStream out){
 
         super();
-        okButton = new JButton("OK");
+        JButton okButton = new JButton("OK");
         okButton.addActionListener(new OkButtonListener(this, out));
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -51,11 +48,11 @@ public class AdditionFrame extends JFrame {
                 text3 = new JTextField();
                 text3.addFocusListener(new MyFocusListener(text3));
                 text3.setText((String) table.getTableHeader().getColumnModel().getColumn(2).getIdentifier());
-                Object[] grs = new Object [groupList.size()];
+                String[] grs = new String [groupList.size()];
                 for (int i = 0; i <groupList.size(); i++) {
-                    grs[i] = groupList.get(i).getNumberOfGroup();
+                    grs[i] = String.valueOf(groupList.get(i).getNumberOfGroup());
                 }
-                text4 = new JComboBox(grs);
+                text4 = new JComboBox<>(grs);
                 text5 = new JTextField();
                 text5.addFocusListener(new MyFocusListener(text5));
                 text5.setText((String) table.getTableHeader().getColumnModel().getColumn(4).getIdentifier());
@@ -72,5 +69,25 @@ public class AdditionFrame extends JFrame {
             setSize(400,200);
             setVisible(true);
 
+    }
+
+    public JTextField getText1() {
+        return text1;
+    }
+
+    public JTextField getText2() {
+        return text2;
+    }
+
+    public JTextField getText3() {
+        return text3;
+    }
+
+    public JComboBox<String> getText4() {
+        return text4;
+    }
+
+    public JTextField getText5() {
+        return text5;
     }
 }

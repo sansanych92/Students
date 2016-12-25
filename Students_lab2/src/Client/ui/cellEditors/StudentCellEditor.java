@@ -9,12 +9,13 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 /**
- * Created by Arsenii on 18.12.2016.
+ *@author Arsenii
  */
+
 public class StudentCellEditor extends DefaultCellEditor implements ItemListener {
 
-    JRadioButton radio;
-    JTable table;
+    private JRadioButton radio;
+    private JTable table;
 
     public StudentCellEditor(JCheckBox checkBox, JTable table) {
 
@@ -40,8 +41,8 @@ public class StudentCellEditor extends DefaultCellEditor implements ItemListener
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        EditingCellsStudent.row = table.getEditingRow();
-        EditingCellsStudent.col = table.getEditingColumn();
+        EditingCellsStudent.setRow(table.getEditingRow());
+        EditingCellsStudent.setCol(table.getEditingColumn());
         super.fireEditingStopped();
     }
 

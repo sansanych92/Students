@@ -6,13 +6,16 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Created by Arsenii on 23.12.2016.
+ *@author Arsenii
  */
 public class RefreshListener implements ActionListener {
+
     private DataOutputStream out;
+
     public RefreshListener(DataOutputStream out){
         this.out = out;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         try {

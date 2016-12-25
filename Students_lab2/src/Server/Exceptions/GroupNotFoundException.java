@@ -1,7 +1,7 @@
 package Server.Exceptions;
 
 /**
- * Created by Arsenii on 17.11.2016.
+ *@author Arsenii
  */
 public class GroupNotFoundException extends Exception{
 
